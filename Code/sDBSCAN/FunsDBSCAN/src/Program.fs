@@ -5,7 +5,7 @@ open FSharpx.Collections
 open sDBSCAN.algoDBSCAN
 
 let newnode x =
-    {label = 10-x; vector = [x]}
+    {label = 10-x; vector = [x;11-x]}
 
 (*
 Source - https://stackoverflow.com/a/50543507
@@ -24,6 +24,6 @@ let main(args) =
     let data = readData args[0] ","
     for node in data |> Seq.truncate 10 do
         printfn $"{node.label}, {node.vector}"
-    let abekat = getclosest (newnode 10) 3 [newnode 9; newnode 2; newnode 7; newnode 4; newnode 5; newnode 10; newnode 3; newnode 1; newnode 6; newnode 8]
+    let abekat = getclosest {label = -1; vector = [5;5]} 3 [newnode 9; newnode 2; newnode 7; newnode 4; newnode 5; newnode 10; newnode 3; newnode 1; newnode 6; newnode 8]
     printfn $"{abekat |> Seq.toList}"
     0

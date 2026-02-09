@@ -1,6 +1,8 @@
 /Kilder
 
-/Code/sDBSCAN/bin
-/Code/sDBSCAN/obj
 /Code/sDBSCAN/.idea
+/Code/sDBSCAN/FunsDBSCAN/bin
+/Code/sDBSCAN/FunsDBSCAN/obj
+/Code/sDBSCAN/OOPsDBSCAN/bin
+/Code/sDBSCAN/OOPsDBSCAN/obj
 /data
