@@ -6,11 +6,13 @@
     </PropertyGroup>
 
     <ItemGroup>
+        <Compile Include="src\algo.fs" />
         <Compile Include="src\Program.fs" />
     </ItemGroup>
 
     <ItemGroup>
       <PackageReference Include="FSharp.Data" Version="6.6.0" />
+      <PackageReference Include="FSharpx.Collections" Version="3.1.0" />
     </ItemGroup>
 
 </Project>

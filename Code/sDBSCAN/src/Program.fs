@@ -1,9 +1,11 @@
-﻿open FSharp.Data
+﻿module program
+open System.Collections.Generic
+open FSharp.Data
+open FSharpx.Collections
+open sDBSCAN.algo
 
-type node = {
-    label: int;
-    vector: int array
-}
+let newnode x =
+    {label = 10-x; vector = [x]}
 
 (*
 Source - https://stackoverflow.com/a/50543507
@@ -13,7 +15,7 @@ Retrieved 2026-02-09, License - CC BY-SA 4.0
 let readData (path : string) seps =
     CsvFile.Load(path, seps).Rows
     |> Seq.map
-        (fun row -> row.Columns.[0], row.Columns |> Array.skip 1 |> Array.map int)
+        (fun row -> row.Columns.[0], row.Columns |> Array.skip 1 |> Array.map int |> Array.toList)
     |> Seq.map
         (fun (title, digits) -> {label = (int) title; vector = digits})
 
@@ -21,5 +23,7 @@ let readData (path : string) seps =
 let main(args) =
     let data = readData args[0] ","
     for node in data |> Seq.truncate 10 do
-        printfn $"{node.label}, {node.vector}"   
+        printfn $"{node.label}, {node.vector}"
+    let abekat = getclosest (newnode 10) 3 [newnode 9; newnode 2; newnode 7; newnode 4; newnode 5; newnode 10; newnode 3; newnode 1; newnode 6; newnode 8]
+    printfn $"{abekat |> Seq.toList}"
     0
