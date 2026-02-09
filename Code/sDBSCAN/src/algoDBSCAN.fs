@@ -1,4 +1,5 @@
-﻿module sDBSCAN.algo
+﻿module sDBSCAN.algoDBSCAN
+
 open FSharpx.Collections
 
 type node = {
@@ -33,3 +34,10 @@ let getclosest x amount (D:node list) =
         | _::js, _ -> aux js q
     let (d2, q) = fillPriorityQueue (List.map (fun a -> {scalar = scalar x.vector a.vector; comparator = a}) D) amount
     aux d2 q |> Seq.toList |> List.map(fun a -> a.comparator)
+    
+///<param name="X">the set of all vectors</param>
+///<param name="D">the set of random vectors ri</param>
+///<param name="k">k nearest and furthest random vectors</param>
+///<param name="m">minPoints ish</param>
+let preprocessing (X:node list) (D:node list) k m =
+    failwith "not implemented"

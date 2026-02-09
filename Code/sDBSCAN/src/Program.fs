@@ -2,7 +2,7 @@
 open System.Collections.Generic
 open FSharp.Data
 open FSharpx.Collections
-open sDBSCAN.algo
+open sDBSCAN.algoDBSCAN
 
 let newnode x =
     {label = 10-x; vector = [x]}

@@ -6,7 +6,7 @@
     </PropertyGroup>
 
     <ItemGroup>
-        <Compile Include="src\algo.fs" />
+        <Compile Include="src\algoDBSCAN.fs" />
         <Compile Include="src\Program.fs" />
     </ItemGroup>
 
