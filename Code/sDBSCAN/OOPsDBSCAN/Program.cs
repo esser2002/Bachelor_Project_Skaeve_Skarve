@@ -1,4 +1,5 @@
-﻿using Microsoft.VisualBasic.FileIO;
+﻿using Microsoft.FSharp.Core;
+using Microsoft.VisualBasic.FileIO;
 using OOPsDBSCAN;
 
 var path = args[0];
@@ -22,6 +23,20 @@ while (!csvParser.EndOfData)
 //Normalise data
 foreach (Node node in dataPoints)
 {
-    node.normalise();
+    node.Normalise();
 }
+
+List<Node> randomVectors = Preprocessing.GenerateRandomVectors(100, dataPoints[0].Vector.Length);
+
+foreach (Node node in randomVectors)
+{
+    //Console.WriteLine(node.ToString());
+    node.Normalise();
+}
+
+
+Preprocessing.Preprocess(dataPoints, randomVectors, 2, 0);
+
+Console.WriteLine(dataPoints[0].Furthest[0].Scalar(dataPoints[0]));
+Console.WriteLine(dataPoints[0].Nearest[0].Scalar(dataPoints[0]));
 

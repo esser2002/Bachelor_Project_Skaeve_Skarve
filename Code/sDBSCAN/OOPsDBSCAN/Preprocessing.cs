@@ -12,9 +12,41 @@ public static class Preprocessing
     ///<param name="k">k nearest and furthest random vectors</param>
     ///<param name="m">minPoints ish</param>
     /// <returns></returns>
-    public static List<Node> Preprocess(List<Node> X, List<Node> Rd, int k, int m)
+    public static void Preprocess(List<Node> X, List<Node> RandomVectors, int k, int m)
     {
-        throw new NotImplementedException();
+        foreach (Node node in X)
+        {
+            PriorityQueue<Node, Double> nearest = new PriorityQueue<Node, Double>();
+            PriorityQueue<Node, Double> furthest = new PriorityQueue<Node, Double>();
+            
+            foreach (Node randomvector in RandomVectors)
+            {
+                Double similarity = node.Scalar(randomvector);
+                if (nearest.Count < k) // if they are not full
+                {
+                    nearest.Enqueue(randomvector, similarity);
+                    furthest.Enqueue(randomvector, -similarity);
+                }
+                else
+                {
+                    nearest.TryPeek( out _, out Double nearestOtherSimilarity);
+                    if (nearestOtherSimilarity < similarity)
+                    {
+                        nearest.Dequeue();
+                        nearest.Enqueue(randomvector, similarity);
+                    }
+                    
+                    furthest.TryPeek( out _, out Double furthestOtherSimilarity);
+                    if (furthestOtherSimilarity < -similarity)
+                    {
+                        nearest.Dequeue();
+                        nearest.Enqueue(randomvector, -similarity);
+                    }
+                }
+            }
+            node.Nearest = nearest.UnorderedItems.Select(n => n.Element).ToArray();
+            node.Furthest = furthest.UnorderedItems.Select(n => n.Element).ToArray();
+        }
     }
 
     public static List<Node> GenerateRandomVectors(int D, int d)

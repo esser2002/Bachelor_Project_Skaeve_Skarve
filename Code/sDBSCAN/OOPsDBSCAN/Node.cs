@@ -8,6 +8,8 @@ public class Node
 {
     public int Label;
     public double[] Vector;
+    public Node[]? Nearest;
+    public Node[]? Furthest;
 
     public Node(string[] input)
     {
@@ -17,6 +19,7 @@ public class Node
         {
             Vector[i - 1] = int.Parse(input[i]);
         }
+        
     }
 
     public Node(int dimensions)
@@ -27,20 +30,20 @@ public class Node
 
     public double Scalar(Node other)
     {
-        return algoDBSCAN.scalar(ListModule.OfSeq(Vector) , ListModule.OfSeq(other.Vector));
+        return double.Abs(algoDBSCAN.scalar(ListModule.OfSeq(Vector) , ListModule.OfSeq(other.Vector)));
     }
 
-    public void normalise()
+    public void Normalise()
     {
         Vector = algoDBSCAN.normalise(ListModule.OfSeq(Vector)).ToArray();
     }
 
-    public double length()
+    public double Length()
     {
         return algoDBSCAN.length(ListModule.OfSeq(Vector));
     }
 
-    public string toString()
+    public override string ToString()
     {
         return "label " + Label + " : " + string.Join(", ", Vector);
     }
