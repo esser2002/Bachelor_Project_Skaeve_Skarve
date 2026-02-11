@@ -7,3 +7,6 @@
 /Code/sDBSCAN/OOPsDBSCAN/obj
 /data
 .DS_Store
+Code/sDBSCAN/sDBSCAN.sln.DotSettings.user
+/Code/sDBSCAN/Tests/bin
+/Code/sDBSCAN/Tests/obj
