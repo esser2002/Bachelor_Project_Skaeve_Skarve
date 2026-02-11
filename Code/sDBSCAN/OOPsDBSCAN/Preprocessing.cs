@@ -34,13 +34,14 @@ public static class Preprocessing
                     {
                         nearest.Dequeue();
                         nearest.Enqueue(randomvector, similarity);
+                        
                     }
                     
                     furthest.TryPeek( out _, out double furthestOtherSimilarity);
                     if (furthestOtherSimilarity < -similarity)
                     {
-                        nearest.Dequeue();
-                        nearest.Enqueue(randomvector, -similarity);
+                        furthest.Dequeue();
+                        furthest.Enqueue(randomvector, -similarity);
                     }
                 }
             }
