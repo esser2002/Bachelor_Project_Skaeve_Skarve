@@ -37,8 +37,8 @@ foreach (Node node in randomVectors)
 
 Preprocessing.Preprocess(dataPoints, randomVectors, 2, 0);
 
-Console.WriteLine(dataPoints[0].Furthest[0].Scalar(dataPoints[0]));
-Console.WriteLine(dataPoints[0].Nearest[0].Scalar(dataPoints[0]));
+Console.WriteLine(dataPoints[0].Furthest[0].AbsScalar(dataPoints[0]));
+Console.WriteLine(dataPoints[0].Nearest[0].AbsScalar(dataPoints[0]));
 
 Console.WriteLine(dataPoints[0].Furthest[0].AbsScalar(dataPoints[0]));
 Console.WriteLine(dataPoints[0].Nearest[0].AbsScalar(dataPoints[0]));
