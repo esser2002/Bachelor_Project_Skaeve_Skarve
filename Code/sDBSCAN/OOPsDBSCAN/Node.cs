@@ -6,17 +6,23 @@ namespace OOPsDBSCAN;
 
 public class Node
 {
-    public int Tag;
+    public int Label;
     public double[] Vector;
 
     public Node(string[] input)
     {
-        Tag = int.Parse(input[0]);
+        Label = int.Parse(input[0]);
         Vector = new double[input.Length - 1];
         for (int i = 1; i < input.Length; i++)
         {
             Vector[i - 1] = int.Parse(input[i]);
         }
+    }
+
+    public Node(int dimensions)
+    {   
+        Label = -1; // Value for nodes not in the dataset
+        Vector = new double[dimensions];
     }
 
     public double Scalar(Node other)
@@ -32,5 +38,10 @@ public class Node
     public double length()
     {
         return algoDBSCAN.length(ListModule.OfSeq(Vector));
+    }
+
+    public string toString()
+    {
+        return "label " + Label + " : " + string.Join(", ", Vector);
     }
 }
