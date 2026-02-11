@@ -40,7 +40,7 @@ public class Tests
 
         foreach (Node node in RandomNodes)
         {
-            Console.WriteLine($"similarity to {node.Label}: " + nodes[0].Scalar(node));
+            Console.WriteLine($"similarity to {node.Label}: " + nodes[0].AbsScalar(node));
         }
         
         Assert.That(nodes[0].Nearest, Contains.Item(RandomNodes[0]));

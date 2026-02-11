@@ -21,7 +21,7 @@ public static class Preprocessing
             
             foreach (Node randomvector in randomVectors)
             {
-                Double similarity = qNode.Scalar(randomvector);
+                Double similarity = qNode.AbsScalar(randomvector);
                 if (nearest.Count < k) // if they are not full
                 {
                     nearest.Enqueue(randomvector, similarity);

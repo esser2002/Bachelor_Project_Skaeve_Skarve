@@ -28,7 +28,7 @@ public class Node
         Vector = new double[dimensions];
     }
 
-    public double Scalar(Node other)
+    public double AbsScalar(Node other)
     {
         return double.Abs(algoDBSCAN.scalar(ListModule.OfSeq(Vector) , ListModule.OfSeq(other.Vector)));
     }
