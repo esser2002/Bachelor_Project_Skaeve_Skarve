@@ -30,9 +30,7 @@ List<Node> randomVectors = Preprocessing.GenerateRandomVectors(100, dataPoints[0
 
 foreach (Node node in randomVectors)
 {
-    //Console.WriteLine(node.ToString());
     node.Normalise();
 }
-
 
 Preprocessing.Preprocess(dataPoints, randomVectors, 2, 1);
