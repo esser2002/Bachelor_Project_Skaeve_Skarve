@@ -5,13 +5,12 @@ namespace OOPsDBSCAN;
 public static class Preprocessing
 {
     /// <summary>
-    /// The preprocessing step, as described under 'Algorithm 3' in SDCRP by Xu & Pham
+    /// The preprocessing step as described under Algorithm 3 in SDCRP by Xu and Pham
     /// </summary>
-    ///<param name="X">the set of all vectors</param>
-    ///<param name="randomVectors">the set of random vectors ri</param>
-    ///<param name="k">k nearest and furthest random vectors</param>
-    ///<param name="m">minPoints ish</param>
-    /// <returns></returns>
+    /// <param name="X">the set of all vectors</param>
+    /// <param name="randomVectors">the set of random vectors ri</param>
+    /// <param name="k">k nearest and furthest random vectors</param>
+    /// <param name="m">minPoints ish</param>
     public static void Preprocess(List<Node> X, List<Node> randomVectors, int k, int m)
     {
        findNearestAndFurthestVectors(X,randomVectors, k);
