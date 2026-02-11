@@ -35,4 +35,4 @@ foreach (Node node in randomVectors)
 }
 
 
-Preprocessing.Preprocess(dataPoints, randomVectors, 2, 0);
+Preprocessing.Preprocess(dataPoints, randomVectors, 2, 1);

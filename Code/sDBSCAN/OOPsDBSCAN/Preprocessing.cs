@@ -14,18 +14,24 @@ public static class Preprocessing
     /// <returns></returns>
     public static void Preprocess(List<Node> X, List<Node> randomVectors, int k, int m)
     {
-        foreach (Node qNode in X)
+       findNearestAndFurthestVectors(X,randomVectors, k);
+       findNearestAndFurthestVectors(randomVectors,X, m);
+    }
+
+    private static void findNearestAndFurthestVectors(List<Node> source, List<Node> target, int amount) 
+    {
+        foreach (Node sourceNode in source)
         {
             PriorityQueue<Node, double> nearest = new ();
             PriorityQueue<Node, double> furthest = new ();
             
-            foreach (Node randomvector in randomVectors)
+            foreach (Node targetNode in target)
             {
-                Double similarity = qNode.AbsScalar(randomvector);
-                if (nearest.Count < k) // if they are not full
+                Double similarity = sourceNode.AbsScalar(targetNode);
+                if (nearest.Count < amount) // if they are not full
                 {
-                    nearest.Enqueue(randomvector, similarity);
-                    furthest.Enqueue(randomvector, -similarity);
+                    nearest.Enqueue(targetNode, similarity);
+                    furthest.Enqueue(targetNode, -similarity);
                 }
                 else
                 {
@@ -33,7 +39,7 @@ public static class Preprocessing
                     if (nearestOtherSimilarity < similarity)
                     {
                         nearest.Dequeue();
-                        nearest.Enqueue(randomvector, similarity);
+                        nearest.Enqueue(targetNode, similarity);
                         
                     }
                     
@@ -41,12 +47,12 @@ public static class Preprocessing
                     if (furthestOtherSimilarity < -similarity)
                     {
                         furthest.Dequeue();
-                        furthest.Enqueue(randomvector, -similarity);
+                        furthest.Enqueue(targetNode, -similarity);
                     }
                 }
             }
-            qNode.Nearest = nearest.UnorderedItems.Select(n => n.Element).ToArray();
-            qNode.Furthest = furthest.UnorderedItems.Select(n => n.Element).ToArray();
+            sourceNode.Nearest = nearest.UnorderedItems.Select(n => n.Element).ToArray();
+            sourceNode.Furthest = furthest.UnorderedItems.Select(n => n.Element).ToArray();
         }
     }
 

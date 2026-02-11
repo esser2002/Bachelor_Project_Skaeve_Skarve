@@ -36,7 +36,7 @@ public class Tests
             node.Normalise();
         }
         
-        Preprocessing.Preprocess(nodes, RandomNodes, 2, 0);
+        Preprocessing.Preprocess(nodes, RandomNodes, 2, 1);
 
         foreach (Node node in RandomNodes)
         {
