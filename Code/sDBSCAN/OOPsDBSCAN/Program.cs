@@ -19,12 +19,9 @@ while (!csvParser.EndOfData)
     dataPoints.Add(new Node(fields));
 }
 
+//Normalise data
 foreach (Node node in dataPoints)
 {
-    Console.Write(node.Tag + " ");
-    foreach (int axis in node.Vector)
-    {
-        Console.Write(axis + ",");
-    }
-    Console.WriteLine();
+    node.normalise();
 }
+
