@@ -1,4 +1,7 @@
-﻿namespace OOPsDBSCAN;
+﻿using Microsoft.FSharp.Collections;
+using sDBSCAN;
+
+namespace OOPsDBSCAN;
 
 public class Node
 {
@@ -13,5 +16,10 @@ public class Node
         {
             Vector[i - 1] = int.Parse(input[i]);
         }
+    }
+
+    public int Scalar(Node other)
+    {
+        return algoDBSCAN.scalar(ListModule.OfSeq(Vector) , ListModule.OfSeq(other.Vector));
     }
 }

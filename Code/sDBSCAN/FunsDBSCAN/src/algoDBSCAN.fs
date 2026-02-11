@@ -16,6 +16,7 @@ let rec scalar a b =
     match a, b with
     | [], [] -> 0
     | x::xs, y::ys -> x*y+scalar xs ys
+    | _, _ -> failwith "Vectors must have same length!!!"
     
 let fillPriorityQueue X a =
     let rec aux X a (q:IPriorityQueue<nodecomparison>) =
