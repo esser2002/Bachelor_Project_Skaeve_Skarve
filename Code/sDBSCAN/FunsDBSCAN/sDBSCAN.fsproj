@@ -7,7 +7,6 @@
 
     <ItemGroup>
         <Compile Include="src\algoDBSCAN.fs" />
-        <Compile Include="src\Program.fs" />
     </ItemGroup>
 
     <ItemGroup>
