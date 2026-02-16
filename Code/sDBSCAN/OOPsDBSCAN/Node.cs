@@ -11,6 +11,10 @@ public class Node
     public Node[]? Nearest;
     public Node[]? Furthest;
     public bool CorePoint;
+    
+    //Graph stuff
+    public List<Node> Edges = [];
+    public bool Connected;
 
     public Node(string[] input)
     {

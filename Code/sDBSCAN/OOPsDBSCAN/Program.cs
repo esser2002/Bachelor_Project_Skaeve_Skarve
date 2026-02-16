@@ -35,3 +35,4 @@ foreach (Node node in randomVectors)
 
 Preprocessing.Preprocess(dataPoints, randomVectors, 50, 50);
 var neighborhoods = FindCorePoints.FindCorePointsAndNeighbors(dataPoints, 0.11, 50);
+DBSCAN.DoDBSCAN(neighborhoods);
