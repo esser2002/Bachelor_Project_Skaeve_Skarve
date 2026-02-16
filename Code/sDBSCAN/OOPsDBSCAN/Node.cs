@@ -10,6 +10,7 @@ public class Node
     public double[] Vector;
     public Node[]? Nearest;
     public Node[]? Furthest;
+    public bool CorePoint;
 
     public Node(string[] input)
     {

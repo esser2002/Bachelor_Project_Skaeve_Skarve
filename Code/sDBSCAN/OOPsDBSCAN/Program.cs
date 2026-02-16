@@ -33,4 +33,5 @@ foreach (Node node in randomVectors)
     node.Normalise();
 }
 
-Preprocessing.Preprocess(dataPoints, randomVectors, 2, 1);
+Preprocessing.Preprocess(dataPoints, randomVectors, 50, 50);
+var neighborhoods = FindCorePoints.FindCorePointsAndNeighbors(dataPoints, 0.11, 50);
