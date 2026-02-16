@@ -36,15 +36,17 @@ foreach (Node node in randomVectors)
 Console.WriteLine("Preprocessing");
 Preprocessing.Preprocess(dataPoints, randomVectors, 2, 50);
 Console.WriteLine("Finding corepoints");
-var neighborhoods = FindCorePoints.FindCorePointsAndNeighbors(dataPoints, 0.11, 50);
+var neighborhoods = FindCorePoints.FindCorePointsAndNeighbors(dataPoints, 0.4, 50);
 Console.WriteLine("DBSCAN initiated");
 DBSCAN.DoDBSCAN(neighborhoods);
-for (int i = 0; i < 10000; i++)
+
+for (int i = 0; i < 10; i++)
 {
-    Console.WriteLine("List of datapoint " + i + "and has the label " + dataPoints[i].Label + ":");
+    Console.WriteLine("List of datapoint " + i + " and has the label " + dataPoints[i].Label + ":");
     foreach (var edge in  dataPoints[i].Edges)
     {
-        Console.WriteLine(edge.Label);
+        Console.Write(edge.Label + " ");
     }
-}
+    Console.WriteLine();
+} 
 
