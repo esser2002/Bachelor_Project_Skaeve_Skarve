@@ -33,11 +33,11 @@ foreach (Node node in randomVectors)
     node.Normalise();
 }
 
-Console.WriteLine("preprosess");
+Console.WriteLine("Preprocessing");
 Preprocessing.Preprocess(dataPoints, randomVectors, 2, 50);
-Console.WriteLine("find corepoints");
+Console.WriteLine("Finding corepoints");
 var neighborhoods = FindCorePoints.FindCorePointsAndNeighbors(dataPoints, 0.11, 50);
-Console.WriteLine("dbscan");
+Console.WriteLine("DBSCAN initiated");
 DBSCAN.DoDBSCAN(neighborhoods);
 for (int i = 0; i < 10000; i++)
 {
