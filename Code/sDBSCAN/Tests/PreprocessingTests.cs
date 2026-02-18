@@ -35,19 +35,12 @@ public class Tests
         {
             node.Normalise();
         }
-        foreach (Node node in RandomNodes)
-        {
-            Console.WriteLine($"distance to {node.Label}: " + nodes[0].Dist(node));
-        }
-        foreach (var node in nodes[0].Nearest)
-        {
-            Console.WriteLine("nearest is: " + node.Label);
-        }
+ 
+        Preprocessing.Preprocess(nodes, RandomNodes, 2, 1);
         
-        Preprocessing.Preprocess(nodes, RandomNodes, 3, 1);
-        
-        Assert.That(nodes[0].Nearest, Contains.Item(RandomNodes[0]));
+        Assert.That(nodes[0].Nearest, Contains.Item(RandomNodes[3]));
         Assert.That(nodes[0].Nearest, Contains.Item(RandomNodes[1]));
+ 
     }
     [Test]
     public void furthestpoints()

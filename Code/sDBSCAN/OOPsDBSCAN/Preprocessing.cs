@@ -38,17 +38,17 @@ public static class Preprocessing
                 Double dist = sourceNode.Dist(targetNode);
                 if (nearest.Count < amount) // if they are not full
                 {
-                    nearest.Enqueue(targetNode, dist);
+                    Console.WriteLine("inserting " + -dist);
+                    nearest.Enqueue(targetNode, -dist);
                     furthest.Enqueue(targetNode, dist);
                 }
                 else
                 {
                     nearest.TryPeek( out _, out Double nearestOtherDist);
-                    if (nearestOtherDist > dist)
+                    if (nearestOtherDist < -dist)
                     {
                         nearest.Dequeue();
-                        nearest.Enqueue(targetNode, dist);
-                        
+                        nearest.Enqueue(targetNode, -dist);
                     }
                     
                     furthest.TryPeek( out _, out double furthestOtherDist);
@@ -58,14 +58,6 @@ public static class Preprocessing
                         furthest.Enqueue(targetNode, dist);
                     }
                 }
-
-                var list = nearest.UnorderedItems.Select(n => n.Element).ToArray();
-                Console.WriteLine("curently in list for hej pls vik!!!!!! " + sourceNode.Label + ": ");
-                foreach (Node node in list)
-                {
-                    Console.WriteLine(" " + node.Label);
-                }
-                
             }
             sourceNode.Nearest = nearest.UnorderedItems.Select(n => n.Element).ToArray();
             sourceNode.Furthest = furthest.UnorderedItems.Select(n => n.Element).ToArray();
