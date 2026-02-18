@@ -1,5 +1,4 @@
 ﻿using System.Diagnostics;
-using FSharpx.Collections.Tagged;
 
 namespace OOPsDBSCAN;
 
@@ -22,9 +21,46 @@ public static class FindCorePoints
         {
             neighborhoods[node] = new ();
         }
+
+        int nOfTheads = 8;
+        List<Task> theads = new();
         
+        for (int i = 0; i < nOfTheads; i++)
+        {
+            var from = X.Count * i / nOfTheads ;
+            var to = X.Count * (i + 1) / nOfTheads ;
+            Console.WriteLine("Starting find core points thread to process from " + from + " to " + to);
+            Task t = Task.Run(() => compareVectors(from, to, X, epsilon, neighborhoods));
+            theads.Add(t);
+        }
+
+        Task.WaitAll(theads);
+
         foreach (Node q in X)
         {
+            if (neighborhoods[q].Count >= minPts)
+            {
+                q.CorePoint = true;
+            }
+            else
+            {
+                neighborhoods.Remove(q);
+            }
+        }   
+        stopwatch.Stop();
+        TimeSpan ts = stopwatch.Elapsed;
+        string elapsedTime = String.Format("{0:00}:{1:00}:{2:00}.{3:00}",
+            ts.Hours, ts.Minutes, ts.Seconds,
+            ts.Milliseconds / 10);
+        Console.WriteLine("RunTime " + elapsedTime);
+        return neighborhoods;
+    }
+
+    private static void compareVectors(int from, int to, List<Node> X, double epsilon, Dictionary<Node, HashSet<Node>> neighborhoods)
+    {
+        for(int i = from; i < to; i++)
+        {
+            Node q = X[i];
             foreach (Node r in q.Nearest!)//These are the k-nearest random vectors
             {
                 foreach (var x in r.Nearest!)//These are the m-nearest vectors
@@ -49,24 +85,6 @@ public static class FindCorePoints
                 }
             }
         }
-
-        foreach (Node q in X)
-        {
-            if (neighborhoods[q].Count >= minPts)
-            {
-                q.CorePoint = true;
-            }
-            else
-            {
-                neighborhoods.Remove(q);
-            }
-        }   
-        stopwatch.Stop();
-        TimeSpan ts = stopwatch.Elapsed;
-        string elapsedTime = String.Format("{0:00}:{1:00}:{2:00}.{3:00}",
-            ts.Hours, ts.Minutes, ts.Seconds,
-            ts.Milliseconds / 10);
-        Console.WriteLine("RunTime " + elapsedTime);
-        return neighborhoods;
+        Console.WriteLine("Thread from " + from + " to " + to + " finished");
     }
 }

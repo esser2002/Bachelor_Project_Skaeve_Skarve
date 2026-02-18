@@ -26,10 +26,28 @@ public static class Preprocessing
        Console.WriteLine("RunTime " + elapsedTime);
     }
 
-    private static void findNearestAndFurthestVectors(List<Node> source, List<Node> target, int amount) 
+    private static void findNearestAndFurthestVectors(List<Node> source, List<Node> target, int amount)
     {
-        foreach (Node sourceNode in source)
+        int nOfTheads = 8;
+        List<Task> theads = new();
+        
+        for (int i = 0; i < nOfTheads; i++)
         {
+            var from = source.Count * i / nOfTheads ;
+            var to = source.Count * (i + 1) / nOfTheads ;
+            Console.WriteLine("Starting preprocessing thread to process from " + from + " to " + to);
+            Task t = Task.Run(() => scopedFindNearestAndFurthestVectors(from, to, source, target, amount)); 
+            theads.Add(t);
+        }
+
+        Task.WaitAll(theads);
+    }
+
+    private static void scopedFindNearestAndFurthestVectors(int from, int to, List<Node> source, List<Node> target, int amount) 
+    {
+        for (int i = from; i < to; i++)
+        {
+            Node sourceNode = source[i];
             PriorityQueue<Node, double> nearest = new ();
             PriorityQueue<Node, double> furthest = new ();
             
@@ -62,6 +80,7 @@ public static class Preprocessing
             sourceNode.Nearest = nearest.UnorderedItems.Select(n => n.Element).ToArray();
             sourceNode.Furthest = furthest.UnorderedItems.Select(n => n.Element).ToArray();
         }
+        Console.WriteLine("Thread from " + from + ", to " + to + " terminated.");
     }
 
     /// <summary>
