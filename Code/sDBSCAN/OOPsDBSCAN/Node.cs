@@ -33,9 +33,10 @@ public class Node
         Vector = new double[dimensions];
     }
 
-    public double AbsScalar(Node other)
+    public double Dist(Node other)
     {
-        return double.Abs(algoDBSCAN.scalar(ListModule.OfSeq(Vector) , ListModule.OfSeq(other.Vector)));
+        double scalar = algoDBSCAN.scalar(ListModule.OfSeq(Vector), ListModule.OfSeq(other.Vector));
+        return (1.0 - scalar);
     }
 
     public void Normalise()

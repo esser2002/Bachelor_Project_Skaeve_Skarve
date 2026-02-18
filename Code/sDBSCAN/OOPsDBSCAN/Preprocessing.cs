@@ -35,29 +35,38 @@ public static class Preprocessing
             
             foreach (Node targetNode in target)
             {
-                Double similarity = sourceNode.AbsScalar(targetNode);
+                Double dist = sourceNode.Dist(targetNode);
+                Console.WriteLine("sourcenode "  + sourceNode.Label + "and " + targetNode.Label + " " + dist );
                 if (nearest.Count < amount) // if they are not full
                 {
-                    nearest.Enqueue(targetNode, similarity);
-                    furthest.Enqueue(targetNode, -similarity);
+                    nearest.Enqueue(targetNode, dist);
+                    furthest.Enqueue(targetNode, -dist);
                 }
                 else
                 {
-                    nearest.TryPeek( out _, out Double nearestOtherSimilarity);
-                    if (nearestOtherSimilarity < similarity)
+                    nearest.TryPeek( out _, out Double nearestOtherDist);
+                    if (nearestOtherDist > dist)
                     {
                         nearest.Dequeue();
-                        nearest.Enqueue(targetNode, similarity);
+                        nearest.Enqueue(targetNode, dist);
                         
                     }
                     
-                    furthest.TryPeek( out _, out double furthestOtherSimilarity);
-                    if (furthestOtherSimilarity < -similarity)
+                    furthest.TryPeek( out _, out double furthestOtherDist);
+                    if (furthestOtherDist > -dist)
                     {
                         furthest.Dequeue();
-                        furthest.Enqueue(targetNode, -similarity);
+                        furthest.Enqueue(targetNode, -dist);
                     }
                 }
+
+                var list = furthest.UnorderedItems.Select(n => n.Element).ToArray();
+                Console.WriteLine("curently in list for " + sourceNode.Label + ": ");
+                foreach (Node node in list)
+                {
+                    Console.WriteLine(" " + node.Label);
+                }
+                
             }
             sourceNode.Nearest = nearest.UnorderedItems.Select(n => n.Element).ToArray();
             sourceNode.Furthest = furthest.UnorderedItems.Select(n => n.Element).ToArray();
