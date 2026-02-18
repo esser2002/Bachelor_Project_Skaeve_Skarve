@@ -14,7 +14,7 @@ public static class Preprocessing
     /// <param name="m">minPoints ish</param>
     public static void Preprocess(List<Node> X, List<Node> randomVectors, int k, int m)
     {
-        Stopwatch stopwatch = new Stopwatch();
+        Stopwatch stopwatch = new Stopwatch(); 
         stopwatch.Start();
        findNearestAndFurthestVectors(X,randomVectors, k);
        findNearestAndFurthestVectors(randomVectors,X, m);
@@ -36,11 +36,10 @@ public static class Preprocessing
             foreach (Node targetNode in target)
             {
                 Double dist = sourceNode.Dist(targetNode);
-                Console.WriteLine("sourcenode "  + sourceNode.Label + "and " + targetNode.Label + " " + dist );
                 if (nearest.Count < amount) // if they are not full
                 {
                     nearest.Enqueue(targetNode, dist);
-                    furthest.Enqueue(targetNode, -dist);
+                    furthest.Enqueue(targetNode, dist);
                 }
                 else
                 {
@@ -53,15 +52,15 @@ public static class Preprocessing
                     }
                     
                     furthest.TryPeek( out _, out double furthestOtherDist);
-                    if (furthestOtherDist > -dist)
+                    if (furthestOtherDist < dist)
                     {
                         furthest.Dequeue();
-                        furthest.Enqueue(targetNode, -dist);
+                        furthest.Enqueue(targetNode, dist);
                     }
                 }
 
-                var list = furthest.UnorderedItems.Select(n => n.Element).ToArray();
-                Console.WriteLine("curently in list for " + sourceNode.Label + ": ");
+                var list = nearest.UnorderedItems.Select(n => n.Element).ToArray();
+                Console.WriteLine("curently in list for hej pls vik!!!!!! " + sourceNode.Label + ": ");
                 foreach (Node node in list)
                 {
                     Console.WriteLine(" " + node.Label);

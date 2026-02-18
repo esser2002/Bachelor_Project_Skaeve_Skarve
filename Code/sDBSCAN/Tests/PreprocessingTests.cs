@@ -29,21 +29,23 @@ public class Tests
         foreach (Node node in nodes)
         {
             node.Normalise();
-            Console.WriteLine(node);
         }
         
         foreach (Node node in RandomNodes)
         {
             node.Normalise();
-            Console.WriteLine(node);
         }
-        
-        Preprocessing.Preprocess(nodes, RandomNodes, 2, 1);
-            
-        /*foreach (Node node in RandomNodes)
+        foreach (Node node in RandomNodes)
         {
             Console.WriteLine($"distance to {node.Label}: " + nodes[0].Dist(node));
-        }*/
+        }
+        foreach (var node in nodes[0].Nearest)
+        {
+            Console.WriteLine("nearest is: " + node.Label);
+        }
+        
+        Preprocessing.Preprocess(nodes, RandomNodes, 3, 1);
+        
         Assert.That(nodes[0].Nearest, Contains.Item(RandomNodes[0]));
         Assert.That(nodes[0].Nearest, Contains.Item(RandomNodes[1]));
     }
@@ -81,16 +83,7 @@ public class Tests
         }
         
         Preprocessing.Preprocess(nodes, RandomNodes, 2, 1);
-
-        foreach (Node node in RandomNodes)
-        {
-            Console.WriteLine($"distance to {node.Label}: " + nodes[0].Dist(node));
-        }
-
-        foreach (var node in nodes[0].Furthest)
-        {
-            Console.WriteLine("furthest is: " + node.Label);
-        }
+        
         Assert.That(nodes[0].Furthest, Contains.Item(RandomNodes[4]));
         Assert.That(nodes[0].Furthest, Contains.Item(RandomNodes[5]));
     }
