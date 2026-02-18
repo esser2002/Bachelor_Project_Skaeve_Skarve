@@ -36,4 +36,43 @@ public static class DBSCAN
         Console.WriteLine("RunTime " + elapsedTime);
     }
     
+    public static List<HashSet<Node>> GetClusters(List<Node> CorePoints)
+    {
+        List<HashSet<Node>> clusters = new();
+        HashSet<Node> looseCorePoints = new HashSet<Node>(CorePoints);
+
+        while (looseCorePoints.Count > 0)
+        {
+            Node q = looseCorePoints.First();
+            
+            List<Node> openList = new List<Node>();
+            HashSet<Node> closedList = new HashSet<Node>();
+            
+            openList.Add(q);
+            closedList.Add(q);
+            
+            HashSet<Node> cluster = new HashSet<Node>();
+            while (openList.Count > 0)
+            {
+                Node node = openList[0];
+                openList.RemoveAt(0);
+                cluster.Add(node);
+                if (node.CorePoint)
+                {
+                    looseCorePoints.Remove(node);
+                    foreach (Node edge in node.Edges)
+                    {
+                        if (!closedList.Contains(edge))
+                        {
+                            openList.Add(edge);
+                            closedList.Add(edge);
+                        }
+                    }
+                }
+            }
+            clusters.Add(cluster);
+        }
+
+        return clusters;
+    }
 }
