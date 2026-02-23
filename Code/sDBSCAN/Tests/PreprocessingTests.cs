@@ -45,6 +45,9 @@ public class Tests
         
         Assert.That(nodes[0].Nearest, Contains.Item(RandomNodes[0]));
         Assert.That(nodes[0].Nearest, Contains.Item(RandomNodes[1]));
+        
+        Assert.That(nodes[0].Furthest, Contains.Item(RandomNodes[4]));
+        Assert.That(nodes[0].Furthest, Contains.Item(RandomNodes[5]));
     }
     
     [Test]
