@@ -1,0 +1,271 @@
+Preprocessing
+Starting preprocessing thread to process from 0 to 1249
+Starting preprocessing thread to process from 1249 to 2499
+Starting preprocessing thread to process from 2499 to 3749
+Starting preprocessing thread to process from 3749 to 4999
+Starting preprocessing thread to process from 4999 to 6249
+Starting preprocessing thread to process from 6249 to 7499
+Starting preprocessing thread to process from 7499 to 8749
+Starting preprocessing thread to process from 8749 to 9999
+Thread from 0, to 1249 terminated.
+Thread from 6249, to 7499 terminated.
+Thread from 2499, to 3749 terminated.
+Thread from 4999, to 6249 terminated.
+Thread from 8749, to 9999 terminated.
+Thread from 7499, to 8749 terminated.
+Thread from 3749, to 4999 terminated.
+Thread from 1249, to 2499 terminated.
+Starting preprocessing thread to process from 0 to 128
+Starting preprocessing thread to process from 128 to 256
+Starting preprocessing thread to process from 256 to 384
+Starting preprocessing thread to process from 384 to 512
+Starting preprocessing thread to process from 512 to 640
+Starting preprocessing thread to process from 640 to 768
+Starting preprocessing thread to process from 768 to 896
+Starting preprocessing thread to process from 896 to 1024
+Thread from 896, to 1024 terminated.
+Thread from 768, to 896 terminated.
+Thread from 640, to 768 terminated.
+Thread from 256, to 384 terminated.
+Thread from 128, to 256 terminated.
+Thread from 512, to 640 terminated.
+Thread from 384, to 512 terminated.
+Thread from 0, to 128 terminated.
+RunTime 00:34:09.73
+Finding corepoints
+Starting find core points thread to process from 0 to 1249
+Starting find core points thread to process from 1249 to 2499
+Starting find core points thread to process from 2499 to 3749
+Starting find core points thread to process from 3749 to 4999
+Starting find core points thread to process from 4999 to 6249
+Starting find core points thread to process from 6249 to 7499
+Starting find core points thread to process from 7499 to 8749
+Starting find core points thread to process from 8749 to 9999
+Thread from 8749 to 9999 finished
+Thread from 1249 to 2499 finished
+Thread from 4999 to 6249 finished
+Thread from 7499 to 8749 finished
+Thread from 6249 to 7499 finished
+Thread from 0 to 1249 finished
+Thread from 2499 to 3749 finished
+Thread from 3749 to 4999 finished
+RunTime 00:16:03.89
+DBSCAN initiated
+RunTime 00:00:00.00
+sDBSCAN with D 1024, k 2, m 300, epsilon 0.87, minPts 10
+number of clusters 19
+coverage: 33.59335933593359 %
+first cluster:
+11111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111
+11111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111711111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111
+11111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111
+11111111111111111111111111111111111111111111111111111111111711111111111111111111111111111111111111711111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111
+Cluster length 1102 contents:
+ - 0: 0
+ - 1: 1098
+ - 2: 0
+ - 3: 0
+ - 4: 0
+ - 5: 0
+ - 6: 0
+ - 7: 4
+ - 8: 0
+ - 9: 0
+Cluster length 604 contents:
+ - 0: 603
+ - 1: 0
+ - 2: 1
+ - 3: 0
+ - 4: 0
+ - 5: 0
+ - 6: 0
+ - 7: 0
+ - 8: 0
+ - 9: 0
+Cluster length 957 contents:
+ - 0: 0
+ - 1: 0
+ - 2: 0
+ - 3: 0
+ - 4: 11
+ - 5: 0
+ - 6: 0
+ - 7: 469
+ - 8: 3
+ - 9: 474
+Cluster length 406 contents:
+ - 0: 0
+ - 1: 0
+ - 2: 0
+ - 3: 0
+ - 4: 1
+ - 5: 0
+ - 6: 405
+ - 7: 0
+ - 8: 0
+ - 9: 0
+Cluster length 23 contents:
+ - 0: 0
+ - 1: 0
+ - 2: 23
+ - 3: 0
+ - 4: 0
+ - 5: 0
+ - 6: 0
+ - 7: 0
+ - 8: 0
+ - 9: 0
+Cluster length 19 contents:
+ - 0: 0
+ - 1: 0
+ - 2: 0
+ - 3: 0
+ - 4: 0
+ - 5: 0
+ - 6: 0
+ - 7: 0
+ - 8: 19
+ - 9: 0
+Cluster length 36 contents:
+ - 0: 0
+ - 1: 0
+ - 2: 0
+ - 3: 0
+ - 4: 36
+ - 5: 0
+ - 6: 0
+ - 7: 0
+ - 8: 0
+ - 9: 0
+Cluster length 9 contents:
+ - 0: 9
+ - 1: 0
+ - 2: 0
+ - 3: 0
+ - 4: 0
+ - 5: 0
+ - 6: 0
+ - 7: 0
+ - 8: 0
+ - 9: 0
+Cluster length 17 contents:
+ - 0: 0
+ - 1: 0
+ - 2: 0
+ - 3: 0
+ - 4: 0
+ - 5: 17
+ - 6: 0
+ - 7: 0
+ - 8: 0
+ - 9: 0
+Cluster length 63 contents:
+ - 0: 0
+ - 1: 0
+ - 2: 0
+ - 3: 63
+ - 4: 0
+ - 5: 0
+ - 6: 0
+ - 7: 0
+ - 8: 0
+ - 9: 0
+Cluster length 9 contents:
+ - 0: 0
+ - 1: 0
+ - 2: 0
+ - 3: 0
+ - 4: 0
+ - 5: 0
+ - 6: 0
+ - 7: 0
+ - 8: 9
+ - 9: 0
+Cluster length 19 contents:
+ - 0: 0
+ - 1: 0
+ - 2: 0
+ - 3: 0
+ - 4: 19
+ - 5: 0
+ - 6: 0
+ - 7: 0
+ - 8: 0
+ - 9: 0
+Cluster length 26 contents:
+ - 0: 0
+ - 1: 0
+ - 2: 0
+ - 3: 0
+ - 4: 0
+ - 5: 0
+ - 6: 0
+ - 7: 0
+ - 8: 26
+ - 9: 0
+Cluster length 10 contents:
+ - 0: 0
+ - 1: 0
+ - 2: 0
+ - 3: 0
+ - 4: 10
+ - 5: 0
+ - 6: 0
+ - 7: 0
+ - 8: 0
+ - 9: 0
+Cluster length 16 contents:
+ - 0: 0
+ - 1: 0
+ - 2: 0
+ - 3: 16
+ - 4: 0
+ - 5: 0
+ - 6: 0
+ - 7: 0
+ - 8: 0
+ - 9: 0
+Cluster length 7 contents:
+ - 0: 0
+ - 1: 0
+ - 2: 0
+ - 3: 0
+ - 4: 0
+ - 5: 0
+ - 6: 0
+ - 7: 7
+ - 8: 0
+ - 9: 0
+Cluster length 12 contents:
+ - 0: 0
+ - 1: 0
+ - 2: 12
+ - 3: 0
+ - 4: 0
+ - 5: 0
+ - 6: 0
+ - 7: 0
+ - 8: 0
+ - 9: 0
+Cluster length 9 contents:
+ - 0: 0
+ - 1: 0
+ - 2: 0
+ - 3: 0
+ - 4: 0
+ - 5: 0
+ - 6: 0
+ - 7: 0
+ - 8: 9
+ - 9: 0
+Cluster length 15 contents:
+ - 0: 0
+ - 1: 0
+ - 2: 0
+ - 3: 0
+ - 4: 15
+ - 5: 0
+ - 6: 0
+ - 7: 0
+ - 8: 0
+ - 9: 0

@@ -26,7 +26,13 @@ foreach (Node node in dataPoints)
     node.Normalise();
 }
 
-List<Node> randomVectors = Preprocessing.GenerateRandomVectors(80, dataPoints[0].Vector.Length);
+int D = 128;
+int k = 2;
+int m = 300;
+double epsilon = 0.87;
+int minPts = 10;
+
+List<Node> randomVectors = Preprocessing.GenerateRandomVectors(D, dataPoints[0].Vector.Length);
 
 foreach (Node node in randomVectors)
 {
@@ -34,26 +40,37 @@ foreach (Node node in randomVectors)
 }
 
 Console.WriteLine("Preprocessing");
-Preprocessing.Preprocess(dataPoints, randomVectors, 2, 50);
+Preprocessing.Preprocess(dataPoints, randomVectors, k, m);
 Console.WriteLine("Finding corepoints");
-var neighborhoods = FindCorePoints.FindCorePointsAndNeighbors(dataPoints, 0.9, 50);
+var neighborhoods = FindCorePoints.FindCorePointsAndNeighbors(dataPoints, epsilon, minPts);
 Console.WriteLine("DBSCAN initiated");
 DBSCAN.DoDBSCAN(neighborhoods);
 
-for (int i = 0; i < 10; i++)
+List<HashSet<Node>> Clusters = DBSCAN.GetClusters(neighborhoods.Keys.ToList());
+Console.WriteLine($"sDBSCAN with D {D}, k {k}, m {m}, epsilon {epsilon}, minPts {minPts}");
+Console.WriteLine("number of clusters " + Clusters.Count);
+Console.WriteLine("coverage: " + (100*Clusters.Sum(c => c.Count)/(double)dataPoints.Count) + " %");
+Console.WriteLine("first cluster: " );
+int stopper = 0;
+foreach (Node node in Clusters[0])
 {
-    List<int> labels = new List<int>();
-    Console.WriteLine("List of datapoint " + i + " and has the label " + dataPoints[i].Label + ":");
-    foreach (var edge in  dataPoints[i].Edges)
+    if (stopper++ > 1000)
     {
-        labels.Add(edge.Label);   
-    }
+        break;}
+    Console.Write(node.Label);
+}
+Console.WriteLine();
 
-    foreach (var label in labels)
+foreach (HashSet<Node> cluster in Clusters)
+{
+    int[] freq = new int[10];
+    foreach (Node node in cluster)
     {
-        Console.Write(label + " ");
-        
+        freq[node.Label] += 1;
     }
-    Console.WriteLine();
-} 
-
+    Console.WriteLine("Cluster length " + cluster.Count + " contents:");
+    for (int i = 0; i < freq.Length; i++)
+    {
+        Console.WriteLine(" - " + i + ": " + freq[i]);
+    }
+}

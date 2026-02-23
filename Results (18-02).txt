@@ -1,0 +1,55 @@
+D:100 k: 10 m:50 eps:0.84 minPts:65
+number of clusters 4
+coverage: 14.861486148614862 %
+
+sDBSCAN with D 100, k 2, m 100, epsilon 0.84, minPts 65 (much better runtime)
+number of clusters 2
+coverage: 11.191119111911192 %
+
+sDBSCAN with D 100, k 2, m 100, epsilon 0.84, minPts 60
+number of clusters 6
+coverage: 14.6014601460146 %
+
+sDBSCAN with D 100, k 2, m 50, epsilon 0.85, minPts 55
+number of clusters 4
+coverage: 7.440744074407441 %
+
+sDBSCAN with D 100, k 2, m 10, epsilon 0.85, minPts 50
+number of clusters 4
+coverage: 4.44044404440444 %
+
+sDBSCAN with D 150, k 2, m 10, epsilon 0.85, minPts 50
+14 %
+(They were fine but too small trust me)
+
+sDBSCAN with D 150, k 2, m 100, epsilon 0.85, minPts 45
+number of clusters 6
+coverage: 16.091609160916093 %
+
+sDBSCAN with D 32, k 2, m 100, epsilon 0.85, minPts 40
+number of clusters 8
+coverage: 13.981398139813981 %
+
+sDBSCAN with D 64, k 2, m 50, epsilon 0.85, minPts 35
+number of clusters 4
+coverage: 11.321132113211322 %
+
+sDBSCAN with D 64, k 2, m 50, epsilon 0.85, minPts 30
+number of clusters 5
+coverage: 13.061306130613062 %
+
+sDBSCAN with D 128, k 2, m 100, epsilon 0.85, minPts 30
+number of clusters 9
+coverage: 16.96169616961696 %
+(One mixed cluster)
+
+sDBSCAN with D 128, k 2, m 100, epsilon 0.86, minPts 15
+number of clusters 13
+coverage: 21.88218821882188 %
+
+DBSCAN initiated
+RunTime 00:00:00.00
+sDBSCAN with D 128, k 2, m 100, epsilon 0.87, minPts 5
+number of clusters 46
+coverage: 30.333033303330332 %
+
