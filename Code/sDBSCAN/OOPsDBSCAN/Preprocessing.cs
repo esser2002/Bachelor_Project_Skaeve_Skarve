@@ -14,7 +14,7 @@ public static class Preprocessing
     /// <param name="m">minPoints ish</param>
     public static void Preprocess(List<Node> X, List<Node> randomVectors, int k, int m)
     {
-        Stopwatch stopwatch = new Stopwatch();
+        Stopwatch stopwatch = new Stopwatch(); 
         stopwatch.Start();
        findNearestAndFurthestVectors(X,randomVectors, k);
        findNearestAndFurthestVectors(randomVectors,X, m);
@@ -53,27 +53,27 @@ public static class Preprocessing
             
             foreach (Node targetNode in target)
             {
-                Double similarity = sourceNode.AbsScalar(targetNode);
+                Double dist = sourceNode.Dist(targetNode);
                 if (nearest.Count < amount) // if they are not full
                 {
-                    nearest.Enqueue(targetNode, similarity);
-                    furthest.Enqueue(targetNode, -similarity);
+                    Console.WriteLine("inserting " + -dist);
+                    nearest.Enqueue(targetNode, -dist);
+                    furthest.Enqueue(targetNode, dist);
                 }
                 else
                 {
-                    nearest.TryPeek( out _, out Double nearestOtherSimilarity);
-                    if (nearestOtherSimilarity < similarity)
+                    nearest.TryPeek( out _, out Double nearestOtherDist);
+                    if (nearestOtherDist < -dist)
                     {
                         nearest.Dequeue();
-                        nearest.Enqueue(targetNode, similarity);
-                        
+                        nearest.Enqueue(targetNode, -dist);
                     }
                     
-                    furthest.TryPeek( out _, out double furthestOtherSimilarity);
-                    if (furthestOtherSimilarity < -similarity)
+                    furthest.TryPeek( out _, out double furthestOtherDist);
+                    if (furthestOtherDist < dist)
                     {
                         furthest.Dequeue();
-                        furthest.Enqueue(targetNode, -similarity);
+                        furthest.Enqueue(targetNode, dist);
                     }
                 }
             }

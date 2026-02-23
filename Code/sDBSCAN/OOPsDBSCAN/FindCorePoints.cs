@@ -65,7 +65,7 @@ public static class FindCorePoints
             {
                 foreach (var x in r.Nearest!)//These are the m-nearest vectors
                 {
-                    if (x.AbsScalar(q) >= epsilon)
+                    if (x.Dist(q) <= epsilon)
                     {
                         neighborhoods[q].Add(x);
                         neighborhoods[x].Add(q);
@@ -77,7 +77,7 @@ public static class FindCorePoints
             {
                 foreach (var x in r.Furthest!)//These are the m-furthest vectors
                 {
-                    if (x.AbsScalar(q) >= epsilon)
+                    if (x.Dist(q) <= epsilon)
                     {
                         neighborhoods[q].Add(x);
                         neighborhoods[x].Add(q);

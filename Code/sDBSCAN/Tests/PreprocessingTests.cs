@@ -6,7 +6,7 @@ namespace TestProject1;
 public class Tests
 {
     [Test]
-    public void furthestclosestpoints()
+    public void closestpoints()
     {
         List<Node> nodes = 
         [
@@ -16,14 +16,14 @@ public class Tests
         List<Node> RandomNodes =
         [
             //Closest
-            new Node(2){Label = 0, Vector = [-1,-1]},
-            new Node(2){Label = 1,Vector = [6,7]},
+            new Node(2){Label = 0, Vector = [1,2]},
+            new Node(2){Label = 1,Vector = [1,1]},
             //Middle
-            new Node(2){Label = 2,Vector = [2,1]},
+            new Node(2){Label = 2,Vector = [2,-2]},
             new Node(2){Label = 3,Vector = [3,4]},
             //Furthest
-            new Node(2){Label = 4,Vector = [1,-1]},
-            new Node(2){Label = 5,Vector = [6,-7]},
+            new Node(2){Label = 4,Vector = [-1,-1]},
+            new Node(2){Label = 5,Vector = [-1,-2]},
         ];
 
         foreach (Node node in nodes)
@@ -35,20 +35,63 @@ public class Tests
         {
             node.Normalise();
         }
-        
+ 
         Preprocessing.Preprocess(nodes, RandomNodes, 2, 1);
+        
+        Assert.That(nodes[0].Nearest, Contains.Item(RandomNodes[3]));
+        Assert.That(nodes[0].Nearest, Contains.Item(RandomNodes[1]));
+ 
+    }
+    [Test]
+    public void furthestpoints()
+    {
+        List<Node> nodes = 
+        [
+            new Node(2){Vector = [1,1]},
+        ];
 
-        foreach (Node node in RandomNodes)
+        List<Node> RandomNodes =
+        [
+            //Closest
+            new Node(2){Label = 0, Vector = [1,2]},
+            new Node(2){Label = 1,Vector = [1,11]},
+            //Middle
+            new Node(2){Label = 2,Vector = [2,-2]},
+            new Node(2){Label = 3,Vector = [3,4]},
+            //Furthest
+            new Node(2){Label = 4,Vector = [-1,-1]},
+            new Node(2){Label = 5,Vector = [-1,-2]},
+        ];
+
+        foreach (Node node in nodes)
         {
-            Console.WriteLine($"similarity to {node.Label}: " + nodes[0].AbsScalar(node));
+            node.Normalise();
+            Console.WriteLine(node);
         }
         
-        Assert.That(nodes[0].Nearest, Contains.Item(RandomNodes[0]));
-        Assert.That(nodes[0].Nearest, Contains.Item(RandomNodes[1]));
+        foreach (Node node in RandomNodes)
+        {
+            node.Normalise();
+            Console.WriteLine(node);
+        }
+        
+        Preprocessing.Preprocess(nodes, RandomNodes, 2, 1);
         
         Assert.That(nodes[0].Furthest, Contains.Item(RandomNodes[4]));
         Assert.That(nodes[0].Furthest, Contains.Item(RandomNodes[5]));
     }
+
+    [Test]
+    public void TestDistMethod()
+    {
+        Node first = new Node(2) { Label = 1, Vector = [1, 1] };
+        Node second = new Node(2) { Label = 2, Vector = [1, 1] };
+        first.Normalise();
+        second.Normalise();
+        double dist = first.Dist(second);
+        Assert.That(dist < 0.00000001);
+    }
+    
     
     [Test]
     public void Makegoodclusters()
