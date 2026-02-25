@@ -1,3 +1,4 @@
+
 D:100 k: 10 m:50 eps:0.84 minPts:65
 number of clusters 4
 coverage: 14.861486148614862 %
@@ -52,4 +53,57 @@ RunTime 00:00:00.00
 sDBSCAN with D 128, k 2, m 100, epsilon 0.87, minPts 5
 number of clusters 46
 coverage: 30.333033303330332 %
+
+sDBSCAN with D 128, k 2, m 100, epsilon 0.86, minPts 3
+number of clusters 126
+coverage: 44.44444444444444 %
+(one of the clusters is bad, a combination of many 4-7-9s)
+
+sDBSCAN with D 64, k 2, m 30, epsilon 0.87, minPts 10
+number of clusters 20
+coverage: 13.82138213821382 %
+
+sDBSCAN with D 1024, k 2, m 300, epsilon 0.87, minPts 10
+number of clusters 19
+coverage: 33.59335933593359 %
+
+//From now on, epsilon is a measure of max distance and not minimum similarity
+
+sDBSCAN with D 64, k 2, m 50, epsilon 0.15, minPts 5
+number of clusters 80
+coverage: 34.523452345234524 %
+
+sDBSCAN with D 32, k 2, m 30, epsilon 0.15, minPts 5
+number of clusters 87
+coverage: 20.8020802080208 %
+
+sDBSCAN with D 32, k 2, m 30, epsilon 0.2, minPts 5
+number of clusters 92
+coverage: 43.444344434443444 %
+
+
+sDBSCAN with D 32, k 2, m 30, epsilon 0.2, minPts 10
+number of clusters 54
+coverage: 39.59395939593959 %
+
+sDBSCAN with D 32, k 2, m 30, epsilon 0.18, minPts 10
+number of clusters 45
+coverage: 30.213021302130212 %
+
+sDBSCAN with D 32, k 2, m 30, epsilon 0.17, minPts 10
+number of clusters 32
+coverage: 24.252425242524254 %
+
+sDBSCAN with D 128, k 2, m 100, epsilon 0.17, minPts 10
+number of clusters 14
+coverage: 50.255025502550254 %
+
+sDBSCAN with D 64, k 2, m 30, epsilon 0.15, minPts 8
+number of clusters 41
+coverage: 23.212321232123212 %
+
+sDBSCAN with D 1024, k 2, m 100, epsilon 0.15, minPts 8
+number of clusters 30
+coverage: 47.99479947994799 %
+(Cluster 1 has wayy to many elements, 1, 7, and 9)
 
