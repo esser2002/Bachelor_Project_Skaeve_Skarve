@@ -56,7 +56,6 @@ public static class Preprocessing
                 Double dist = sourceNode.Dist(targetNode);
                 if (nearest.Count < amount) // if they are not full
                 {
-                    Console.WriteLine("inserting " + -dist);
                     nearest.Enqueue(targetNode, -dist);
                     furthest.Enqueue(targetNode, dist);
                 }
