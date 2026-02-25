@@ -1,4 +1,5 @@
 ﻿using System.Diagnostics;
+using ConcurrentCollections;
 
 namespace OOPsDBSCAN;
 
@@ -15,7 +16,7 @@ public static class FindCorePoints
     {
         Stopwatch stopwatch = new Stopwatch();
         stopwatch.Start();
-        Dictionary<Node, HashSet<Node>> neighborhoods = new();
+        Dictionary<Node, ConcurrentHashSet<Node>> neighborhoods = new();
 
         foreach (Node node in X)
         {
@@ -44,7 +45,7 @@ public static class FindCorePoints
             }
             else
             {
-                neighborhoods.Remove(q);
+                neighborhoods.Remove(q,out _);
             }
         }   
         stopwatch.Stop();
@@ -53,10 +54,10 @@ public static class FindCorePoints
             ts.Hours, ts.Minutes, ts.Seconds,
             ts.Milliseconds / 10);
         Console.WriteLine("RunTime " + elapsedTime);
-        return neighborhoods;
+        return neighborhoods.Select(x => (x.Key,x.Value.ToHashSet())).ToDictionary();
     }
 
-    private static void compareVectors(int from, int to, List<Node> X, double epsilon, Dictionary<Node, HashSet<Node>> neighborhoods)
+    private static void compareVectors(int from, int to, List<Node> X, double epsilon, Dictionary<Node, ConcurrentHashSet<Node>> neighborhoods)
     {
         for(int i = from; i < to; i++)
         {
