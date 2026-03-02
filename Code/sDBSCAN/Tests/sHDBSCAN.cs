@@ -5,6 +5,21 @@ namespace TestProject1;
 
 public class sHDBSCAN
 {
+    private void prepareData(List<HNode> nodes, List<Node> randomNodes, int l, int m)
+    {
+        foreach (Node node in nodes)
+        {
+            node.Normalise();
+        }
+        
+        foreach (Node node in randomNodes)
+        {
+            node.Normalise();
+        }
+ 
+        Preprocessing.Preprocess(nodes.Cast<Node>().ToList(), randomNodes, l, m);
+        
+    }
     [Test]
     public void CoreDistance()
     {
@@ -25,17 +40,7 @@ public class sHDBSCAN
             new Node(2){Vector = [1,0]},
         ];
         
-        foreach (Node node in nodes)
-        {
-            node.Normalise();
-        }
-        
-        foreach (Node node in randomNodes)
-        {
-            node.Normalise();
-        }
- 
-        Preprocessing.Preprocess(nodes.Cast<Node>().ToList(), randomNodes, l, m);
+        prepareData(nodes, randomNodes, l, m);
         
         foreach (HNode n in nodes)
         {
@@ -69,17 +74,7 @@ public class sHDBSCAN
             new Node(2){Vector = [-0.5,0.5]},
         ];
         
-        foreach (Node node in nodes)
-        {
-            node.Normalise();
-        }
-        
-        foreach (Node node in randomNodes)
-        {
-            node.Normalise();
-        }
- 
-        Preprocessing.Preprocess(nodes.Cast<Node>().ToList(), randomNodes, l, m);
+        prepareData(nodes, randomNodes, l, m);
         
         foreach (HNode n in nodes)
         {
@@ -89,5 +84,131 @@ public class sHDBSCAN
         double expecteddistance = nodes[0].Dist(nodes[3]);
         Assert.That(nodes[0].CoreDist, Is.EqualTo(expecteddistance));
        
+    }
+    
+    /// <summary>
+    /// Checks the case where the mutual reachability is equal to the distance between two points
+    /// </summary>
+    [Test]
+    public void MutualReachabilityDistAB() 
+    {
+        int k = 2;
+        int l = 1;
+        int m = 3;
+        
+        List<HNode> nodes = 
+        [
+            new HNode(2){Label = 0,Vector = [1,1]},
+            new HNode(2){Label = 1,Vector = [0,1]},
+            new HNode(2){Label = 2,Vector = [-1,-1]},
+        ];
+
+        List<Node> randomNodes =
+        [
+            new Node(2){Vector = [1,1]},
+        ];
+        
+        prepareData(nodes, randomNodes, l, m);
+        
+        foreach (HNode node in nodes)
+        {
+            node.setCoreDist(k);
+        }
+
+        foreach (HNode node in nodes)
+        {
+            node.SetMutualReachability();
+        }
+
+        foreach (Node node in nodes)
+        {
+            Console.WriteLine($"Mutual reach node 0 to {node.Label} is {nodes[0].GetReachability(node)}");
+        }
+        
+        Assert.That(nodes[0].GetReachability(nodes[2]), Is.EqualTo(nodes[0].Dist(nodes[2])));
+    }
+    
+    /// <summary>
+    /// Checks the case where the mutual reachability of two points is equal to the core distance of the first point
+    /// </summary>
+    [Test]
+    public void MutualReachabilityCoreA()
+    {
+        int k = 3;
+        int l = 1;
+        int m = 3;
+        
+        List<HNode> nodes = 
+        [
+            new HNode(2){Label = 0,Vector = [1,1]},
+            new HNode(2){Label = 1,Vector = [1,0]},
+            new HNode(2){Label = 2,Vector = [1,0.5]},
+        ];
+
+        List<Node> randomNodes =
+        [
+            new Node(2){Vector = [1,1]},
+        ];
+        
+        prepareData(nodes, randomNodes, l, m);
+        
+        foreach (HNode node in nodes)
+        {
+            node.setCoreDist(k);
+        }
+
+        foreach (HNode node in nodes)
+        {
+            node.SetMutualReachability();
+        }
+
+        foreach (Node node in nodes)
+        {
+            Console.WriteLine($"Mutual reach node 0 to {node.Label} is {nodes[0].GetReachability(node)}");
+        }
+        
+        Assert.That(nodes[0].GetReachability(nodes[2]), Is.EqualTo(nodes[0].CoreDist));
+    }
+    
+    /// <summary>
+    /// Checks the case where the mutual reachability of two points is equal to the core distance of the second point
+    /// </summary>
+    [Test]
+    public void MutualReachabilityCoreB()
+    {
+        int k = 2;
+        int l = 1;
+        int m = 3;
+        
+        List<HNode> nodes = 
+        [
+            new HNode(2){Label = 0,Vector = [1,1]},
+            new HNode(2){Label = 1,Vector = [1,0]},
+            new HNode(2){Label = 2,Vector = [-1,0]},
+        ];
+
+        List<Node> randomNodes =
+        [
+            new Node(2){Vector = [1,1]},
+        ];
+        
+        prepareData(nodes, randomNodes, l, m);
+        
+        foreach (HNode node in nodes)
+        {
+            node.setCoreDist(k);
+        }
+
+        foreach (HNode node in nodes)
+        {
+            node.SetMutualReachability();
+        }
+
+        foreach (Node node in nodes)
+        {
+            Console.WriteLine($"Mutual reach node 0 to {node.Label} is {nodes[0].GetReachability(node)}");
+        }
+        
+        Assert.That(nodes[0].GetReachability(nodes[2]), Is.EqualTo(nodes[2].CoreDist));
     }
 }
