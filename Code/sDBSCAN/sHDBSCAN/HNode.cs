@@ -7,7 +7,7 @@ namespace sHDBSCAN;
 public class HNode : Node
 {
     private Dictionary<Node, double> mutualReachability;
-    private double coreDist; 
+    public double CoreDist; 
     public HNode(string[] input) : base(input)
     {
     }
@@ -22,7 +22,7 @@ public class HNode : Node
         addKClosestPoints(kclosest, true , k);
         addKClosestPoints(kclosest, false , k);
 
-        coreDist = kclosest.Dequeue().Dist(this);
+        CoreDist = kclosest.Dequeue().Dist(this);
     }
 
     private void addKClosestPoints(PriorityQueue<Node, double> queue, bool closest, int k)
@@ -34,6 +34,10 @@ public class HNode : Node
             foreach (Node n in othernodes)
             {
                 double dist = Dist(n);
+                if (queue.UnorderedItems.Select(s => s.Element).Contains(n))
+                {
+                    continue;
+                }
                 if (queue.Count < k)
                 {
                     queue.Enqueue(n,-dist);

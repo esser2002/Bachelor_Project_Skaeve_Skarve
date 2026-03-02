@@ -6,14 +6,14 @@ namespace TestProject1;
 public class Tests
 {
     [Test]
-    public void closestpoints()
+    public void Closestpoints()
     {
         List<Node> nodes = 
         [
             new Node(2){Vector = [1,1]},
         ];
 
-        List<Node> RandomNodes =
+        List<Node> randomNodes =
         [
             //Closest
             new Node(2){Label = 0, Vector = [1,2]},
@@ -31,26 +31,26 @@ public class Tests
             node.Normalise();
         }
         
-        foreach (Node node in RandomNodes)
+        foreach (Node node in randomNodes)
         {
             node.Normalise();
         }
  
-        Preprocessing.Preprocess(nodes, RandomNodes, 2, 1);
+        Preprocessing.Preprocess(nodes, randomNodes, 2, 1);
         
-        Assert.That(nodes[0].Nearest, Contains.Item(RandomNodes[3]));
-        Assert.That(nodes[0].Nearest, Contains.Item(RandomNodes[1]));
+        Assert.That(nodes[0].Nearest, Contains.Item(randomNodes[3]));
+        Assert.That(nodes[0].Nearest, Contains.Item(randomNodes[1]));
  
     }
     [Test]
-    public void furthestpoints()
+    public void FurthestPoints()
     {
         List<Node> nodes = 
         [
             new Node(2){Vector = [1,1]},
         ];
 
-        List<Node> RandomNodes =
+        List<Node> randomNodes =
         [
             //Closest
             new Node(2){Label = 0, Vector = [1,2]},
@@ -69,16 +69,16 @@ public class Tests
             Console.WriteLine(node);
         }
         
-        foreach (Node node in RandomNodes)
+        foreach (Node node in randomNodes)
         {
             node.Normalise();
             Console.WriteLine(node);
         }
         
-        Preprocessing.Preprocess(nodes, RandomNodes, 2, 1);
+        Preprocessing.Preprocess(nodes, randomNodes, 2, 1);
         
-        Assert.That(nodes[0].Furthest, Contains.Item(RandomNodes[4]));
-        Assert.That(nodes[0].Furthest, Contains.Item(RandomNodes[5]));
+        Assert.That(nodes[0].Furthest, Contains.Item(randomNodes[4]));
+        Assert.That(nodes[0].Furthest, Contains.Item(randomNodes[5]));
     }
 
     [Test]
