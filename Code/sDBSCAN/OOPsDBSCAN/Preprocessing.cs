@@ -53,7 +53,7 @@ public static class Preprocessing
             
             foreach (Node targetNode in target)
             {
-                Double dist = sourceNode.Dist(targetNode);
+                double dist = sourceNode.Dist(targetNode);
                 if (nearest.Count < amount) // if they are not full
                 {
                     nearest.Enqueue(targetNode, -dist);
@@ -61,7 +61,7 @@ public static class Preprocessing
                 }
                 else
                 {
-                    nearest.TryPeek( out _, out Double nearestOtherDist);
+                    nearest.TryPeek( out _, out double nearestOtherDist);
                     if (nearestOtherDist < -dist)
                     {
                         nearest.Dequeue();

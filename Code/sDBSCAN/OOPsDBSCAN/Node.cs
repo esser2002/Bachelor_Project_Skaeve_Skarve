@@ -24,7 +24,6 @@ public class Node
         {
             Vector[i - 1] = int.Parse(input[i]);
         }
-        
     }
 
     public Node(int dimensions)

@@ -52,16 +52,16 @@ public class HNode : Node
     private HashSet<HNode> getVisibleNodes()
     {
         HashSet<Node> visibleNodes = new();
-        foreach (Node nearRandomNode in Nearest)
+        foreach (Node nearRandomNode in Nearest!)
         {
-            foreach (Node nearNearNode in nearRandomNode.Nearest)
+            foreach (Node nearNearNode in nearRandomNode.Nearest!)
             {
                 visibleNodes.Add(nearNearNode);
             }
         }
-        foreach (Node farRandomNode in Furthest)
+        foreach (Node farRandomNode in Furthest!)
         {
-            foreach (Node farFarNode in farRandomNode.Furthest)
+            foreach (Node farFarNode in farRandomNode.Furthest!)
             {
                 visibleNodes.Add(farFarNode);
             }
@@ -79,7 +79,6 @@ public class HNode : Node
             double dist = new List<double> { CoreDist, node.CoreDist, Dist(node)}.Max();
             mutualReachability.Add(node, dist);
         }
-        
     }
 
     public double GetReachability(Node node)
