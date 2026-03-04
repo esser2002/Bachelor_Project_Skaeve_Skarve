@@ -11,7 +11,12 @@ public static class MST
         PriorityQueue<Edge, double> edges = new ();
         PriorityQueue<Edge, double> graph = new ();
         
-        edges.Enqueue(new Edge(initialNode, initialNode), 0);
+        visited.Add(initialNode);
+
+        foreach (var item in initialNode.mutualReachability)
+        {
+            edges.Enqueue(new Edge(initialNode, item.Key), item.Value);
+        }
 
         while (edges.Count > 0)
         {
@@ -23,12 +28,12 @@ public static class MST
             {
                 continue;
             }
-            graph.Enqueue(edge, -weight);
+            graph.Enqueue(edge, weight);
             visited.Add(toNode);
 
             foreach (var item in toNode.mutualReachability)
             {
-                edges.Enqueue(new Edge(toNode, item.Key), -item.Value);
+                edges.Enqueue(new Edge(toNode, item.Key), item.Value);
             }
         }
 
