@@ -3,21 +3,21 @@ using OOPsDBSCAN;
 
 namespace sHDBSCAN;
 
-public class MST
+public static class MST
 {
-    private HashSet<HNode> visited = new HashSet<HNode>();
-    private PriorityQueue<Edge, double> edges = new ();
-    private PriorityQueue<Edge, double> graph = new ();
-    
-    public void CreateSpanningTree(HNode initialNode)
+    public static PriorityQueue<Edge, double> CreateSpanningTree(HNode initialNode)
     {
+        HashSet<HNode> visited = new HashSet<HNode>();
+        PriorityQueue<Edge, double> edges = new ();
+        PriorityQueue<Edge, double> graph = new ();
+        
         edges.Enqueue(new Edge(initialNode, initialNode), 0);
-
 
         while (edges.Count > 0)
         {
             edges.TryDequeue(out Edge edge, out double weight);
-            HNode toNode = edge.To; 
+            
+            HNode toNode = edge!.To; 
             
             if (visited.Contains(toNode))
             {
@@ -31,5 +31,7 @@ public class MST
                 edges.Enqueue(new Edge(toNode, item.Key), -item.Value);
             }
         }
+
+        return graph;
     }
 }
