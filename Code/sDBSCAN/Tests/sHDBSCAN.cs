@@ -120,7 +120,7 @@ public class sHDBSCAN
             node.SetMutualReachability();
         }
 
-        foreach (Node node in nodes)
+        foreach (HNode node in nodes)
         {
             Console.WriteLine($"Mutual reach node 0 to {node.Label} is {nodes[0].GetReachability(node)}");
         }
@@ -162,7 +162,7 @@ public class sHDBSCAN
             node.SetMutualReachability();
         }
 
-        foreach (Node node in nodes)
+        foreach (HNode node in nodes)
         {
             Console.WriteLine($"Mutual reach node 0 to {node.Label} is {nodes[0].GetReachability(node)}");
         }
@@ -204,7 +204,7 @@ public class sHDBSCAN
             node.SetMutualReachability();
         }
 
-        foreach (Node node in nodes)
+        foreach (HNode node in nodes)
         {
             Console.WriteLine($"Mutual reach node 0 to {node.Label} is {nodes[0].GetReachability(node)}");
         }
