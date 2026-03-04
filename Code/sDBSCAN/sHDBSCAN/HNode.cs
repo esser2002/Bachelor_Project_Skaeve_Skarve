@@ -6,7 +6,7 @@ namespace sHDBSCAN;
 
 public class HNode : Node
 {
-    private Dictionary<Node, double> mutualReachability;
+    public Dictionary<HNode, double> mutualReachability;
     public double CoreDist { get; private set; }
     public HNode(string[] input) : base(input)
     {
@@ -81,7 +81,7 @@ public class HNode : Node
         }
     }
 
-    public double GetReachability(Node node)
+    public double GetReachability(HNode node)
     {
         return mutualReachability[node];
     }
