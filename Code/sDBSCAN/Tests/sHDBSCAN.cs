@@ -18,6 +18,11 @@ public class sHDBSCAN
         }
  
         Preprocessing.Preprocess(nodes.Cast<Node>().ToList(), randomNodes, l, m);
+
+        foreach (HNode node in nodes)
+        {
+            node.SetVisibleNodes();
+        }
         
     }
     [Test]

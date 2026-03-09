@@ -45,6 +45,14 @@ foreach (Node node in randomVectors)
 
 Console.WriteLine("Preprocessing");
 Preprocessing.Preprocess(dataPoints.Cast<Node>().ToList(), randomVectors, l, m);
+
+Console.WriteLine("Set visible nodes");
+foreach (HNode n in dataPoints)
+{
+    n.SetVisibleNodes();
+}
+
+Console.WriteLine("Set core dist");
 foreach (HNode n in dataPoints)
 {
      n.setCoreDist(k);
