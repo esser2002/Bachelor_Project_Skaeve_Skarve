@@ -2,6 +2,11 @@
 using OOPsDBSCAN;
 using sHDBSCAN;
 
+if (args.Length == 0)
+{
+    throw new Exception("Must give 1 argument (path to data)")
+        ;}
+
 var path = args[0];
 using TextFieldParser csvParser = new TextFieldParser(path);
 
@@ -44,3 +49,27 @@ foreach (HNode n in dataPoints)
 {
      n.setCoreDist(k);
 }
+
+Console.WriteLine("Set mutual reachability");
+foreach (HNode n in dataPoints)
+{
+    n.SetMutualReachability();
+}
+
+
+Console.WriteLine("CreateMST");
+var MST = sHDBSCAN.MST.CreateSpanningTree(dataPoints[0]);
+Console.WriteLine("MST size: " + MST.Count);
+
+Console.WriteLine("Cluster tree");
+UnionFind uf = new UnionFind(dataPoints.Count);
+while (MST.TryDequeue(out Edge edge, out _))
+{
+    int fromId = edge.From.id;
+    int toId = edge.To.id;
+    
+    if(uf.connected(fromId, toId)) {Console.WriteLine("Something wrong, edges are already connected");}
+    uf.union(edge.From.id, edge.To.id);
+}
+
+Console.WriteLine(uf.count);

@@ -6,6 +6,8 @@ namespace sHDBSCAN;
 
 public class HNode : Node
 {
+    private static int nextId = 0;
+    public int id = nextId++;
     public Dictionary<HNode, double> mutualReachability;
     public double CoreDist { get; private set; }
     public HNode(string[] input) : base(input)
