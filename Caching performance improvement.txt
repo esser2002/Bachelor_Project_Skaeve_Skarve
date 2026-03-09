@@ -1,0 +1,46 @@
+Performance before and after adding chaching for distances.
+
+SkarvHDBSCAN with  k 5, D 32, l 2, m 1
+Total runtime:00:01:24.1501106
+
+SkarvHDBSCAN with  k 5, D 32, l 2, m 1
+Total runtime:00:00:34.9545500
+
+SkarvHDBSCAN with  k 5, D 32, l 2, m 1
+Total runtime:00:01:00.6029803
+
+And now, with cached distances
+
+SkarvHDBSCAN with  k 5, D 32, l 2, m 1
+Total runtime:00:00:30.7193346
+
+SkarvHDBSCAN with  k 5, D 32, l 2, m 1
+Total runtime:00:00:30.5258179	
+
+SkarvHDBSCAN with  k 5, D 32, l 2, m 1
+Total runtime:00:00:30.9501933
+
+Cluster tree
+SkarvHDBSCAN with  k 5, D 32, l 2, m 1
+Total runtime:00:00:30.9647283
+
+
+-- Increasing m
+
+SkarvHDBSCAN with  k 5, D 32, l 2, m 5
+Total runtime:00:00:42.7753605
+
+SkarvHDBSCAN with  k 5, D 32, l 2, m 5
+Total runtime:00:00:43.7741071
+
+SkarvHDBSCAN with  k 5, D 32, l 2, m 5
+Total runtime:00:00:44.6535331
+
+
+-- reflexive caching
+
+SkarvHDBSCAN with  k 5, D 32, l 2, m 5
+Total runtime:00:00:26.1046061
+
+SkarvHDBSCAN with  k 5, D 32, l 2, m 5
+Total runtime:00:00:26.2848325
