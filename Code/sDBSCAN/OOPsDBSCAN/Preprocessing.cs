@@ -28,19 +28,19 @@ public static class Preprocessing
 
     private static void findNearestAndFurthestVectors(List<Node> source, List<Node> target, int amount)
     {
-        int nOfTheads = 8;
-        List<Task> theads = new();
+        int nOfThreads = 8;
+        List<Task> threads = new();
         
-        for (int i = 0; i < nOfTheads; i++)
+        for (int i = 0; i < nOfThreads; i++)
         {
-            var from = source.Count * i / nOfTheads ;
-            var to = source.Count * (i + 1) / nOfTheads ;
+            var from = source.Count * i / nOfThreads ;
+            var to = source.Count * (i + 1) / nOfThreads ;
             Console.WriteLine("Starting preprocessing thread to process from " + from + " to " + to);
             Task t = Task.Run(() => scopedFindNearestAndFurthestVectors(from, to, source, target, amount)); 
-            theads.Add(t);
+            threads.Add(t);
         }
 
-        Task.WaitAll(theads);
+        Task.WaitAll(threads);
     }
 
     private static void scopedFindNearestAndFurthestVectors(int from, int to, List<Node> source, List<Node> target, int amount) 
