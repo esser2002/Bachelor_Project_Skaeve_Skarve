@@ -2,9 +2,9 @@
 using OOPsDBSCAN;
 using sHDBSCAN;
 
-if (args.Length == 0)
+if (args.Length < 2)
 {
-    throw new Exception("Must give 1 argument (path to data)")
+    throw new Exception("Must give 2 arguments (path to data, path to output)")
         ;}
 
 var path = args[0];
@@ -67,6 +67,9 @@ foreach (HNode n in dataPoints)
 
 Console.WriteLine("CreateMST");
 var MST = sHDBSCAN.MST.CreateSpanningTree(dataPoints[0]);
+
+Exporter.ExportMST(args[1],MST);
+
 Console.WriteLine("MST size: " + MST.Count);
 
 Console.WriteLine("Cluster tree");
