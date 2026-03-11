@@ -31,13 +31,12 @@ public class HNode : Node
 
     private void addKClosestPoints(PriorityQueue<Node, double> queue, IEnumerable<Node> nodes, int k)
     {
+        HashSet<Node> touchedNodes = new HashSet<Node>();
         foreach (Node n in nodes)
         {
             double dist = Dist(n);
-            if (queue.UnorderedItems.Select(s => s.Element).Contains(n))
-            {
-                continue;
-            }
+            if (touchedNodes.Contains(n)) { continue; } else { touchedNodes.Add(n);}
+            
             if (queue.Count < k)
             {
                 queue.Enqueue(n,-dist);

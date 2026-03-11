@@ -44,3 +44,50 @@ Total runtime:00:00:26.1046061
 
 SkarvHDBSCAN with  k 5, D 32, l 2, m 5
 Total runtime:00:00:26.2848325
+
+SkarvHDBSCAN with  k 5, D 32, l 2, m 5
+Total runtime:00:00:25.7676781
+
+-- increase k and m (following data varies wildly. I think using the computer while it runs impacts performance significantly.)
+
+SkarvHDBSCAN with  k 20, D 32, l 2, m 10
+Total runtime:00:00:34.5394191
+
+SkarvHDBSCAN with  k 20, D 32, l 2, m 10
+Total runtime:00:00:35.9128447
+
+SkarvHDBSCAN with  k 20, D 32, l 2, m 10
+Total runtime:00:00:36.0021980
+
+SkarvHDBSCAN with  k 20, D 32, l 2, m 10
+Total runtime:00:00:35.2944580
+
+SkarvHDBSCAN with  k 20, D 32, l 2, m 10
+Total runtime:00:01:30.1282209
+
+
+-- Without stupid queue.contains
+
+SkarvHDBSCAN with  k 20, D 32, l 2, m 10
+Total runtime:00:00:35.3049686
+
+SkarvHDBSCAN with  k 20, D 32, l 2, m 10
+Total runtime:00:00:34.8386855
+
+SkarvHDBSCAN with  k 20, D 32, l 2, m 10
+Total runtime:00:00:52.0475708
+
+SkarvHDBSCAN with  k 20, D 32, l 2, m 10
+Total runtime:00:00:52.2233291
+
+SkarvHDBSCAN with  k 20, D 32, l 2, m 10
+Total runtime:00:00:34.9307424
+
+SkarvHDBSCAN with  k 20, D 32, l 2, m 10
+Total runtime:00:00:38.5908255
+
+SkarvHDBSCAN with  k 20, D 32, l 2, m 10
+Total runtime:00:01:38.3463743
+
+
+
