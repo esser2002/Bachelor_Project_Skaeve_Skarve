@@ -1,4 +1,5 @@
-﻿using System.Text;
+﻿using System.Globalization;
+using System.Text;
 
 namespace sHDBSCAN;
 
@@ -25,17 +26,18 @@ public static class Exporter
         
     }
 
-    public static void ExportDendrogram(string path, (int l, int r, int p, double dist)[] dendrogram)
+    public static void ExportDendrogram(string path, (int l, int r, double dist, int size)[] dendrogram)
     {
+        Thread.CurrentThread.CurrentCulture = CultureInfo.GetCultureInfo("en-US");//double uses . instead of ,  
         
         Directory.CreateDirectory(Path.GetDirectoryName(path));
         using (StreamWriter outputFile = new StreamWriter(path))
         {
-            outputFile.WriteLine("left;right;parent;distance");
+            outputFile.WriteLine("left;right;distance;clusterSize");
             foreach (var tuple in dendrogram)
             {
                 StringBuilder builder = new();
-                builder.Append($"{tuple.l};{tuple.r};{tuple.p};{tuple.dist}");
+                builder.Append($"{tuple.l};{tuple.r};{tuple.dist};{tuple.size}");
                 outputFile.WriteLine(builder);
             }
             Console.WriteLine("Dendrogram exported to " + ((FileStream)outputFile.BaseStream).Name);

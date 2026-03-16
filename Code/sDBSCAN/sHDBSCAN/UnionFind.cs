@@ -5,15 +5,18 @@ namespace sHDBSCAN;
 public class UnionFind
 {
     private int[] _id;
+    private int[] _size; 
     public int Count { get; private set; } //number of components 
     private int _nextParentId; 
     public UnionFind(int n){
-        _nextParentId = n + 1; 
+        _nextParentId = n; 
         Count = n;
         _id = new int[2 * n - 1];
+        _size = new int[_id.Length];
         for (int i = 0; i < _id.Length; i++)
         {
-            _id[i] = i; // check if still necessary at the end
+            _size[i] = 1; 
+            _id[i] = i; 
         }
     }
 
@@ -39,8 +42,9 @@ public class UnionFind
 
         _id[i] = _nextParentId;
         _id[j] = _nextParentId;
+        _size[_nextParentId] = _size[i] + _size[j];
         _nextParentId++;
         Count--;
-        return [i, j, _nextParentId - 1];
+        return [i, j, _size[_nextParentId-1]];
     }
 }
