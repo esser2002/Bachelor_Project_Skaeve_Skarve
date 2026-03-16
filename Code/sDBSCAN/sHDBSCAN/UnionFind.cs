@@ -4,65 +4,65 @@ namespace sHDBSCAN;
 /// </summary>
 public class UnionFind
 {
-    private int[] id;
-    private int[] size;
-    public int count { get; private set; }//number of components 
+    private int[] _id;
+    private int[] _size;
+    public int Count { get; private set; }//number of components 
 
     public UnionFind(int N)
     {
-        count = N;
-        id = new int[N];
+        Count = N;
+        _id = new int[N];
         for (int i = 0; i < N; i++)
         {
-            id[i] = i;
+            _id[i] = i;
         }
-        size = new int[N];
+        _size = new int[N];
         for (int i = 0; i < N; i++)
         {
-            size[i] = 1;
+            _size[i] = 1;
         }
         
     }
 
-    public bool connected(int p, int q)
+    public bool Connected(int p, int q)
     {
-        return find (p) == find (q); 
+        return Find (p) == Find (q); 
     }
 
-    private int find(int p)
+    private int Find(int p)
     {
         int root = p; 
-        while (root != id[root])
+        while (root != _id[root])
         {
-            root = id[root];
+            root = _id[root];
         }
 
         while (root != p) //path compression
         {
-            int newp = id[p];
-            id[p] = root;
+            int newp = _id[p];
+            _id[p] = root;
             p = newp;
         }
         return root;
     }
 
-    public void union(int p, int q)
+    public void Union(int p, int q)
     {
-        int i = find(p);
-        int j = find(q);
+        int i = Find(p);
+        int j = Find(q);
         if (i == j) return;
         
-        if (size[i] < size[j])
+        if (_size[i] < _size[j])
         {
-            id[i] = j;
-            size[j] += size[i];
+            _id[i] = j;
+            _size[j] += _size[i];
         }
         else
         {
-            id[j] = i;
-            size[i] += size[j];
+            _id[j] = i;
+            _size[i] += _size[j];
         }
 
-        count--;
+        Count--;
     }
 }

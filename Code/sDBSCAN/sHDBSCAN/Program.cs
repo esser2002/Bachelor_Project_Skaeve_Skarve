@@ -79,8 +79,8 @@ while (MST.TryDequeue(out Edge edge, out _))
     int fromId = edge.From.id;
     int toId = edge.To.id;
     
-    if(uf.connected(fromId, toId)) {Console.WriteLine("Something wrong, edges are already connected");}
-    uf.union(edge.From.id, edge.To.id);
+    if(uf.Connected(fromId, toId)) {Console.WriteLine("Something wrong, edges are already connected");}
+    uf.Union(edge.From.id, edge.To.id);
 }
 
-Console.WriteLine(uf.count);
+Console.WriteLine(uf.Count);
