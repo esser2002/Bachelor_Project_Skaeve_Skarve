@@ -68,7 +68,7 @@ foreach (HNode n in dataPoints)
 Console.WriteLine("CreateMST");
 var MST = sHDBSCAN.MST.CreateSpanningTree(dataPoints[0]);
 
-Exporter.ExportMST(args[1],MST);
+//Exporter.ExportMST(args[1],MST);
 
 Console.WriteLine("MST size: " + MST.Count);
 
@@ -76,7 +76,7 @@ Console.WriteLine("Cluster tree");
 UnionFind uf = new UnionFind(dataPoints.Count);
 
 
-var dendogram = new (int l, int r, int p, double dist)[dataPoints.Count - 1];
+var dendrogram = new (int l, int r, int p, double dist)[dataPoints.Count - 1];
 int i = 0;
 while (MST.TryDequeue(out Edge edge, out double dist))
 {
@@ -85,9 +85,10 @@ while (MST.TryDequeue(out Edge edge, out double dist))
     
     if(uf.Connected(fromId, toId)) {Console.WriteLine("Something wrong, edges are already connected");}
     var union = uf.Union(edge.From.id, edge.To.id);
-    dendogram[i] = (union[0], union[1], union[2], dist);
+    dendrogram[i] = (union[0], union[1], union[2], dist);
     i++;
 }
+Exporter.ExportDendrogram(args[1],dendrogram);
 
 Console.WriteLine(uf.Count);
 Console.WriteLine("done");
