@@ -31,10 +31,10 @@ foreach (Node node in dataPoints)
     node.Normalise();
 }
 
-int D = 128; // amount of random vectors 
-int k = 2; //k is the amount off points for creating core distance
-int m = 300; //amount of datapoints each random vector knows
-int l = 2; //amount of random vectors each datapoint knows
+int D = 1; // amount of random vectors 
+int k = 1; //k is the amount off points for creating core distance
+int m = 1; //amount of datapoints each random vector knows
+int l = 1; //amount of random vectors each datapoint knows
 
 List<Node> randomVectors = Preprocessing.GenerateRandomVectors(D, dataPoints[0].Vector.Length);
 
@@ -74,13 +74,20 @@ Console.WriteLine("MST size: " + MST.Count);
 
 Console.WriteLine("Cluster tree");
 UnionFind uf = new UnionFind(dataPoints.Count);
-while (MST.TryDequeue(out Edge edge, out _))
+
+
+var dendogram = new (int l, int r, int p, double dist)[dataPoints.Count - 1];
+int i = 0;
+while (MST.TryDequeue(out Edge edge, out double dist))
 {
     int fromId = edge.From.id;
     int toId = edge.To.id;
     
     if(uf.Connected(fromId, toId)) {Console.WriteLine("Something wrong, edges are already connected");}
-    uf.Union(edge.From.id, edge.To.id);
+    var union = uf.Union(edge.From.id, edge.To.id);
+    dendogram[i] = (union[0], union[1], union[2], dist);
+    i++;
 }
 
 Console.WriteLine(uf.Count);
+Console.WriteLine("done");
