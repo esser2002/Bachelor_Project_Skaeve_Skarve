@@ -4,65 +4,47 @@ namespace sHDBSCAN;
 /// </summary>
 public class UnionFind
 {
-    private int[] id;
-    private int[] size;
-    public int count { get; private set; }//number of components 
-
-    public UnionFind(int N)
-    {
-        count = N;
-        id = new int[N];
-        for (int i = 0; i < N; i++)
+    private int[] _id;
+    private int[] _size; 
+    public int Count { get; private set; } //number of components 
+    private int _nextParentId; 
+    public UnionFind(int n){
+        _nextParentId = n; 
+        Count = n;
+        _id = new int[2 * n - 1];
+        _size = new int[_id.Length];
+        for (int i = 0; i < _id.Length; i++)
         {
-            id[i] = i;
+            _size[i] = 1; 
+            _id[i] = i; 
         }
-        size = new int[N];
-        for (int i = 0; i < N; i++)
-        {
-            size[i] = 1;
-        }
-        
     }
 
-    public bool connected(int p, int q)
+    public bool Connected(int p, int q)
     {
-        return find (p) == find (q); 
+        return Find (p) == Find (q); 
     }
 
-    private int find(int p)
+    private int Find(int p)
     {
-        int root = p; 
-        while (root != id[root])
+        while (p != _id[p])
         {
-            root = id[root];
+            p = _id[p];
         }
-
-        while (root != p) //path compression
-        {
-            int newp = id[p];
-            id[p] = root;
-            p = newp;
-        }
-        return root;
+        return p;
     }
 
-    public void union(int p, int q)
+    public int[] Union(int p, int q)
     {
-        int i = find(p);
-        int j = find(q);
-        if (i == j) return;
-        
-        if (size[i] < size[j])
-        {
-            id[i] = j;
-            size[j] += size[i];
-        }
-        else
-        {
-            id[j] = i;
-            size[i] += size[j];
-        }
+        int i = Find(p);
+        int j = Find(q);
+        if (i == j) return [];
 
-        count--;
+        _id[i] = _nextParentId;
+        _id[j] = _nextParentId;
+        _size[_nextParentId] = _size[i] + _size[j];
+        _nextParentId++;
+        Count--;
+        return [i, j, _size[_nextParentId-1]];
     }
 }

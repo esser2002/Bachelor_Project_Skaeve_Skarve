@@ -30,11 +30,12 @@ foreach (Node node in dataPoints)
 {
     node.Normalise();
 }
+Exporter.ExportNormalisedData(args[1], dataPoints);
 
-int D = 128; // amount of random vectors 
+int D = 1; // amount of random vectors 
 int k = 2; //k is the amount off points for creating core distance
-int m = 300; //amount of datapoints each random vector knows
-int l = 2; //amount of random vectors each datapoint knows
+int m = 1; //amount of datapoints each random vector knows
+int l = 1; //amount of random vectors each datapoint knows
 
 List<Node> randomVectors = Preprocessing.GenerateRandomVectors(D, dataPoints[0].Vector.Length);
 
@@ -68,19 +69,27 @@ foreach (HNode n in dataPoints)
 Console.WriteLine("CreateMST");
 var MST = sHDBSCAN.MST.CreateSpanningTree(dataPoints[0]);
 
-Exporter.ExportMST(args[1],MST);
+//Exporter.ExportMST(args[1],MST);
 
 Console.WriteLine("MST size: " + MST.Count);
 
 Console.WriteLine("Cluster tree");
 UnionFind uf = new UnionFind(dataPoints.Count);
-while (MST.TryDequeue(out Edge edge, out _))
+
+
+var dendrogram = new (int l, int r, double dist, int size)[dataPoints.Count - 1];
+int i = 0;
+while (MST.TryDequeue(out Edge edge, out double dist))
 {
     int fromId = edge.From.id;
     int toId = edge.To.id;
     
-    if(uf.connected(fromId, toId)) {Console.WriteLine("Something wrong, edges are already connected");}
-    uf.union(edge.From.id, edge.To.id);
+    if(uf.Connected(fromId, toId)) {Console.WriteLine("Something wrong, edges are already connected");}
+    var union = uf.Union(edge.From.id, edge.To.id);
+    dendrogram[i] = (union[0], union[1], dist,union[2]);
+    i++;
 }
+//Exporter.ExportDendrogram(args[1],dendrogram);
 
-Console.WriteLine(uf.count);
+Console.WriteLine(uf.Count);
+Console.WriteLine("done");

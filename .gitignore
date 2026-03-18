@@ -15,3 +15,15 @@ Code/sDBSCAN/sDBSCAN.sln.DotSettings.user
 /Code/sDBSCAN/data/out
 /Code/sDBSCAN/DBSCAN/bin
 /Code/sDBSCAN/DBSCAN/obj
+
+# Python-generated files
+__pycache__/
+*.py[oc]
+build/
+dist/
+wheels/
+*.egg-info
+
+# Virtual environments
+.venv
+.fake
