@@ -3,7 +3,7 @@ using FSharpx.Collections.Tagged;
 
 namespace OOPsDBSCAN;
 
-public static class DBSCAN
+public static class FindComponents
 {
     public static void DoDBSCAN(Dictionary<Node, HashSet<Node>> C)
     {
