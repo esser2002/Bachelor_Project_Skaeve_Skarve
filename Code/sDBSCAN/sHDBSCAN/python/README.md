@@ -13,3 +13,10 @@ powershell -ExecutionPolicy ByPass -c "irm https://astral.sh/uv/install.ps1 | ie
 after that, run uv sync to install all the dependencies specified in the uv.lock file. 
 
 You should be able to run it now, but you may also enter the environment in your ide to get rid of all the squiggly lines c:
+
+
+To add a new package, add it with
+
+uv add 'package-name'
+
+instead of pip install
