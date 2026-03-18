@@ -30,9 +30,10 @@ foreach (Node node in dataPoints)
 {
     node.Normalise();
 }
+Exporter.ExportNormalisedData(args[1], dataPoints);
 
 int D = 1; // amount of random vectors 
-int k = 1; //k is the amount off points for creating core distance
+int k = 2; //k is the amount off points for creating core distance
 int m = 1; //amount of datapoints each random vector knows
 int l = 1; //amount of random vectors each datapoint knows
 
@@ -88,7 +89,7 @@ while (MST.TryDequeue(out Edge edge, out double dist))
     dendrogram[i] = (union[0], union[1], dist,union[2]);
     i++;
 }
-Exporter.ExportDendrogram(args[1],dendrogram);
+//Exporter.ExportDendrogram(args[1],dendrogram);
 
 Console.WriteLine(uf.Count);
 Console.WriteLine("done");

@@ -1,5 +1,8 @@
 ﻿using System.Globalization;
+using System.Security.Cryptography;
 using System.Text;
+using System.Xml;
+using OOPsDBSCAN;
 
 namespace sHDBSCAN;
 
@@ -24,6 +27,31 @@ public static class Exporter
             Console.WriteLine("MST exported to " + ((FileStream)outputFile.BaseStream).Name);
         }
         
+    }
+    public static void ExportNormalisedData(string path, List<HNode> nodelist)
+    {
+        Thread.CurrentThread.CurrentCulture = CultureInfo.GetCultureInfo("en-US");//double uses . instead of ,  
+        using (StreamWriter outputFile = new StreamWriter(path))
+        {
+            foreach (HNode node in nodelist)
+            {
+                StringBuilder builder = new();
+                for (int i = 0 ; i < (node.Vector.Length); i++)
+                {
+                    if (i == node.Vector.Length - 1)
+                    {
+                        builder.Append($"{node.Vector[i]}");
+                    }
+                    else
+                    {
+                        builder.Append($"{node.Vector[i]};");
+                    }
+                }
+                outputFile.WriteLine(builder);
+            }
+            Console.WriteLine("Normalised nodes added to csv file complete");
+        }
+
     }
 
     public static void ExportDendrogram(string path, (int l, int r, double dist, int size)[] dendrogram)
