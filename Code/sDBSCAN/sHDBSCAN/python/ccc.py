@@ -2,7 +2,6 @@
 from scipy.cluster.hierarchy import cophenet
 from scipy.stats import pearsonr
 import numpy
-from numpy import genfromtxt as gentxt
 import csv
 from sklearn.datasets import fetch_openml
 import hdbscan
