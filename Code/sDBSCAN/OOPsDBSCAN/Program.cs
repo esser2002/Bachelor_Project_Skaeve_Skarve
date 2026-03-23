@@ -44,9 +44,9 @@ Preprocessing.Preprocess(dataPoints, randomVectors, k, m);
 Console.WriteLine("Finding corepoints");
 var neighborhoods = FindCorePoints.FindCorePointsAndNeighbors(dataPoints, epsilon, minPts);
 Console.WriteLine("DBSCAN initiated");
-DBSCAN.DoDBSCAN(neighborhoods);
+FindComponents.DoDBSCAN(neighborhoods);
 
-List<HashSet<Node>> Clusters = DBSCAN.GetClusters(neighborhoods.Keys.ToList());
+List<HashSet<Node>> Clusters = FindComponents.GetClusters(neighborhoods.Keys.ToList());
 Console.WriteLine($"sDBSCAN with D {D}, k {k}, m {m}, epsilon {epsilon}, minPts {minPts}");
 Console.WriteLine("number of clusters " + Clusters.Count);
 Console.WriteLine("coverage: " + (100*Clusters.Sum(c => c.Count)/(double)dataPoints.Count) + " %");

@@ -130,9 +130,9 @@ public class Tests
 
         var neighborhoods = FindCorePoints.FindCorePointsAndNeighbors(nodes, 0.5, 2);
         
-        DBSCAN.DoDBSCAN(neighborhoods);
+        FindComponents.DoDBSCAN(neighborhoods);
 
-        List<HashSet<Node>> clusters = DBSCAN.GetClusters(neighborhoods.Keys.ToList());
+        List<HashSet<Node>> clusters = FindComponents.GetClusters(neighborhoods.Keys.ToList());
         Assert.That(clusters.Count(), Is.EqualTo(2));
         
 
