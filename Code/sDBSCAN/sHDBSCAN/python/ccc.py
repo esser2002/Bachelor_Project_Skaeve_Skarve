@@ -5,7 +5,7 @@ import hdbscan
 
 # C:\Users\kassa\Desktop\bachelor\Bachelor_Project_Skaeve_Skarve\Code\sDBSCAN\data\out\normalisedDataFashion.csv
 # /Users/mariehansen/Desktop/Bachelor/Bachelor_Project_Skaeve_Skarve/Code/sDBSCAN/data/out/normalisedDataFashion.csv
-normalized_data = numpy.genfromtxt(r"C:\Users\kassa\Desktop\bachelor\Bachelor_Project_Skaeve_Skarve\Code\sDBSCAN\data\out\normalisedDataFashion.csv", delimiter=";")
+normalized_data = numpy.genfromtxt(r"C:\Users\kassa\Desktop\bachelor\Bachelor_Project_Skaeve_Skarve\Code\sDBSCAN\data\out\normalisedDataFashion.csv", delimiter=";", skip_header=1)
 
 # C:\Users\kassa\Desktop\bachelor\Bachelor_Project_Skaeve_Skarve\Code\sDBSCAN\data\out\dendrogram.csv
 # /Users/mariehansen/Desktop/Bachelor/Bachelor_Project_Skaeve_Skarve/Code/sDBSCAN/data/out/dendrogram.csv
@@ -24,9 +24,10 @@ cd_approx = cophenet(approx_dendrogram)
 cd_true = cophenet(true_dendrogram)
 ccc = pearsonr(cd_true, cd_approx)[0]
 
-mr = numpy.exp(numpy.mean(numpy.log(cd_approx / cd_true)))
+#help
+#result = np.exp(np.mean(np.log10(fake_true / fake_app)))
+#mr = numpy.exp(numpy.mean(numpy.log(cd_approx / cd_true)))
 
 print("CCC: ", ccc)
-print("MR: ", mr) 
 
 
