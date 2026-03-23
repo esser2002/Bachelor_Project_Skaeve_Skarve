@@ -1,8 +1,5 @@
 ﻿using System.Globalization;
-using System.Security.Cryptography;
 using System.Text;
-using System.Xml;
-using OOPsDBSCAN;
 
 namespace sHDBSCAN;
 
@@ -83,5 +80,16 @@ public static class Exporter
         }
 
         return newQueue;
+    }
+    
+    public static void ExportsHdbscanStats(string path, int D,int k, int l,int  m, string elapsedTime )
+    {
+        Directory.CreateDirectory(Path.GetDirectoryName(path) ?? throw new InvalidOperationException("No path was provided."));
+      
+        using (StreamWriter outputFile = new StreamWriter(path))
+        {
+            outputFile.WriteLine($"{D} {k} {l} {m} {elapsedTime}");
+            Console.WriteLine("sHDBSCAN exported to " + ((FileStream)outputFile.BaseStream).Name);
+        }
     }
 }
