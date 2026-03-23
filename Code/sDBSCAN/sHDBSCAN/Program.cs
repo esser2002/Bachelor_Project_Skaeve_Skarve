@@ -1,6 +1,7 @@
 ﻿using Microsoft.VisualBasic.FileIO;
 using OOPsDBSCAN;
 using sHDBSCAN;
+using System.Diagnostics;
 
 if (args.Length < 2)
 {
@@ -30,19 +31,27 @@ foreach (Node node in dataPoints)
 {
     node.Normalise();
 }
-Exporter.ExportNormalisedData(args[1], dataPoints);
 
-int D = 1; // amount of random vectors 
-int k = 2; //k is the amount off points for creating core distance
-int m = 1; //amount of datapoints each random vector knows
-int l = 1; //amount of random vectors each datapoint knows
+//Exporter.ExportNormalisedData(args[1], dataPoints);
+
+int D = 1000; // amount of random vectors 
+int k = 30; //k is the amount off points for creating core distance
+int m = 100; //amount of datapoints each random vector knows
+int l = 2; //amount of random vectors each datapoint knows
+
+// start timer
+Stopwatch stopWatch = new Stopwatch();
+stopWatch.Start();
 
 List<Node> randomVectors = Preprocessing.GenerateRandomVectors(D, dataPoints[0].Vector.Length);
 
+stopWatch.Stop();
 foreach (Node node in randomVectors)
 {
     node.Normalise();
 }
+
+stopWatch.Start();
 
 Console.WriteLine("Preprocessing");
 Preprocessing.Preprocess(dataPoints.Cast<Node>().ToList(), randomVectors, l, m);
@@ -89,7 +98,15 @@ while (MST.TryDequeue(out Edge edge, out double dist))
     dendrogram[i] = (union[0], union[1], dist,union[2]);
     i++;
 }
-//Exporter.ExportDendrogram(args[1],dendrogram);
+
+stopWatch.Stop();
+Exporter.ExportDendrogram(args[1],dendrogram);
+
+//Stopwatch
+TimeSpan ts = stopWatch.Elapsed;
+string elapsedTime = String.Format("{0:00}:{1:00}:{2:00}.{3:00}", ts.Hours, ts.Minutes, ts.Seconds, ts.Milliseconds / 10);
+
+Exporter.ExportsHdbscanStats(args[2], D, k, l, m, elapsedTime );
 
 Console.WriteLine(uf.Count);
 Console.WriteLine("done");
