@@ -1,14 +1,19 @@
+using FSharpx.Collections;
+
 namespace sHDBSCAN;
 /// <summary>
 /// inspired by Algorithms fourth edition by Sedgewick and Wayne page 228.
 /// </summary>
 public class UnionFind
 {
+    private readonly int n;
     private int[] _id;
     private int[] _size; 
     public int Count { get; private set; } //number of components 
     private int _nextParentId; 
-    public UnionFind(int n){
+    public UnionFind(int n)
+    {
+        this.n = n;
         _nextParentId = n; 
         Count = n;
         _id = new int[2 * n - 1];
@@ -46,5 +51,21 @@ public class UnionFind
         _nextParentId++;
         Count--;
         return [i, j, _size[_nextParentId-1]];
+    }
+
+    public int[][] getcomponents()
+    {
+        Dictionary<int, HashSet<int>> components = new();
+        for (int i = 0; i < n; i++)
+        {
+            int root = Find(i);
+            if (!components.ContainsKey(root))
+            {
+                components.Add(root, new HashSet<int>());
+            }
+            components[root].Add(i);
+        }
+
+        return components.Select(x => x.Value.ToArray()).ToArray();
     }
 }

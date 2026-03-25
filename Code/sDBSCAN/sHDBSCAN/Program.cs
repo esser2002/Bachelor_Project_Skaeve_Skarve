@@ -95,7 +95,7 @@ UnionFind uf = new UnionFind(dataPoints.Count);
 
 var dendrogram = new (int l, int r, double dist, int size)[dataPoints.Count - 1];
 
-for (int i = 0; MST.TryDequeue(out Edge edge, out double dist) && uf.Count > 9000; i++)
+for (int i = 0; MST.TryDequeue(out Edge edge, out double dist); i++)
 {
     int fromId = edge.From.id;
     int toId = edge.To.id;
@@ -115,5 +115,36 @@ string elapsedTime = String.Format("{0:00}:{1:00}:{2:00}.{3:00}", ts.Hours, ts.M
 
 Exporter.ExportsHdbscanStats(args[2], D, k, l, m, elapsedTime );
 
+w.Stop();
+
+Console.WriteLine($"SkarvHDBSCAN with  k {k}, D {D}, l {l}, m {m}");
+Console.WriteLine("Total runtime:" + w.Elapsed);
+
+/*
+//Print the resulting clusters
+
+var clusters = uf.getcomponents();
+
+Console.WriteLine("number of clusters " + clusters.Length);
+Console.WriteLine("coverage: " + (100*clusters.Sum(c => (c.Length > 5)?c.Length:0)/(double)dataPoints.Count) + " %");
+
+foreach (int[] cluster in clusters)
+{
+    if (cluster.Length < 5)//OBS: this is cluster min size
+        continue;
+    int[] freq = new int[10];
+    foreach (HNode node in cluster.Select(x => getNode[x]))
+    {
+        freq[node.Label] += 1;
+    }
+    
+    Console.WriteLine("Cluster length " + cluster.Length + " contents:");
+    for (int i = 0; i < freq.Length; i++)
+    {
+        Console.WriteLine(" - " + i + ": " + freq[i]);
+    }
+}
+
 Console.WriteLine(uf.Count);
 Console.WriteLine("done");
+*/

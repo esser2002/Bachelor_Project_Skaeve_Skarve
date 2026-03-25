@@ -1,0 +1,101 @@
+C:\Users\jonas\AppData\Local\Programs\Rider\plugins\dpa\DotFiles\JetBrains.DPA.Runner.exe --handle=3744 --backend-pid=14932 --etw-collect-flags=67108622 --detach-event-name=dpa.detach.14932.75 --refresh-interval=1 -- C:/Users/jonas/OneDrive/Dokumenter/ITU/Bachelor_Project_Skæve_Skarve/Code/sDBSCAN/DBSCAN/bin/Debug/net8.0/DBSCAN.exe ..\..\..\..\data\mnist_test.csv
+
+Begin DBSCAN clustering C# demo
+Normalise data
+
+Clustering with epsilon = 0.14 min points = 10
+Done 
+
+clustering results: 
+clusters:7
+
+Cluster
+0: 0
+1: 0
+2: 0
+3: 0
+4: 205
+5: 0
+6: 0
+7: 602
+8: 9
+9: 612
+
+Cluster
+0: 716
+1: 1103
+2: 136
+3: 1
+4: 0
+5: 8
+6: 1
+7: 4
+8: 217
+9: 1
+
+Cluster
+0: 0
+1: 0
+2: 0
+3: 0
+4: 1
+5: 0
+6: 534
+7: 0
+8: 0
+9: 0
+
+Cluster
+0: 0
+1: 0
+2: 0
+3: 265
+4: 0
+5: 8
+6: 0
+7: 0
+8: 2
+9: 0
+
+Cluster
+0: 0
+1: 0
+2: 0
+3: 0
+4: 0
+5: 19
+6: 0
+7: 0
+8: 0
+9: 0
+
+Cluster
+0: 0
+1: 0
+2: 0
+3: 0
+4: 10
+5: 0
+6: 0
+7: 0
+8: 0
+9: 0
+
+Cluster
+0: 0
+1: 0
+2: 0
+3: 0
+4: 0
+5: 22
+6: 0
+7: 0
+8: 0
+9: 0
+Total points: 4476
+Coverage: 44.76 %
+
+End demo
+
+Process finished with exit code 0.
+
