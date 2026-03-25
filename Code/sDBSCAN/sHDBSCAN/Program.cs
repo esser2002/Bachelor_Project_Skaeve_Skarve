@@ -2,6 +2,7 @@
 using OOPsDBSCAN;
 using sHDBSCAN;
 using System.Diagnostics;
+using Exporter = sHDBSCAN.Exporter;
 
 if (args.Length < 2)
 {
