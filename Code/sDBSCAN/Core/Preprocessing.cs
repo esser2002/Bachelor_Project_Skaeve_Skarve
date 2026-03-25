@@ -1,5 +1,4 @@
-﻿using System.Diagnostics;
-using MathNet.Numerics.Distributions;
+﻿using MathNet.Numerics.Distributions;
 
 namespace Core;
 
@@ -14,16 +13,8 @@ public static class Preprocessing
     /// <param name="m">minPoints ish</param>
     public static void Preprocess(List<Node> X, List<Node> randomVectors, int k, int m)
     {
-        Stopwatch stopwatch = new Stopwatch(); 
-        stopwatch.Start();
        findNearestAndFurthestVectors(X,randomVectors, k);
        findNearestAndFurthestVectors(randomVectors,X, m);
-       stopwatch.Stop();
-       TimeSpan ts = stopwatch.Elapsed;
-       string elapsedTime = String.Format("{0:00}:{1:00}:{2:00}.{3:00}",
-           ts.Hours, ts.Minutes, ts.Seconds,
-           ts.Milliseconds / 10);
-       Console.WriteLine("RunTime " + elapsedTime);
     }
 
     private static void findNearestAndFurthestVectors(List<Node> source, List<Node> target, int amount)

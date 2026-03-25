@@ -6,8 +6,6 @@ public static class FindComponents
 {
     public static void DoDBSCAN(Dictionary<Node, HashSet<Node>> C)
     {
-        Stopwatch stopwatch = new Stopwatch();
-        stopwatch.Start();
         Dictionary<Node, HashSet<Node>> neighborhoods = new();
         foreach (KeyValuePair<Node,HashSet<Node>> keyValuePair in C)
         {
@@ -27,12 +25,6 @@ public static class FindComponents
                 }
             }
         }
-        stopwatch.Stop();
-        TimeSpan ts = stopwatch.Elapsed;
-        string elapsedTime = String.Format("{0:00}:{1:00}:{2:00}.{3:00}",
-            ts.Hours, ts.Minutes, ts.Seconds,
-            ts.Milliseconds / 10);
-        Console.WriteLine("RunTime " + elapsedTime);
     }
     
     public static List<HashSet<Node>> GetClusters(List<Node> CorePoints)

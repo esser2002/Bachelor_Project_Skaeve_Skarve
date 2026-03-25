@@ -14,8 +14,6 @@ public static class FindCorePoints
     /// <returns>A dictionary of all core points, mapping to their neighborhood</returns>
     public static Dictionary<Node, HashSet<Node>> FindCorePointsAndNeighbors(List<Node> X, double epsilon, int minPts)
     {
-        Stopwatch stopwatch = new Stopwatch();
-        stopwatch.Start();
         Dictionary<Node, ConcurrentHashSet<Node>> neighborhoods = new();
 
         foreach (Node node in X)
@@ -48,12 +46,6 @@ public static class FindCorePoints
                 neighborhoods.Remove(q,out _);
             }
         }   
-        stopwatch.Stop();
-        TimeSpan ts = stopwatch.Elapsed;
-        string elapsedTime = String.Format("{0:00}:{1:00}:{2:00}.{3:00}",
-            ts.Hours, ts.Minutes, ts.Seconds,
-            ts.Milliseconds / 10);
-        Console.WriteLine("RunTime " + elapsedTime);
         return neighborhoods.Select(x => (x.Key,x.Value.ToHashSet())).ToDictionary();
     }
 
