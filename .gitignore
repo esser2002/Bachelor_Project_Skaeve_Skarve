@@ -27,3 +27,5 @@ wheels/
 # Virtual environments
 .venv
 .fake
+/Code/sDBSCAN/Core/bin
+/Code/sDBSCAN/Core/obj

@@ -10,6 +10,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "sHDBSCAN", "sHDBSCAN\sHDBSC
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DBSCAN", "DBSCAN\DBSCAN.csproj", "{3D5BE9E8-8FB3-433F-8577-3AEE08EBCA86}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Core", "Core\Core.csproj", "{2F721222-92CB-4A14-ACB9-C55E11D24158}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -36,5 +38,9 @@ Global
 		{3D5BE9E8-8FB3-433F-8577-3AEE08EBCA86}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{3D5BE9E8-8FB3-433F-8577-3AEE08EBCA86}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{3D5BE9E8-8FB3-433F-8577-3AEE08EBCA86}.Release|Any CPU.Build.0 = Release|Any CPU
+		{2F721222-92CB-4A14-ACB9-C55E11D24158}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{2F721222-92CB-4A14-ACB9-C55E11D24158}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{2F721222-92CB-4A14-ACB9-C55E11D24158}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{2F721222-92CB-4A14-ACB9-C55E11D24158}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 EndGlobal

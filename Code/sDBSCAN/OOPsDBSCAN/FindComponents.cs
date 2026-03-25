@@ -1,5 +1,4 @@
 ﻿using System.Diagnostics;
-using FSharpx.Collections.Tagged;
 
 namespace OOPsDBSCAN;
 

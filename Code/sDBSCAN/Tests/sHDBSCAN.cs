@@ -1,4 +1,4 @@
-﻿using OOPsDBSCAN;
+﻿using Core;
 using sHDBSCAN;
 
 namespace TestProject1;

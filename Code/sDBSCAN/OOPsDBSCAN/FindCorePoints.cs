@@ -62,26 +62,26 @@ public static class FindCorePoints
         for(int i = from; i < to; i++)
         {
             Node q = X[i];
-            foreach (Node r in q.Nearest!)//These are the k-nearest random vectors
+            foreach (Core.Node r in q.Nearest!)//These are the k-nearest random vectors
             {
                 foreach (var x in r.Nearest!)//These are the m-nearest vectors
                 {
                     if (x.Dist(q) <= epsilon)
                     {
-                        neighborhoods[q].Add(x);
-                        neighborhoods[x].Add(q);
+                        neighborhoods[q].Add((Node)x);
+                        neighborhoods[(Node)x].Add(q);
                     }
                 }
             }
             
-            foreach (Node r in q.Furthest!)//These are the k-furthest random vectors
+            foreach (Core.Node r in q.Furthest!)//These are the k-furthest random vectors
             {
                 foreach (var x in r.Furthest!)//These are the m-furthest vectors
                 {
                     if (x.Dist(q) <= epsilon)
                     {
-                        neighborhoods[q].Add(x);
-                        neighborhoods[x].Add(q);
+                        neighborhoods[q].Add((Node)x);
+                        neighborhoods[(Node)x].Add(q);
                     }
                 }
             }

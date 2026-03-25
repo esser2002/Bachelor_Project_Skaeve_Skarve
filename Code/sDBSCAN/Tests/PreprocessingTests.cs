@@ -1,4 +1,6 @@
+using Core;
 using OOPsDBSCAN;
+using Node = Core.Node;
 
 namespace TestProject1;
 
@@ -36,7 +38,7 @@ public class Tests
             node.Normalise();
         }
  
-        Preprocessing.Preprocess(nodes, randomNodes, 2, 1);
+        Preprocessing.Preprocess(nodes.Cast<Core.Node>().ToList(), randomNodes, 2, 1);
         
         Assert.That(nodes[0].Nearest, Contains.Item(randomNodes[3]));
         Assert.That(nodes[0].Nearest, Contains.Item(randomNodes[1]));
@@ -96,15 +98,15 @@ public class Tests
     [Test]
     public void Makegoodclusters()
     {
-        List<Node> nodes = 
+        List<OOPsDBSCAN.Node> nodes = 
         [
-            new Node(2){Label = 0, Vector = [12,1]},
-            new Node(2){Label = 0, Vector = [11,2]},
-            new Node(2){Label = 0, Vector = [10,1]},
+            new OOPsDBSCAN.Node(2){Label = 0, Vector = [12,1]},
+            new OOPsDBSCAN.Node(2){Label = 0, Vector = [11,2]},
+            new OOPsDBSCAN.Node(2){Label = 0, Vector = [10,1]},
             
-            new Node(2){Label = 1, Vector = [1,12]},
-            new Node(2){Label = 1, Vector = [1,13]},
-            new Node(2){Label = 1, Vector = [2,14]},
+            new OOPsDBSCAN.Node(2){Label = 1, Vector = [1,12]},
+            new OOPsDBSCAN.Node(2){Label = 1, Vector = [1,13]},
+            new OOPsDBSCAN.Node(2){Label = 1, Vector = [2,14]},
         ];
 
         List<Node> randomNodes =
@@ -126,13 +128,13 @@ public class Tests
             node.Normalise();
         }
         
-        Preprocessing.Preprocess(nodes, randomNodes, 2, 3);
+        Preprocessing.Preprocess(nodes.Cast<Node>().ToList(), randomNodes, 2, 3);
 
         var neighborhoods = FindCorePoints.FindCorePointsAndNeighbors(nodes, 0.5, 2);
         
         FindComponents.DoDBSCAN(neighborhoods);
 
-        List<HashSet<Node>> clusters = FindComponents.GetClusters(neighborhoods.Keys.ToList());
+        List<HashSet<OOPsDBSCAN.Node>> clusters = FindComponents.GetClusters(neighborhoods.Keys.ToList());
         Assert.That(clusters.Count(), Is.EqualTo(2));
         
 

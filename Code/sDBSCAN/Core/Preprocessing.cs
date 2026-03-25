@@ -1,7 +1,7 @@
 ﻿using System.Diagnostics;
 using MathNet.Numerics.Distributions;
 
-namespace OOPsDBSCAN;
+namespace Core;
 
 public static class Preprocessing
 {
@@ -88,9 +88,9 @@ public static class Preprocessing
     /// <param name="D">The number of random vectors</param>
     /// <param name="d">The amount of dimensions</param>
     /// <returns></returns>
-    public static List<Node> GenerateRandomVectors(int D, int d)
+    public static List<Core.Node> GenerateRandomVectors(int D, int d)
     {
-        List<Node> randomVectors = new List<Node>();
+        List<Core.Node> randomVectors = new ();
         Normal random = new Normal(); // Gaussian normal - mean 0, standard deviation 1
         
         for (int i = 0; i < D; i++)

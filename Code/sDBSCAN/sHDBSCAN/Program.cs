@@ -1,12 +1,18 @@
 ﻿using Microsoft.VisualBasic.FileIO;
+using System.Diagnostics;
+using Core;
 using OOPsDBSCAN;
 using sHDBSCAN;
-using System.Diagnostics;
+using Exporter = sHDBSCAN.Exporter;
+using Node = Core.Node;
 
 if (args.Length < 2)
 {
     throw new Exception("Must give 2 arguments (path to data, path to output)")
         ;}
+
+Stopwatch w = new Stopwatch();
+w.Start();
 
 var path = args[0];
 using TextFieldParser csvParser = new TextFieldParser(path);
@@ -18,12 +24,15 @@ csvParser.HasFieldsEnclosedInQuotes = true;
 csvParser.ReadLine();
 
 List<HNode> dataPoints = [];
+Dictionary<int, HNode> getNode = new();
 
 while (!csvParser.EndOfData)
 {
     // Read current line fields, pointer moves to the next line.
     string[] fields = csvParser.ReadFields() ?? throw new InvalidOperationException();
-    dataPoints.Add(new HNode(fields));
+    HNode node = new HNode(fields);
+    dataPoints.Add(node);
+    getNode.Add(node.id, node);
 }
 
 //Normalise data
@@ -34,12 +43,11 @@ foreach (Node node in dataPoints)
 
 //Exporter.ExportNormalisedData(args[1], dataPoints);
 
-int D = 1000; // amount of random vectors 
-int k = 30; //k is the amount off points for creating core distance
-int m = 100; //amount of datapoints each random vector knows
+int k = 4; //k is the amount off points for creating core distance
+int D = 16; //amount of random vectors 
 int l = 2; //amount of random vectors each datapoint knows
+int m = 10; //amount of datapoints each random vector knows
 
-// start timer
 Stopwatch stopWatch = new Stopwatch();
 stopWatch.Start();
 
@@ -85,18 +93,17 @@ Console.WriteLine("MST size: " + MST.Count);
 Console.WriteLine("Cluster tree");
 UnionFind uf = new UnionFind(dataPoints.Count);
 
-
 var dendrogram = new (int l, int r, double dist, int size)[dataPoints.Count - 1];
-int i = 0;
-while (MST.TryDequeue(out Edge edge, out double dist))
+
+for (int i = 0; MST.TryDequeue(out Edge edge, out double dist) && uf.Count > 9000; i++)
 {
     int fromId = edge.From.id;
     int toId = edge.To.id;
+    Console.WriteLine("union " + fromId + ", " + toId + ": " + dist + "(" + edge.From.CoreDist + ", " + edge.To.CoreDist + ", " + edge.From.Dist(edge.To) + ")");
     
     if(uf.Connected(fromId, toId)) {Console.WriteLine("Something wrong, edges are already connected");}
     var union = uf.Union(edge.From.id, edge.To.id);
     dendrogram[i] = (union[0], union[1], dist,union[2]);
-    i++;
 }
 
 stopWatch.Stop();
