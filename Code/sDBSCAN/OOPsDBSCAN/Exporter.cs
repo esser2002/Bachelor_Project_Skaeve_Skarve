@@ -12,12 +12,11 @@ public static class Exporter
         {
             foreach (Node node in nodes)
             {
-                outputFile.WriteLine(node.cluster_id);
+                outputFile.WriteLine(node.ClusterId);
             }
 
             Console.WriteLine("List of nodes with cluster labels exported to " +
                               ((FileStream)outputFile.BaseStream).Name);
         }
-
     }
 }
