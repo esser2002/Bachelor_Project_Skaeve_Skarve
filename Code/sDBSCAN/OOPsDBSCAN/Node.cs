@@ -2,7 +2,7 @@
 
 public class Node : Core.Node
 {
-    public int ClusterId;
+    public int ClusterId = -1;
     
     public Node(string[] input) : base(input)
     {
