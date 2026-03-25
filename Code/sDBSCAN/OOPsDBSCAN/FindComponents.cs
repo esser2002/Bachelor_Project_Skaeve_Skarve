@@ -40,6 +40,8 @@ public static class FindComponents
         List<HashSet<Node>> clusters = new();
         HashSet<Node> looseCorePoints = new HashSet<Node>(CorePoints);
 
+        int clusterId = 0;
+        
         while (looseCorePoints.Count > 0)
         {
             Node q = looseCorePoints.First();
@@ -56,6 +58,7 @@ public static class FindComponents
                 Node node = openList[0];
                 openList.RemoveAt(0);
                 cluster.Add(node);
+                node.ClusterId = clusterId;
                 if (node.CorePoint)
                 {
                     looseCorePoints.Remove(node);
@@ -70,6 +73,7 @@ public static class FindComponents
                 }
             }
             clusters.Add(cluster);
+            clusterId++;
         }
 
         return clusters;

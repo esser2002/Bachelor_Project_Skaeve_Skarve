@@ -2,6 +2,8 @@
 
 public class Node : Core.Node
 {
+    public int ClusterId;
+    
     public Node(string[] input) : base(input)
     {
     }
