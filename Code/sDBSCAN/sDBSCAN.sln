@@ -12,6 +12,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DBSCAN", "DBSCAN\DBSCAN.csp
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Core", "Core\Core.csproj", "{2F721222-92CB-4A14-ACB9-C55E11D24158}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NormaliseData", "NormaliseData\NormaliseData.csproj", "{5FECE3A1-EBDF-41D8-BE96-52891256B861}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -42,5 +44,13 @@ Global
 		{2F721222-92CB-4A14-ACB9-C55E11D24158}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{2F721222-92CB-4A14-ACB9-C55E11D24158}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{2F721222-92CB-4A14-ACB9-C55E11D24158}.Release|Any CPU.Build.0 = Release|Any CPU
+		{024CBB8B-EF07-45CF-AEFC-E086BFBA1F97}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{024CBB8B-EF07-45CF-AEFC-E086BFBA1F97}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{024CBB8B-EF07-45CF-AEFC-E086BFBA1F97}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{024CBB8B-EF07-45CF-AEFC-E086BFBA1F97}.Release|Any CPU.Build.0 = Release|Any CPU
+		{5FECE3A1-EBDF-41D8-BE96-52891256B861}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{5FECE3A1-EBDF-41D8-BE96-52891256B861}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{5FECE3A1-EBDF-41D8-BE96-52891256B861}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{5FECE3A1-EBDF-41D8-BE96-52891256B861}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 EndGlobal
