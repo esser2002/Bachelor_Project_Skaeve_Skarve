@@ -75,3 +75,7 @@ foreach (HashSet<Node> cluster in Clusters)
         Console.WriteLine(" - " + i + ": " + freq[i]);
     }
 }
+
+Console.WriteLine("Exporting clusters");
+Exporter.ExportClusters(args[1], dataPoints);
+
