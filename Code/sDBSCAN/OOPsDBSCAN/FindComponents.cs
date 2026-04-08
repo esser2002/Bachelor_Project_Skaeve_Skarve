@@ -6,7 +6,6 @@ public static class FindComponents
 {
     public static void DoDBSCAN(Dictionary<Node, HashSet<Node>> C)
     {
-        Dictionary<Node, HashSet<Node>> neighborhoods = new();
         foreach (KeyValuePair<Node,HashSet<Node>> keyValuePair in C)
         {
             Node q = keyValuePair.Key;
