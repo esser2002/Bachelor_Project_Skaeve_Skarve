@@ -21,19 +21,19 @@ public static class FindCorePoints
             neighborhoods[node] = new ();
         }
 
-        int nOfTheads = 8;
-        List<Task> theads = new();
+        int nOfThreads = 8;
+        List<Task> threads = new();
         
-        for (int i = 0; i < nOfTheads; i++)
+        for (int i = 0; i < nOfThreads; i++)
         {
-            var from = X.Count * i / nOfTheads ;
-            var to = X.Count * (i + 1) / nOfTheads ;
+            var from = X.Count * i / nOfThreads ;
+            var to = X.Count * (i + 1) / nOfThreads ;
             Console.WriteLine("Starting find core points thread to process from " + from + " to " + to);
             Task t = Task.Run(() => compareVectors(from, to, X, epsilon, neighborhoods));
-            theads.Add(t);
+            threads.Add(t);
         }
 
-        Task.WaitAll(theads);
+        Task.WaitAll(threads);
 
         foreach (Node q in X)
         {
