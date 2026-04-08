@@ -7,7 +7,7 @@ using Exporter = sHDBSCAN.Exporter;
 using Node = Core.Node;
 
 // --- PARAMETERS --- //
-int k = 4; //k is the amount off points for creating core distance
+int k = 4; //k is the amount of points for creating core distance
 int D = 16; //amount of random vectors 
 int l = 2; //amount of random vectors each datapoint knows
 int m = 10; //amount of datapoints each random vector knows

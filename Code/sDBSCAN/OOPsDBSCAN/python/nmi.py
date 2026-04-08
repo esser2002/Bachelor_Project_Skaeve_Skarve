@@ -2,9 +2,11 @@ import numpy as np
 from sklearn.cluster import DBSCAN
 from sklearn.metrics.cluster import normalized_mutual_info_score 
 
-sDBSCAN = np.genfromtxt(r"C:\Users\kassa\Desktop\bachelor\Bachelor_Project_Skaeve_Skarve\Code\sDBSCAN\data\out\sDBSCANclusters.csv",dtype=int)
-normalized_data = np.genfromtxt(r"C:\Users\kassa\Desktop\bachelor\Bachelor_Project_Skaeve_Skarve\Code\sDBSCAN\data\out\normalisedDataFashion.csv", delimiter=";", skip_header=1)
-clustering = DBSCAN(eps=0.18, min_samples=10, metric='cosine').fit(normalized_data)
+pathToOut = r"C:\Users\jonas\OneDrive\Dokumenter\ITU\Bachelor_Project_Skæve_Skarve\Code\sDBSCAN\data\out" #Set this to your personal path
+
+sDBSCAN = np.genfromtxt(pathToOut+r"\sDBSCANclusters.csv",dtype=int)
+normalized_data = np.genfromtxt(pathToOut+r"\normalisedDataFashion.csv", delimiter=";", skip_header=1)
+clustering = DBSCAN(eps=0.08, min_samples=50, metric='cosine').fit(normalized_data)
 
 nmi = normalized_mutual_info_score(sDBSCAN, clustering.labels_)
 
