@@ -1,6 +1,4 @@
-﻿using System.Security.Cryptography;
-
-namespace sHDBSCAN;
+﻿namespace sHDBSCAN;
 
 public class Edge
 {
@@ -9,7 +7,7 @@ public class Edge
 
     public Edge(HNode from, HNode to)
     {
-        this.From = from;
-        this.To = to;
+        From = from;
+        To = to;
     }
 }

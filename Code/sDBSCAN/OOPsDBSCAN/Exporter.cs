@@ -1,6 +1,4 @@
-﻿using System.Text;
-
-namespace OOPsDBSCAN;
+﻿namespace OOPsDBSCAN;
 
 public static class Exporter
 {

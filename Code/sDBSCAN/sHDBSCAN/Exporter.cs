@@ -5,15 +5,15 @@ namespace sHDBSCAN;
 
 public static class Exporter
 {
-    public static void ExportMST(string path, PriorityQueue<Edge, double> MST)
+    public static void ExportMst(string path, PriorityQueue<Edge, double> mst)
     {
-        var newMST = clonePriorityQueue(MST);
+        var newMst = ClonePriorityQueue(mst);
 
         Directory.CreateDirectory(Path.GetDirectoryName(path) ?? throw new InvalidOperationException());
         using (StreamWriter outputFile = new StreamWriter(path))
         {
             outputFile.WriteLine("fromId;fromLabel;toId;toLabel;distance");
-            while (newMST.TryDequeue(out Edge edge, out double distance))
+            while (newMst.TryDequeue(out Edge edge, out double distance))
             {
                 StringBuilder builder = new();
                 builder.Append($"{edge.From.Id};{edge.From.Label};");
@@ -45,7 +45,7 @@ public static class Exporter
 
         
     }
-    private static PriorityQueue<Edge, double> clonePriorityQueue(PriorityQueue<Edge, double> queue)
+    private static PriorityQueue<Edge, double> ClonePriorityQueue(PriorityQueue<Edge, double> queue)
     {
         PriorityQueue<Edge,double> newQueue = new();
         foreach (var (edge, priority) in queue.UnorderedItems)

@@ -60,6 +60,7 @@ foreach (HNode n in dataPoints.Values)
 }
 PrintLap("Set Core Dist");
 
+// --- Set mutual reachability --- //
 Console.WriteLine("Set mutual reachability");
 foreach (HNode n in dataPoints.Values)
 {
@@ -67,69 +68,33 @@ foreach (HNode n in dataPoints.Values)
 }
 PrintLap("Set Mutual reachability");
 
+// --- Create MST --- //
 Console.WriteLine("CreateMST");
-var MST = sHDBSCAN.MST.CreateSpanningTree(dataPoints[0]);
+var mst = MST.CreateSpanningTree(dataPoints[0]);
 
-Console.WriteLine("MST size: " + MST.Count);
+Console.WriteLine("MST size: " + mst.Count);
 PrintLap("MST");
 
+// --- Cluster tree --- //
 Console.WriteLine("Cluster tree");
 UnionFind uf = new UnionFind(dataPoints.Count);
+var dendrogram = Dendrogram.CreateDendrogram(mst, uf);
 
-var dendrogram = new (int l, int r, double dist, int size)[dataPoints.Count - 1];
-
-for (int i = 0; MST.TryDequeue(out Edge edge, out double dist); i++)
-{
-    int fromId = edge.From.Id;
-    int toId = edge.To.Id;
-    
-    if(uf.Connected(fromId, toId)) {Console.WriteLine("Something wrong, edges are already connected");}
-    var union = uf.Union(edge.From.Id, edge.To.Id);
-    dendrogram[i] = (union[0], union[1], dist,union[2]);
-}
 PrintLap("Cluster tree");
 
 stopWatch.Stop();
 Exporter.ExportDendrogram(args[1],dendrogram);
 
-//Stopwatch
+// --- Timer cleanup --- //
 TimeSpan ts = stopWatch.Elapsed;
 string elapsedTime = String.Format("{0:00}:{1:00}:{2:00}.{3:00}", ts.Hours, ts.Minutes, ts.Seconds, ts.Milliseconds / 10);
+
 
 Exporter.ExportsHdbscanStats(args[2], D, k, l, m, elapsedTime );
 
 
-Console.WriteLine($"SkarvHDBSCAN with  k {k}, D {D}, l {l}, m {m}");
+Console.WriteLine($"sHDBSCAN ran with k {k}, D {D}, l {l}, m {m}");
 Console.WriteLine("Total time " + elapsedTime);
-
-/*
-//Print the resulting clusters
-
-var clusters = uf.getcomponents();
-
-Console.WriteLine("number of clusters " + clusters.Length);
-Console.WriteLine("coverage: " + (100*clusters.Sum(c => (c.Length > 5)?c.Length:0)/(double)dataPoints.Count) + " %");
-
-foreach (int[] cluster in clusters)
-{
-    if (cluster.Length < 5)//OBS: this is cluster min size
-        continue;
-    int[] freq = new int[10];
-    foreach (HNode node in cluster.Select(x => getNode[x]))
-    {
-        freq[node.Label] += 1;
-    }
-    
-    Console.WriteLine("Cluster length " + cluster.Length + " contents:");
-    for (int i = 0; i < freq.Length; i++)
-    {
-        Console.WriteLine(" - " + i + ": " + freq[i]);
-    }
-}
-
-Console.WriteLine(uf.Count);
-Console.WriteLine("done");
-*/
 
 // Prints the time since last lap and the name input
 void PrintLap(string lapName)

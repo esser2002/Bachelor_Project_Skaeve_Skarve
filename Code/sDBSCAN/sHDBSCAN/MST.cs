@@ -1,10 +1,10 @@
-﻿
-using OOPsDBSCAN;
-
-namespace sHDBSCAN;
+﻿namespace sHDBSCAN;
 
 public static class MST
 {
+    /// <summary>
+    /// Create a minimum spanning tree from the initial node.
+    /// </summary>
     public static PriorityQueue<Edge, double> CreateSpanningTree(HNode initialNode)
     {
         HashSet<HNode> visited = new HashSet<HNode>();
@@ -20,7 +20,7 @@ public static class MST
 
         while (edges.Count > 0)
         {
-            edges.TryDequeue(out Edge edge, out double weight);
+            edges.TryDequeue(out Edge? edge, out double weight);
             
             HNode toNode = edge!.To; 
             
@@ -36,7 +36,6 @@ public static class MST
                 edges.Enqueue(new Edge(toNode, item.Key), item.Value);
             }
         }
-
         return graph;
     }
 }

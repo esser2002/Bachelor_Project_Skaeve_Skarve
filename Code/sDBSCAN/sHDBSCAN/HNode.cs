@@ -18,7 +18,11 @@ public class HNode : Node
     public HNode(int dimensions) : base(dimensions)
     {
     }
-
+    
+    /// <summary>
+    /// Set the distance to the kth nearest neighbour
+    /// </summary>
+    /// <param name="k"></param>
     public void SetCoreDist(int k)
     {
         PriorityQueue<Node, double> kclosest = new PriorityQueue<Node, double>(); 
@@ -26,15 +30,22 @@ public class HNode : Node
 
         CoreDist = kclosest.Dequeue().Dist(this);
     }
-
+    /// <summary>
+    /// Find the k closest nodes.
+    /// </summary>
+    /// <param name="queue">Empty priority queue</param>
+    /// <param name="nodes">The set of visible nodes</param>
+    /// <param name="k">Amount of nodes to add to the queue</param>
     private void AddKClosestPoints(PriorityQueue<Node, double> queue, IEnumerable<Node> nodes, int k)
     {
         HashSet<Node> touchedNodes = new HashSet<Node>();
         foreach (Node n in nodes)
         {
             double dist = Dist(n);
-            if (touchedNodes.Contains(n)) { continue; } else { touchedNodes.Add(n);}
-            
+            if (touchedNodes.Contains(n)) { continue; }
+
+            touchedNodes.Add(n);
+
             if (queue.Count < k)
             {
                 queue.Enqueue(n,-dist);
@@ -76,7 +87,9 @@ public class HNode : Node
             }
         }
     }
-
+    /// <summary>
+    /// Set mutual reachability to all visible nodes
+    /// </summary>
     public void SetMutualReachability()
     {
         MutualReachability = new();
