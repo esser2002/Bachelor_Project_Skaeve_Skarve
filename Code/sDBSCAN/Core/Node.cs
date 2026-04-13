@@ -44,12 +44,23 @@ public class Node
         }
         else
         {
-            double scalar = algoDBSCAN.scalar(ListModule.OfSeq(Vector), ListModule.OfSeq(other.Vector));
+            double scalar = GetScalar(other.Vector);
             var newdist = (1.0 - scalar);
             distances.TryAdd(other, newdist);
             other.distances.TryAdd(this, newdist);
             return newdist;
         }
+    }
+
+    private double GetScalar(double[] otherVector)
+    {
+        double scalar = 0;
+        for (int i = 0; i < Vector.Length; i++)
+        {
+            scalar += Vector[i] * otherVector[i];
+        }
+
+        return scalar;
     }
     
     public void Normalise()
