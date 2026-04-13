@@ -51,7 +51,7 @@ public class Node
             return newdist;
         }
     }
-
+    
     public void Normalise()
     {
         Vector = algoDBSCAN.normalise(ListModule.OfSeq(Vector)).ToArray();

@@ -7,7 +7,7 @@ let rec scalar (a:double list) (b:double list) : double =
     match a, b with
     | [], [] -> 0.0
     | x::xs, y::ys -> x*y+scalar xs ys
-    | _, _ -> failwith "Vectors must have same length!!!"
+    | _, _ -> failwith "Vectors must have same length!"
     
 let length v: double =
     let rec squaredsum = function

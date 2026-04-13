@@ -1,23 +1,21 @@
-﻿using Microsoft.VisualBasic.FileIO;
-using System.Diagnostics;
+﻿using System.Diagnostics;
 using Core;
-using OOPsDBSCAN;
 using sHDBSCAN;
 using Exporter = sHDBSCAN.Exporter;
 using Node = Core.Node;
 
 // --- PARAMETERS --- //
-int k = 4; //k is the amount of points for creating core distance
 int D = 16; //amount of random vectors 
 int l = 2; //amount of random vectors each datapoint knows
 int m = 10; //amount of datapoints each random vector knows
-
-Dictionary<int, HNode> dataPoints = Importer.ImportNodes(args[0]);
+int k = 4; //k is the amount of points for creating core distance
 
 if (args.Length < 3)
 {
-    throw new Exception("Must give 3 arguments (path to data, path to output)");
+    throw new Exception("Must give 3 arguments (path to data, path to dendrogram output, path to stats output)");
 }
+
+Dictionary<int, HNode> dataPoints = Importer.ImportNodes(args[0]);
 
 
 // --- Normalise data --- //
@@ -26,10 +24,12 @@ foreach (HNode node in dataPoints.Values)
     node.Normalise();
 }
 
+// --- Stopwatch init --- //
 Stopwatch stopWatch = new Stopwatch();
 stopWatch.Start();
 TimeSpan lastTime = stopWatch.Elapsed;
 
+// --- Generate random vectors --- // 
 Console.WriteLine("Generating random vectors");
 List<Node> randomVectors = Preprocessing.GenerateRandomVectors(D, dataPoints[0].Vector.Length);
 
@@ -37,38 +37,41 @@ foreach (Node node in randomVectors)
 {
     node.Normalise();
 }
-printLap("Random vectors");
+PrintLap("Random vectors");
 
+// --- Preprocessing --- // 
 Console.WriteLine("Preprocessing");
 Preprocessing.Preprocess(dataPoints.Values.Cast<Node>().ToList(), randomVectors, l, m);
-printLap("Preprocessing");
+PrintLap("Preprocessing");
 
+// --- Set visible nodes --- // 
 Console.WriteLine("Set visible nodes");
 foreach (HNode n in dataPoints.Values)
 {
     n.SetVisibleNodes();
 }
-printLap("Set visible nodes");
+PrintLap("Set visible nodes");
 
+// --- Set core distance --- //
 Console.WriteLine("Set core dist");
 foreach (HNode n in dataPoints.Values)
 {
      n.setCoreDist(k);
 }
-printLap("Set Core Dist");
+PrintLap("Set Core Dist");
 
 Console.WriteLine("Set mutual reachability");
 foreach (HNode n in dataPoints.Values)
 {
     n.SetMutualReachability();
 }
-printLap("Set Mutual reachability");
+PrintLap("Set Mutual reachability");
 
 Console.WriteLine("CreateMST");
 var MST = sHDBSCAN.MST.CreateSpanningTree(dataPoints[0]);
 
 Console.WriteLine("MST size: " + MST.Count);
-printLap("MST");
+PrintLap("MST");
 
 Console.WriteLine("Cluster tree");
 UnionFind uf = new UnionFind(dataPoints.Count);
@@ -84,7 +87,7 @@ for (int i = 0; MST.TryDequeue(out Edge edge, out double dist); i++)
     var union = uf.Union(edge.From.id, edge.To.id);
     dendrogram[i] = (union[0], union[1], dist,union[2]);
 }
-printLap("Cluster tree");
+PrintLap("Cluster tree");
 
 stopWatch.Stop();
 Exporter.ExportDendrogram(args[1],dendrogram);
@@ -128,8 +131,8 @@ Console.WriteLine(uf.Count);
 Console.WriteLine("done");
 */
 
-
-void printLap(string lapName)
+// Prints the time since last lap and the name input
+void PrintLap(string lapName)
 {
     var lap = stopWatch.Elapsed - lastTime;
     Console.WriteLine(lapName + " done: " + String.Format("{0:00}:{1:00}:{2:00}.{3:00}", lap.Hours, lap.Minutes, lap.Seconds, lap.Milliseconds));

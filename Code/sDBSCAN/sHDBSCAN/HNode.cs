@@ -50,7 +50,11 @@ public class HNode : Node
             }
         }
     }
-
+    
+    /// <summary>
+    /// For each node store the visible nodes. The visible nodes in this context are the nearest nodes
+    /// to the nearest random vector and the furthest nodes from the furthest random vector
+    /// </summary>
     public void SetVisibleNodes()
     {
         foreach (Node nearRandomNode in Nearest!)
