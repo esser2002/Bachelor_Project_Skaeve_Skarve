@@ -49,7 +49,7 @@ public class sHDBSCAN
         
         foreach (HNode n in nodes)
         {
-            n.setCoreDist(k);
+            n.SetCoreDist(k);
         }
         
         double expecteddistance = nodes[0].Dist(nodes[3]);
@@ -83,7 +83,7 @@ public class sHDBSCAN
         
         foreach (HNode n in nodes)
         {
-            n.setCoreDist(k);
+            n.SetCoreDist(k);
         }
         
         double expecteddistance = nodes[0].Dist(nodes[3]);
@@ -117,7 +117,7 @@ public class sHDBSCAN
         
         foreach (HNode node in nodes)
         {
-            node.setCoreDist(k);
+            node.SetCoreDist(k);
         }
 
         foreach (HNode node in nodes)
@@ -159,7 +159,7 @@ public class sHDBSCAN
         
         foreach (HNode node in nodes)
         {
-            node.setCoreDist(k);
+            node.SetCoreDist(k);
         }
 
         foreach (HNode node in nodes)
@@ -201,7 +201,7 @@ public class sHDBSCAN
         
         foreach (HNode node in nodes)
         {
-            node.setCoreDist(k);
+            node.SetCoreDist(k);
         }
 
         foreach (HNode node in nodes)
@@ -241,7 +241,7 @@ public class sHDBSCAN
         
         foreach (HNode node in nodes)
         {
-            node.setCoreDist(k);
+            node.SetCoreDist(k);
         }
 
         foreach (HNode node in nodes)
