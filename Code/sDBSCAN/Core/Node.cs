@@ -1,6 +1,5 @@
 ﻿using System.Collections.Concurrent;
 using Microsoft.FSharp.Collections;
-using sDBSCAN;
 
 namespace Core;
 
@@ -42,14 +41,12 @@ public class Node
         {
             return dist;
         }
-        else
-        {
-            double scalar = GetScalar(other.Vector);
-            var newdist = (1.0 - scalar);
-            distances.TryAdd(other, newdist);
-            other.distances.TryAdd(this, newdist);
-            return newdist;
-        }
+        
+        double scalar = GetScalar(other.Vector);
+        var newdist = (1.0 - scalar);
+        distances.TryAdd(other, newdist);
+        other.distances.TryAdd(this, newdist);
+        return newdist;
     }
 
     private double GetScalar(double[] otherVector)
@@ -65,12 +62,21 @@ public class Node
     
     public void Normalise()
     {
-        Vector = algoDBSCAN.normalise(ListModule.OfSeq(Vector)).ToArray();
+        for (int i = 0; i < Vector.Length; i++)
+        {
+            Vector[i] /= Length();
+        }
     }
 
     public double Length()
     {
-        return algoDBSCAN.length(ListModule.OfSeq(Vector));
+        double squaredSum = 0;
+        for (int i = 0; i < Vector.Length; i++)
+        {
+            squaredSum += Vector[i] * Vector[i];
+        }
+
+        return Math.Sqrt(squaredSum);
     }
 
     public override string ToString()
