@@ -62,13 +62,14 @@ public class Node
     
     public void Normalise()
     {
+        double length = GetLength();
         for (int i = 0; i < Vector.Length; i++)
         {
-            Vector[i] /= Length();
+            Vector[i] /= length;
         }
     }
 
-    public double Length()
+    private double GetLength()
     {
         double squaredSum = 0;
         for (int i = 0; i < Vector.Length; i++)
