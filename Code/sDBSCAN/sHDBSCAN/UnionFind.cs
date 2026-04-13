@@ -1,5 +1,3 @@
-using FSharpx.Collections;
-
 namespace sHDBSCAN;
 /// <summary>
 /// inspired by Algorithms fourth edition by Sedgewick and Wayne page 228.
