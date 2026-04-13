@@ -4,6 +4,8 @@ using sHDBSCAN;
 using Exporter = sHDBSCAN.Exporter;
 using Node = Core.Node;
 
+const int numberOfThreads = 8;
+
 // --- PARAMETERS --- //
 int D = 1000; //amount of random vectors 
 int l = 2; //amount of random vectors each datapoint knows
@@ -54,10 +56,27 @@ PrintLap("Set visible nodes");
 
 // --- Set core distance --- //
 Console.WriteLine("Set core dist");
-foreach (HNode n in dataPoints.Values)
+
+List<Task> threads = new ();
+
+HNode[] allNodes = dataPoints.Values.ToArray();
+
+for (int i = 0; i < numberOfThreads; i++)
 {
-     n.SetCoreDist(k);
+    var from = allNodes.Length * i / numberOfThreads ;
+    var to = allNodes.Length * (i + 1) / numberOfThreads ;
+    Task t = Task.Run(() =>
+    {
+        for (int j = from; j < to; j++)
+        {
+            allNodes[j].SetCoreDist(k);
+        }
+    }); 
+    threads.Add(t);
 }
+
+Task.WaitAll(threads);
+
 PrintLap("Set Core Dist");
 
 // --- Set mutual reachability --- //
