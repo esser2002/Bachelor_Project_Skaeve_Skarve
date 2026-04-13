@@ -5,9 +5,9 @@ using Exporter = sHDBSCAN.Exporter;
 using Node = Core.Node;
 
 // --- PARAMETERS --- //
-int D = 16; //amount of random vectors 
+int D = 1000; //amount of random vectors 
 int l = 2; //amount of random vectors each datapoint knows
-int m = 10; //amount of datapoints each random vector knows
+int m = 30; //amount of datapoints each random vector knows
 int k = 4; //k is the amount of points for creating core distance
 
 if (args.Length < 3)
@@ -90,10 +90,10 @@ TimeSpan ts = stopWatch.Elapsed;
 string elapsedTime = String.Format("{0:00}:{1:00}:{2:00}.{3:00}", ts.Hours, ts.Minutes, ts.Seconds, ts.Milliseconds / 10);
 
 
-Exporter.ExportsHdbscanStats(args[2], D, k, l, m, elapsedTime );
+Exporter.ExportsHdbscanStats(args[2], D, l, m, k, elapsedTime );
 
 
-Console.WriteLine($"sHDBSCAN ran with k {k}, D {D}, l {l}, m {m}");
+Console.WriteLine($"sHDBSCAN ran with D {D}, l {l}, m {m}, k {k}");
 Console.WriteLine("Total time " + elapsedTime);
 
 // Prints the time since last lap and the name input
