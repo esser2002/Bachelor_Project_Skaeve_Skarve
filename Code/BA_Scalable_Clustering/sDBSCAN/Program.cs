@@ -1,38 +1,29 @@
 ﻿using Core;
-using Microsoft.VisualBasic.FileIO;
 using sDBSCAN;
 using Node = sDBSCAN.Node;
 
-var path = args[0];
-using TextFieldParser csvParser = new TextFieldParser(path);
+// --- PARAMETERS --- //
+int D = 64; //amount of random vectors
+int k = 2; //amount of random vectors each datapoint knows
+int m = 32; //amount of datapoints each random vector knows
+double epsilon = .15; //distance requirement for nodes to be neighbors
+int minPts = 50; //minimum neighborhood size to be core point
 
-csvParser.SetDelimiters(",");
-csvParser.HasFieldsEnclosedInQuotes = true;
-
-// Skip the row with the column names
-csvParser.ReadLine();
-
-List<Node> dataPoints = [];
-
-while (!csvParser.EndOfData)
+if (args.Length != 2)
 {
-    // Read current line fields, pointer moves to the next line.
-    string[] fields = csvParser.ReadFields() ?? throw new InvalidOperationException();
-    dataPoints.Add(new Node(fields));
+    throw new Exception("Must give 2 arguments (path to data, path to cluster output)");
 }
 
-//Normalise data
+// --- Load Data --- //
+List<Node> dataPoints = Importer.ImportNodes(args[0]);
+
+// --- Normalise data --- //
 foreach (Node node in dataPoints)
 {
     node.Normalise();
 }
 
-int D = 64;
-int k = 2;
-int m = 32;
-double epsilon = .08;
-int minPts = 50;
-
+// --- Generate random vectors --- //
 List<Core.Node> randomVectors = Preprocessing.GenerateRandomVectors(D, dataPoints[0].Vector.Length);
 
 foreach (Core.Node node in randomVectors)
@@ -40,42 +31,23 @@ foreach (Core.Node node in randomVectors)
     node.Normalise();
 }
 
+// --- Preprocessing --- //
 Console.WriteLine("Preprocessing");
 Preprocessing.Preprocess(dataPoints.Select(Core.Node (x) => x).ToList(), randomVectors, k, m);
-Console.WriteLine("Finding corepoints");
+
+// --- Find core points --- //
+Console.WriteLine("Finding core points");
 var neighborhoods = FindCorePoints.FindCorePointsAndNeighbors(dataPoints, epsilon, minPts);
+
+// --- Do DBSCAN --- //
 Console.WriteLine("DBSCAN initiated");
 FindComponents.DoDBSCAN(neighborhoods);
 
-List<HashSet<Node>> Clusters = FindComponents.GetClusters(neighborhoods.Keys.ToList());
+// --- Get results --- //
 Console.WriteLine($"sDBSCAN with D {D}, k {k}, m {m}, epsilon {epsilon}, minPts {minPts}");
-Console.WriteLine("number of clusters " + Clusters.Count);
-Console.WriteLine("coverage: " + (100*Clusters.Sum(c => c.Count)/(double)dataPoints.Count) + " %");
-Console.WriteLine("first cluster: " );
-int stopper = 0;
-foreach (Node node in Clusters[0])
-{
-    if (stopper++ > 1000)
-    {
-        break;}
-    Console.Write(node.Label);
-}
-Console.WriteLine();
 
-foreach (HashSet<Node> cluster in Clusters)
-{
-    int[] freq = new int[10];
-    foreach (Node node in cluster)
-    {
-        freq[node.Label] += 1;
-    }
-    Console.WriteLine("Cluster length " + cluster.Count + " contents:");
-    for (int i = 0; i < freq.Length; i++)
-    {
-        Console.WriteLine(" - " + i + ": " + freq[i]);
-    }
-}
+List<HashSet<Node>> clusters = FindComponents.GetClusters(neighborhoods.Keys.ToList());
+Console.WriteLine(Metrics.GetMetrics(clusters, dataPoints));
 
 Console.WriteLine("Exporting clusters");
 Exporter.ExportClusters(args[1], dataPoints);
-

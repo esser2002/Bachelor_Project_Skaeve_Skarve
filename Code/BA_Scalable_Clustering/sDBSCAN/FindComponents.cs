@@ -1,9 +1,11 @@
-﻿using System.Diagnostics;
-
-namespace sDBSCAN;
+﻿namespace sDBSCAN;
 
 public static class FindComponents
 {
+    /// <summary>
+    /// Construct a graph of clusterings by connecting all core points to their neighbourhoods.
+    /// </summary>
+    /// <param name="C">Set of neighbourhoods</param>
     public static void DoDBSCAN(Dictionary<Node, HashSet<Node>> C)
     {
         foreach (KeyValuePair<Node,HashSet<Node>> keyValuePair in C)
@@ -26,6 +28,11 @@ public static class FindComponents
         }
     }
     
+    /// <summary>
+    /// Gather the clusters of the given nodes.
+    /// </summary>
+    /// <param name="CorePoints"></param>
+    /// <returns></returns>
     public static List<HashSet<Node>> GetClusters(List<Node> CorePoints)
     {
         List<HashSet<Node>> clusters = new();

@@ -1,10 +1,10 @@
-﻿using System.Diagnostics;
-using ConcurrentCollections;
+﻿using ConcurrentCollections;
 
 namespace sDBSCAN;
 
 public static class FindCorePoints
 {
+    private const int NumberOfThreads = 8;
     /// <summary>
     /// Finds the approximate set of core points and their neighborhoods.
     /// </summary>
@@ -20,16 +20,14 @@ public static class FindCorePoints
         {
             neighborhoods[node] = new ();
         }
-
-        int nOfThreads = 8;
+        
         List<Task> threads = new();
         
-        for (int i = 0; i < nOfThreads; i++)
+        for (int i = 0; i < NumberOfThreads; i++)
         {
-            var from = X.Count * i / nOfThreads ;
-            var to = X.Count * (i + 1) / nOfThreads ;
-            Console.WriteLine("Starting find core points thread to process from " + from + " to " + to);
-            Task t = Task.Run(() => compareVectors(from, to, X, epsilon, neighborhoods));
+            var from = X.Count * i / NumberOfThreads ;
+            var to = X.Count * (i + 1) / NumberOfThreads ;
+            Task t = Task.Run(() => BuildNeighbourhoods(from, to, X, epsilon, neighborhoods));
             threads.Add(t);
         }
 
@@ -49,7 +47,15 @@ public static class FindCorePoints
         return neighborhoods.Select(x => (x.Key,x.Value.ToHashSet())).ToDictionary();
     }
 
-    private static void compareVectors(int from, int to, List<Node> X, double epsilon, Dictionary<Node, ConcurrentHashSet<Node>> neighborhoods)
+    /// <summary>
+    /// Compares all vectors in the range between from and to, to their approximately nearby nodes, and adds them to their neighbourhoods
+    /// </summary>
+    /// <param name="from">starting index</param>
+    /// <param name="to">ending index (exclusive)</param>
+    /// <param name="X">Set of all data points</param>
+    /// <param name="epsilon">Distance required to be neighbors</param>
+    /// <param name="neighbourhoods"></param>
+    private static void BuildNeighbourhoods(int from, int to, List<Node> X, double epsilon, Dictionary<Node, ConcurrentHashSet<Node>> neighbourhoods)
     {
         for(int i = from; i < to; i++)
         {
@@ -60,8 +66,8 @@ public static class FindCorePoints
                 {
                     if (x.Dist(q) <= epsilon)
                     {
-                        neighborhoods[q].Add((Node)x);
-                        neighborhoods[(Node)x].Add(q);
+                        neighbourhoods[q].Add((Node)x);
+                        neighbourhoods[(Node)x].Add(q);
                     }
                 }
             }
@@ -72,12 +78,11 @@ public static class FindCorePoints
                 {
                     if (x.Dist(q) <= epsilon)
                     {
-                        neighborhoods[q].Add((Node)x);
-                        neighborhoods[(Node)x].Add(q);
+                        neighbourhoods[q].Add((Node)x);
+                        neighbourhoods[(Node)x].Add(q);
                     }
                 }
             }
         }
-        Console.WriteLine("Thread from " + from + " to " + to + " finished");
     }
 }

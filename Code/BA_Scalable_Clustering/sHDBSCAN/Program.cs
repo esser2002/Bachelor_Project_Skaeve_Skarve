@@ -12,13 +12,12 @@ int l = 2; //amount of random vectors each datapoint knows
 int m = 50; //amount of datapoints each random vector knows
 int k = 4; //k is the amount of points for creating core distance
 
-if (args.Length < 3)
+if (args.Length != 3)
 {
     throw new Exception("Must give 3 arguments (path to data, path to dendrogram output, path to stats output)");
 }
 
 Dictionary<int, HNode> dataPoints = Importer.ImportNodes(args[0]);
-
 
 // --- Normalise data --- //
 foreach (HNode node in dataPoints.Values)
