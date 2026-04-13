@@ -16,8 +16,8 @@ public static class Exporter
             while (newMST.TryDequeue(out Edge edge, out double distance))
             {
                 StringBuilder builder = new();
-                builder.Append($"{edge.From.id};{edge.From.Label};");
-                builder.Append($"{edge.To.id};{edge.To.Label};");
+                builder.Append($"{edge.From.Id};{edge.From.Label};");
+                builder.Append($"{edge.To.Id};{edge.To.Label};");
                 builder.Append(distance);
                 outputFile.WriteLine(builder);
             }

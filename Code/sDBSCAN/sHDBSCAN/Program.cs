@@ -56,7 +56,7 @@ PrintLap("Set visible nodes");
 Console.WriteLine("Set core dist");
 foreach (HNode n in dataPoints.Values)
 {
-     n.setCoreDist(k);
+     n.SetCoreDist(k);
 }
 PrintLap("Set Core Dist");
 
@@ -80,11 +80,11 @@ var dendrogram = new (int l, int r, double dist, int size)[dataPoints.Count - 1]
 
 for (int i = 0; MST.TryDequeue(out Edge edge, out double dist); i++)
 {
-    int fromId = edge.From.id;
-    int toId = edge.To.id;
+    int fromId = edge.From.Id;
+    int toId = edge.To.Id;
     
     if(uf.Connected(fromId, toId)) {Console.WriteLine("Something wrong, edges are already connected");}
-    var union = uf.Union(edge.From.id, edge.To.id);
+    var union = uf.Union(edge.From.Id, edge.To.Id);
     dendrogram[i] = (union[0], union[1], dist,union[2]);
 }
 PrintLap("Cluster tree");

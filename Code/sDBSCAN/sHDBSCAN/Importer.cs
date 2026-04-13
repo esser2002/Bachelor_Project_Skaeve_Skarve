@@ -19,7 +19,7 @@ public static class Importer
             // Read current line fields, pointer moves to the next line.
             string[] fields = csvParser.ReadFields() ?? throw new InvalidOperationException();
             HNode node = new HNode(fields);
-            dataPoints.Add(node.id, node);
+            dataPoints.Add(node.Id, node);
         }
         return dataPoints;
     }
