@@ -1,4 +1,4 @@
-﻿namespace OOPsDBSCAN;
+﻿namespace sDBSCAN;
 
 public class Node : Core.Node
 {

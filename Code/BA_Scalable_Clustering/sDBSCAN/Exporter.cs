@@ -1,4 +1,4 @@
-﻿namespace OOPsDBSCAN;
+﻿namespace sDBSCAN;
 
 public static class Exporter
 {

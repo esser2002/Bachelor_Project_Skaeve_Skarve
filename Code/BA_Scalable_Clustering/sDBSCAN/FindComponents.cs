@@ -1,6 +1,6 @@
 ﻿using System.Diagnostics;
 
-namespace OOPsDBSCAN;
+namespace sDBSCAN;
 
 public static class FindComponents
 {

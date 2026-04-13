@@ -1,7 +1,7 @@
 ﻿using System.Diagnostics;
 using ConcurrentCollections;
 
-namespace OOPsDBSCAN;
+namespace sDBSCAN;
 
 public static class FindCorePoints
 {

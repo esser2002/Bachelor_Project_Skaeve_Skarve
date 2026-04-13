@@ -23,7 +23,7 @@
     </ItemGroup>
 
     <ItemGroup>
-      <ProjectReference Include="..\OOPsDBSCAN\OOPsDBSCAN.csproj" />
+      <ProjectReference Include="..\sDBSCAN\sDBSCAN.csproj" />
       <ProjectReference Include="..\sHDBSCAN\sHDBSCAN.csproj" />
     </ItemGroup>
 

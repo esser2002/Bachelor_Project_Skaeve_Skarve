@@ -1,5 +1,5 @@
 using Core;
-using OOPsDBSCAN;
+using sDBSCAN;
 using Node = Core.Node;
 
 namespace TestProject1;
@@ -98,15 +98,15 @@ public class Tests
     [Test]
     public void Makegoodclusters()
     {
-        List<OOPsDBSCAN.Node> nodes = 
+        List<sDBSCAN.Node> nodes = 
         [
-            new OOPsDBSCAN.Node(2){Label = 0, Vector = [12,1]},
-            new OOPsDBSCAN.Node(2){Label = 0, Vector = [11,2]},
-            new OOPsDBSCAN.Node(2){Label = 0, Vector = [10,1]},
+            new sDBSCAN.Node(2){Label = 0, Vector = [12,1]},
+            new sDBSCAN.Node(2){Label = 0, Vector = [11,2]},
+            new sDBSCAN.Node(2){Label = 0, Vector = [10,1]},
             
-            new OOPsDBSCAN.Node(2){Label = 1, Vector = [1,12]},
-            new OOPsDBSCAN.Node(2){Label = 1, Vector = [1,13]},
-            new OOPsDBSCAN.Node(2){Label = 1, Vector = [2,14]},
+            new sDBSCAN.Node(2){Label = 1, Vector = [1,12]},
+            new sDBSCAN.Node(2){Label = 1, Vector = [1,13]},
+            new sDBSCAN.Node(2){Label = 1, Vector = [2,14]},
         ];
 
         List<Node> randomNodes =
@@ -134,7 +134,7 @@ public class Tests
         
         FindComponents.DoDBSCAN(neighborhoods);
 
-        List<HashSet<OOPsDBSCAN.Node>> clusters = FindComponents.GetClusters(neighborhoods.Keys.ToList());
+        List<HashSet<sDBSCAN.Node>> clusters = FindComponents.GetClusters(neighborhoods.Keys.ToList());
         Assert.That(clusters.Count(), Is.EqualTo(2));
         
 

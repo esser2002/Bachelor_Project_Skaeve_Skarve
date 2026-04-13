@@ -4,7 +4,7 @@ import numpy
 import hdbscan
 import time
 
-pathToOut = r"C:\Users\kassa\Desktop\bachelor\Bachelor_Project_Skaeve_Skarve\Code\sDBSCAN\data\out" #Set this to your personal path
+pathToOut = r"C:\Users\jonas\OneDrive\Dokumenter\ITU\Bachelor_Project_Skæve_Skarve\Code\sDBSCAN\data\out" #Set this to your personal path
 
 normalized_data = numpy.genfromtxt(pathToOut+r"\normalisedDataFashion.csv", delimiter=";", skip_header=1)
 approx_dendrogram = numpy.genfromtxt(pathToOut+r"\dendrogram.csv", delimiter=";", skip_header=1)

@@ -1,7 +1,7 @@
 ﻿using Core;
 using Microsoft.VisualBasic.FileIO;
-using OOPsDBSCAN;
-using Node = OOPsDBSCAN.Node;
+using sDBSCAN;
+using Node = sDBSCAN.Node;
 
 var path = args[0];
 using TextFieldParser csvParser = new TextFieldParser(path);
@@ -27,11 +27,11 @@ foreach (Node node in dataPoints)
     node.Normalise();
 }
 
-int D = 4;
+int D = 64;
 int k = 2;
-int m = 2;
-double epsilon = .16;
-int minPts = 10;
+int m = 32;
+double epsilon = .08;
+int minPts = 50;
 
 List<Core.Node> randomVectors = Preprocessing.GenerateRandomVectors(D, dataPoints[0].Vector.Length);
 

@@ -1,22 +1,22 @@
 /Kilder
 
-/Code/sDBSCAN/.idea
-/Code/sDBSCAN/FunsDBSCAN/bin
-/Code/sDBSCAN/FunsDBSCAN/obj
-/Code/sDBSCAN/OOPsDBSCAN/bin
-/Code/sDBSCAN/OOPsDBSCAN/obj
+/Code/BA_Scalable_Clustering/.idea
+/Code/BA_Scalable_Clustering/FunsDBSCAN/bin
+/Code/BA_Scalable_Clustering/FunsDBSCAN/obj
+/Code/BA_Scalable_Clustering/OOPsDBSCAN/bin
+/Code/BA_Scalable_Clustering/OOPsDBSCAN/obj
 /data
 .DS_Store
-Code/sDBSCAN/sDBSCAN.sln.DotSettings.user
-/Code/sDBSCAN/Tests/bin
-/Code/sDBSCAN/Tests/obj
-/Code/sDBSCAN/sHDBSCAN/obj
-/Code/sDBSCAN/sHDBSCAN/bin
-/Code/sDBSCAN/data/out
-/Code/sDBSCAN/DBSCAN/bin
-/Code/sDBSCAN/DBSCAN/obj
-/Code/sDBSCAN/NormaliseData/bin
-/Code/sDBSCAN/NormaliseData/obj
+/Code/BA_Scalable_Clustering/BA_Scalable_Clustering.sln.DotSettings.user
+/Code/BA_Scalable_Clustering/Tests/bin
+/Code/BA_Scalable_Clustering/Tests/obj
+/Code/BA_Scalable_Clustering/sHDBSCAN/obj
+/Code/BA_Scalable_Clustering/sHDBSCAN/bin
+/Code/BA_Scalable_Clustering/data/out
+/Code/BA_Scalable_Clustering/DBSCAN/bin
+/Code/BA_Scalable_Clustering/DBSCAN/obj
+/Code/BA_Scalable_Clustering/NormaliseData/bin
+/Code/BA_Scalable_Clustering/NormaliseData/obj
 
 # Python-generated files
 __pycache__/
@@ -29,6 +29,11 @@ wheels/
 # Virtual environments
 .venv
 .fake
-/Code/sDBSCAN/Core/bin
-/Code/sDBSCAN/Core/obj
-Code/sDBSCAN/data/fashion-mnist_train.csv
+/Code/BA_Scalable_Clustering/Core/bin
+/Code/BA_Scalable_Clustering/Core/obj
+/Code/BA_Scalable_Clustering/data/fashion-mnist_train.csv
+/Code/BA_Scalable_Clustering/sDBSCAN/obj
+/Code/BA_Scalable_Clustering/sDBSCAN/bin
+
+/Code/BA_Scalable_Clustering/data/out
+Code/BA_Scalable_Clustering/sDBSCAN.sln.DotSettings.user
