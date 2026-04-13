@@ -31,3 +31,4 @@ wheels/
 .fake
 /Code/sDBSCAN/Core/bin
 /Code/sDBSCAN/Core/obj
+Code/sDBSCAN/data/fashion-mnist_train.csv
