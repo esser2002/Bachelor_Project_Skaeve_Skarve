@@ -31,12 +31,12 @@ public static class FindComponents
     /// <summary>
     /// Gather the clusters of the given nodes.
     /// </summary>
-    /// <param name="CorePoints"></param>
+    /// <param name="corePoints"></param>
     /// <returns></returns>
-    public static List<HashSet<Node>> GetClusters(List<Node> CorePoints)
+    public static List<HashSet<Node>> GetClusters(List<Node> corePoints)
     {
         List<HashSet<Node>> clusters = new();
-        HashSet<Node> looseCorePoints = new HashSet<Node>(CorePoints);
+        HashSet<Node> looseCorePoints = new HashSet<Node>(corePoints);
 
         int clusterId = 0;
         
