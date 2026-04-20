@@ -4,22 +4,28 @@ import numpy
 import hdbscan
 import time
 
-pathToOut = r"C:\Users\jonas\OneDrive\Dokumenter\ITU\Bachelor_Project_Skæve_Skarve\Code\sDBSCAN\data\out" #Set this to your personal path
+# Before you do anything, make sure you have run the NormaliseData project, and run the sHDBSCAN project.
 
+# Input your local path to the folder you want to read input from and write output to.
+pathToOut = r"C:\Users\jonas\OneDrive\Dokumenter\ITU\Bachelor_Project_Skæve_Skarve\Code\sDBSCAN\data\out" 
+
+# Input the csv filename for the normalised data you want to run the HDBSCAN on.
 normalized_data = numpy.genfromtxt(pathToOut+r"\normalisedDataFashion.csv", delimiter=";", skip_header=1)
+# Input the csv filename
 approx_dendrogram = numpy.genfromtxt(pathToOut+r"\dendrogram.csv", delimiter=";", skip_header=1)
 
+# Perform HDBSCAN
 start = time.perf_counter()
-clusterer = hdbscan.HDBSCAN(min_cluster_size = 30, gen_min_span_tree=True)
+clusterer = hdbscan.HDBSCAN(min_cluster_size = 30, gen_min_span_tree=True) 
 clusterer.fit(normalized_data)
 true_dendrogram = clusterer.single_linkage_tree_.to_numpy()
 end = time.perf_counter()
 
-
+# Prints to make sure the output from both clusterings have the same size
 print("normalized_data:", normalized_data.shape)
 print("approx_dendrogram:", len(approx_dendrogram))
 print("true_dendrogram:", true_dendrogram.shape)
-
+# Perform CCC
 cd_approx = cophenet(approx_dendrogram)
 cd_true = cophenet(true_dendrogram)
 ccc = pearsonr(cd_true, cd_approx)[0]
@@ -28,6 +34,7 @@ ccc = pearsonr(cd_true, cd_approx)[0]
 #result = np.exp(np.mean(np.log10(fake_true / fake_app)))
 #mr = numpy.exp(numpy.mean(numpy.log(cd_approx / cd_true)))
 
+# Print results
 print("CCC: ", ccc)
 print(f"HDBSCAN time: {(end - start)/60:.6f} minutes")
 
