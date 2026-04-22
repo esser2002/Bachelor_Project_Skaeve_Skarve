@@ -6,18 +6,20 @@ public class UnionFind
 {
     private int[] _id;
     private int[] _size;
-    private int Count { get; set; } //number of components 
-    private int _nextParentId; 
-    public UnionFind(int n)
+    public int Count { get; private set; }//number of components 
+
+    public UnionFind(int N)
     {
-        _nextParentId = n; 
-        Count = n;
-        _id = new int[2 * n - 1];
-        _size = new int[_id.Length];
-        for (int i = 0; i < _id.Length; i++)
+        Count = N;
+        _id = new int[N];
+        for (int i = 0; i < N; i++)
         {
-            _size[i] = 1; 
-            _id[i] = i; 
+            _id[i] = i;
+        }
+        _size = new int[N];
+        for (int i = 0; i < N; i++)
+        {
+            _size[i] = 1;
         }
     }
 
@@ -28,11 +30,19 @@ public class UnionFind
 
     private int Find(int p)
     {
-        while (p != _id[p])
+        int root = p; 
+        while (root != _id[root])
         {
-            p = _id[p];
+            root = _id[root];
         }
-        return p;
+
+        while (root != p) //path compression
+        {
+            int newp = _id[p];
+            _id[p] = root;
+            p = newp;
+        }
+        return root;
     }
 
     public int[] Union(int p, int q)
@@ -41,11 +51,24 @@ public class UnionFind
         int j = Find(q);
         if (i == j) return [];
 
-        _id[i] = _nextParentId;
-        _id[j] = _nextParentId;
-        _size[_nextParentId] = _size[i] + _size[j];
-        _nextParentId++;
+        int newsize;
+        int leader;
+        if (_size[i] < _size[j])
+        {
+            _id[i] = j;
+            _size[j] += _size[i];
+            newsize = _size[j];
+            leader = j;
+        }
+        else
+        {
+            _id[j] = i;
+            _size[i] += _size[j];
+            newsize = _size[i];
+            leader = i;
+        }
+
         Count--;
-        return [i, j, _size[_nextParentId-1]];
+        return [i, j, newsize, leader];
     }
 }

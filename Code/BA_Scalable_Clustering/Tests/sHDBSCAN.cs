@@ -249,13 +249,15 @@ public class sHDBSCAN
             node.SetMutualReachability();
         }
 
-        var mst = MST.CreateSpanningTree(nodes[3]).UnorderedItems.Select(x => x.Element);
-        
-        Assert.That(mst.Count, Is.EqualTo(3));
+        var mst = MST.CreateSpanningTree(nodes[3]);
 
-        Assert.That(hasEdge(mst, 0, 1));
-        Assert.That(hasEdge(mst, 1, 2));
-        Assert.That(hasEdge(mst, 2, 3));
+        var mstIEnumerable = mst.UnorderedItems.Select(x => x.Element);
+        Assert.That(mstIEnumerable.Count, Is.EqualTo(3));
+
+        Assert.That(hasEdge(mstIEnumerable, 0, 1));
+        Assert.That(hasEdge(mstIEnumerable, 1, 2));
+        Assert.That(hasEdge(mstIEnumerable, 2, 3));
+
     }
 
     private bool hasEdge(IEnumerable<Edge> graph, int from, int to)

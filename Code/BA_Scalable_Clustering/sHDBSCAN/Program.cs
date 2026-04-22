@@ -95,8 +95,7 @@ PrintLap("MST");
 
 // --- Cluster tree --- //
 Console.WriteLine("Cluster tree");
-UnionFind uf = new UnionFind(dataPoints.Count);
-var dendrogram = Dendrogram.CreateDendrogram(mst, uf);
+var dendrogram = Dendrogram.CreateDendrogram(mst, dataPoints.Count);
 
 PrintLap("Cluster tree");
 
