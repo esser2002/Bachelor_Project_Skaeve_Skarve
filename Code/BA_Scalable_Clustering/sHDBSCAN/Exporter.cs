@@ -56,7 +56,7 @@ public static class Exporter
         return newQueue;
     }
     
-    public static void ExportsHdbscanStats(string path, int D,int l, int m, int  k, int datasize, string elapsedTime )
+    public static void ExportsHdbscanStats(string path, int D,int l, int m, int  k, int datasize, double elapsedTime )
     {
         Directory.CreateDirectory(Path.GetDirectoryName(path) ?? throw new InvalidOperationException("No path was provided."));
       
