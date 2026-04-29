@@ -39,6 +39,6 @@ ccc = pearsonr(cd_true, cd_approx)[0]
 print("CCC: ", ccc)
 print(f"HDBSCAN time: {(end - start)/60:.6f} minutes")
 
-sHDBSCANStats = numpy.genfromtxt(pathToOut+r"\sHDBSCANStats.csv", delimiter=" ",dtype=str)
+sHDBSCANStats = numpy.genfromtxt(pathToOut+r"\sHDBSCANStats.csv", delimiter=",",dtype=str)
 
-print(f"sHDBSCAN time: {sHDBSCANStats[4]}")
+print(f"sHDBSCAN time: {sHDBSCANStats[5]}")
