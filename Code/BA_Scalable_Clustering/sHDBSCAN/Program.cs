@@ -107,7 +107,7 @@ TimeSpan ts = stopWatch.Elapsed;
 string elapsedTime = String.Format("{0:00}:{1:00}:{2:00}.{3:00}", ts.Hours, ts.Minutes, ts.Seconds, ts.Milliseconds / 10);
 
 
-Exporter.ExportsHdbscanStats(args[2], D, l, m, k, elapsedTime );
+Exporter.ExportsHdbscanStats(args[2], D, l, m, k, dataPoints.Count, elapsedTime );
 
 
 Console.WriteLine($"sHDBSCAN ran on dataset of size {dataPoints.Count} with D {D}, l {l}, m {m}, k {k}");
