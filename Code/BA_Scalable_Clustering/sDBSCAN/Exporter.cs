@@ -17,4 +17,14 @@ public static class Exporter
                               ((FileStream)outputFile.BaseStream).Name);
         }
     }
+    public static void ExportsDBSCANStats(string path, int D, int k, int m, double epsilon, int minPts, int datasize, string elapsedTime )
+    {
+        Directory.CreateDirectory(Path.GetDirectoryName(path) ?? throw new InvalidOperationException("No path was provided."));
+      
+        using (StreamWriter outputFile = new StreamWriter(path))
+        {
+            outputFile.WriteLine($"{D},{k},{m},{epsilon},{minPts},{datasize},{elapsedTime}");
+            Console.WriteLine("sDBSCANstats exported to " + ((FileStream)outputFile.BaseStream).Name);
+        }
+    }
 }
