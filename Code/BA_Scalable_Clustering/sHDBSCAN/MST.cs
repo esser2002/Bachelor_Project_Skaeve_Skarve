@@ -13,9 +13,10 @@ public static class MST
         
         visited.Add(initialNode);
 
-        foreach (var item in initialNode.MutualReachability)
+        foreach (var item in initialNode.VisibleNodes)
         {
-            edges.Enqueue(new Edge(initialNode, Util.dataPoints[item.Key]), item.Value);
+            HNode node = Util.dataPoints[item];
+            edges.Enqueue(new Edge(initialNode, node), initialNode.GetReachability(node));
         }
 
         while (edges.Count > 0)
@@ -31,9 +32,10 @@ public static class MST
             graph.Enqueue(edge, weight);
             visited.Add(toNode);
 
-            foreach (var item in toNode.MutualReachability)
+            foreach (var item in toNode.VisibleNodes)
             {
-                edges.Enqueue(new Edge(toNode, Util.dataPoints[item.Key]), item.Value);
+                HNode node = Util.dataPoints[item];
+                edges.Enqueue(new Edge(toNode, node), toNode.GetReachability(node));
             }
         }
         return graph;

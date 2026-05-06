@@ -80,14 +80,6 @@ public class Program
 
         PrintLap("Set Core Dist");
 
-// --- Set mutual reachability --- //
-        Console.WriteLine("Set mutual reachability");
-        foreach (HNode n in Util.dataPoints)
-        {
-            n.SetMutualReachability();
-        }
-        PrintLap("Set Mutual reachability");
-
 // --- Create MST --- //
         Console.WriteLine("CreateMST");
         var mst = MST.CreateSpanningTree(Util.dataPoints[0]);

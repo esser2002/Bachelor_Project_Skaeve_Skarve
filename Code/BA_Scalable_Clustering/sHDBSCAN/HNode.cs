@@ -6,10 +6,9 @@ public class HNode : Node
 {
     private static int _nextId;
     public int Id = _nextId++;
-    public Dictionary<int, double> MutualReachability = null!;
     public double CoreDist { get; private set; }
 
-    private HashSet<int> _visibleNodes = new();
+    public HashSet<int> VisibleNodes = new();
     
     public HNode(string[] input) : base(input)
     {
@@ -26,7 +25,7 @@ public class HNode : Node
     public void SetCoreDist(int k)
     {
         PriorityQueue<int, double> kclosest = new PriorityQueue<int, double>(); 
-        AddKClosestPoints(kclosest, _visibleNodes, k);
+        AddKClosestPoints(kclosest, VisibleNodes, k);
         CoreDist = Dist(Util.dataPoints[kclosest.Dequeue()]);
     }
     /// <summary>
@@ -73,8 +72,8 @@ public class HNode : Node
             foreach (var node in nearRandomNode.Nearest!)
             {
                 var nearNearNode = (HNode)node;
-                _visibleNodes.Add(nearNearNode.Id);
-                nearNearNode._visibleNodes.Add(Id);
+                VisibleNodes.Add(nearNearNode.Id);
+                nearNearNode.VisibleNodes.Add(Id);
             }
         }
         foreach (Node farRandomNode in Furthest!)
@@ -82,28 +81,15 @@ public class HNode : Node
             foreach (var node in farRandomNode.Furthest!)
             {
                 var farFarNode = (HNode)node;
-                _visibleNodes.Add(farFarNode.Id);
-                farFarNode._visibleNodes.Add(Id);
+                VisibleNodes.Add(farFarNode.Id);
+                farFarNode.VisibleNodes.Add(Id);
             }
-        }
-    }
-    /// <summary>
-    /// Set mutual reachability to all visible nodes
-    /// </summary>
-    public void SetMutualReachability()
-    {
-        MutualReachability = new();
-
-        foreach (int nodeId in _visibleNodes)
-        {
-            HNode node = Util.dataPoints[nodeId];
-            double dist = new List<double> { CoreDist, node.CoreDist, Dist(node)}.Max();
-            MutualReachability.Add(node.Id, dist);
         }
     }
 
     public double GetReachability(HNode node)
     {
-        return MutualReachability[node.Id];
+        double dist = new List<double> { CoreDist, node.CoreDist, Dist(node)}.Max();
+        return dist;
     }
 }
