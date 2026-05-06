@@ -37,3 +37,4 @@ wheels/
 
 /Code/BA_Scalable_Clustering/data/out
 Code/BA_Scalable_Clustering/sDBSCAN.sln.DotSettings.user
+Code/BA_Scalable_Clustering/data/mnist_train_500.csv
