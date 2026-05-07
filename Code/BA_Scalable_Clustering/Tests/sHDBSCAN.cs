@@ -39,7 +39,8 @@ public class sHDBSCAN
             new HNode(2){Label = 2,Vector = [1,0.5]},
             new HNode(2){Label = 3,Vector = [0,1]} // node 1 should have distance to node 4 as core distance
         ];
-
+        Util.dataPoints = nodes.ToArray();
+        
         List<Node> randomNodes =
         [
             new Node(2){Vector = [1,0]},
@@ -71,6 +72,7 @@ public class sHDBSCAN
             new HNode(2){Label = 2,Vector = [1,0.5]},
             new HNode(2){Label = 3,Vector = [0,1]} // node 1 should have distance to node 4 as core distance
         ];
+        Util.dataPoints = nodes.ToArray();
 
         List<Node> randomNodes =
         [
@@ -107,6 +109,7 @@ public class sHDBSCAN
             new HNode(2){Label = 1,Vector = [0,1]},
             new HNode(2){Label = 2,Vector = [-1,-1]},
         ];
+        Util.dataPoints = nodes.ToArray();
 
         List<Node> randomNodes =
         [
@@ -118,11 +121,6 @@ public class sHDBSCAN
         foreach (HNode node in nodes)
         {
             node.SetCoreDist(k);
-        }
-
-        foreach (HNode node in nodes)
-        {
-            node.SetMutualReachability();
         }
 
         foreach (HNode node in nodes)
@@ -149,6 +147,7 @@ public class sHDBSCAN
             new HNode(2){Label = 1,Vector = [1,0]},
             new HNode(2){Label = 2,Vector = [1,0.5]},
         ];
+        Util.dataPoints = nodes.ToArray();
 
         List<Node> randomNodes =
         [
@@ -160,11 +159,6 @@ public class sHDBSCAN
         foreach (HNode node in nodes)
         {
             node.SetCoreDist(k);
-        }
-
-        foreach (HNode node in nodes)
-        {
-            node.SetMutualReachability();
         }
 
         foreach (HNode node in nodes)
@@ -191,6 +185,7 @@ public class sHDBSCAN
             new HNode(2){Label = 1,Vector = [1,0]},
             new HNode(2){Label = 2,Vector = [-1,0]},
         ];
+        Util.dataPoints = nodes.ToArray();
 
         List<Node> randomNodes =
         [
@@ -202,11 +197,6 @@ public class sHDBSCAN
         foreach (HNode node in nodes)
         {
             node.SetCoreDist(k);
-        }
-
-        foreach (HNode node in nodes)
-        {
-            node.SetMutualReachability();
         }
 
         foreach (HNode node in nodes)
@@ -231,6 +221,7 @@ public class sHDBSCAN
             new HNode(2){Label = 2,Vector = [1,0.6]},
             new HNode(2){Label = 3,Vector = [1,0]},
         ];
+        Util.dataPoints = nodes.ToArray();
 
         List<Node> randomNodes =
         [
@@ -242,11 +233,6 @@ public class sHDBSCAN
         foreach (HNode node in nodes)
         {
             node.SetCoreDist(k);
-        }
-
-        foreach (HNode node in nodes)
-        {
-            node.SetMutualReachability();
         }
 
         var mst = MST.CreateSpanningTree(nodes[3]);
