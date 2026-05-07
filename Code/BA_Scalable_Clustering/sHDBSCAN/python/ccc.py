@@ -81,5 +81,5 @@ output = (','.join(map(str, numpy.append(sHDBSCANStats, [seconds, pcc]))))
 print(output)
 
 #write output in format D,l,m,k,datasize,sHDBSCANtime,HDBSCANtime,ccc
-with open(pathToOut+r"\runtime_1.csv", "a") as f:
+with open(pathToOut+r"\runtime_night1.csv", "a") as f:
     f.write(output+'\n')

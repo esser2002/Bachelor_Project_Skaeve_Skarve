@@ -1,4 +1,4 @@
-set data="C:\Users\jonas\OneDrive\Dokumenter\ITU\Bachelor_Project_Skaeve_Skarve\Code\BA_Scalable_Clustering\data\mnist_train_2000.csv"
+set data="C:\Users\jonas\OneDrive\Dokumenter\ITU\Bachelor_Project_Skaeve_Skarve\Code\BA_Scalable_Clustering\data\%1"
 
 cd ..\NormaliseData\
 dotnet run %data% "..\data\out\normalisedData.csv"
