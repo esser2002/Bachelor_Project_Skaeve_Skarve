@@ -15,7 +15,7 @@ public static class MST
 
         foreach (var item in initialNode.MutualReachability)
         {
-            edges.Enqueue(new Edge(initialNode, item.Key), item.Value);
+            edges.Enqueue(new Edge(initialNode, Util.dataPoints[item.Key]), item.Value);
         }
 
         while (edges.Count > 0)
@@ -33,7 +33,7 @@ public static class MST
 
             foreach (var item in toNode.MutualReachability)
             {
-                edges.Enqueue(new Edge(toNode, item.Key), item.Value);
+                edges.Enqueue(new Edge(toNode, Util.dataPoints[item.Key]), item.Value);
             }
         }
         return graph;

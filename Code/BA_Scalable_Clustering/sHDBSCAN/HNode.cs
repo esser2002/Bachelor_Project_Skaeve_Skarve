@@ -1,15 +1,15 @@
 using Node = Core.Node;
-
+using sHDBSCAN;
 namespace sHDBSCAN;
 
 public class HNode : Node
 {
     private static int _nextId;
     public int Id = _nextId++;
-    public Dictionary<HNode, double> MutualReachability = null!;
+    public Dictionary<int, double> MutualReachability = null!;
     public double CoreDist { get; private set; }
 
-    private HashSet<HNode> _visibleNodes = new();
+    private HashSet<int> _visibleNodes = new();
     
     public HNode(string[] input) : base(input)
     {
@@ -25,10 +25,9 @@ public class HNode : Node
     /// <param name="k"></param>
     public void SetCoreDist(int k)
     {
-        PriorityQueue<Node, double> kclosest = new PriorityQueue<Node, double>(); 
+        PriorityQueue<int, double> kclosest = new PriorityQueue<int, double>(); 
         AddKClosestPoints(kclosest, _visibleNodes, k);
-
-        CoreDist = kclosest.Dequeue().Dist(this);
+        CoreDist = Dist(Util.dataPoints[kclosest.Dequeue()]);
     }
     /// <summary>
     /// Find the k closest nodes.
@@ -36,11 +35,12 @@ public class HNode : Node
     /// <param name="queue">Empty priority queue</param>
     /// <param name="nodes">The set of visible nodes</param>
     /// <param name="k">Amount of nodes to add to the queue</param>
-    private void AddKClosestPoints(PriorityQueue<Node, double> queue, IEnumerable<Node> nodes, int k)
+    private void AddKClosestPoints(PriorityQueue<int, double> queue, IEnumerable<int> nodes, int k)
     {
         HashSet<Node> touchedNodes = new HashSet<Node>();
-        foreach (Node n in nodes)
+        foreach (int nId in nodes)
         {
+            HNode n = Util.dataPoints[nId];
             double dist = Dist(n);
             if (touchedNodes.Contains(n)) { continue; }
 
@@ -48,7 +48,7 @@ public class HNode : Node
 
             if (queue.Count < k)
             {
-                queue.Enqueue(n,-dist);
+                queue.Enqueue(n.Id,-dist);
             }
             else
             {
@@ -56,7 +56,7 @@ public class HNode : Node
                 if (otherDist < -dist)
                 {
                     queue.Dequeue();
-                    queue.Enqueue(n,-dist);
+                    queue.Enqueue(n.Id,-dist);
                 }
             }
         }
@@ -73,8 +73,8 @@ public class HNode : Node
             foreach (var node in nearRandomNode.Nearest!)
             {
                 var nearNearNode = (HNode)node;
-                _visibleNodes.Add(nearNearNode);
-                nearNearNode._visibleNodes.Add(this);
+                _visibleNodes.Add(nearNearNode.Id);
+                nearNearNode._visibleNodes.Add(Id);
             }
         }
         foreach (Node farRandomNode in Furthest!)
@@ -82,8 +82,8 @@ public class HNode : Node
             foreach (var node in farRandomNode.Furthest!)
             {
                 var farFarNode = (HNode)node;
-                _visibleNodes.Add(farFarNode);
-                farFarNode._visibleNodes.Add(this);
+                _visibleNodes.Add(farFarNode.Id);
+                farFarNode._visibleNodes.Add(Id);
             }
         }
     }
@@ -94,15 +94,16 @@ public class HNode : Node
     {
         MutualReachability = new();
 
-        foreach (HNode node in _visibleNodes)
+        foreach (int nodeId in _visibleNodes)
         {
+            HNode node = Util.dataPoints[nodeId];
             double dist = new List<double> { CoreDist, node.CoreDist, Dist(node)}.Max();
-            MutualReachability.Add(node, dist);
+            MutualReachability.Add(node.Id, dist);
         }
     }
 
     public double GetReachability(HNode node)
     {
-        return MutualReachability[node];
+        return MutualReachability[node.Id];
     }
 }
