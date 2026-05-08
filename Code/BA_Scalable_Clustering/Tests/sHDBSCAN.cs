@@ -17,7 +17,7 @@ public class sHDBSCAN
             node.Normalise();
         }
  
-        Preprocessing.Preprocess(nodes.Cast<Node>().ToList(), randomNodes, l, m);
+        Preprocessing.Preprocess(nodes.ToArray(), randomNodes.ToArray(), l, m);
 
         foreach (HNode node in nodes)
         {

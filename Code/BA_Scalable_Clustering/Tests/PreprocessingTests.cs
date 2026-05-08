@@ -38,7 +38,7 @@ public class Tests
             node.Normalise();
         }
  
-        Preprocessing.Preprocess(nodes.Cast<Core.Node>().ToList(), randomNodes, 2, 1);
+        Preprocessing.Preprocess(nodes.ToArray(), randomNodes.ToArray(), 2, 1);
         
         Assert.That(nodes[0].Nearest, Contains.Item(randomNodes[3]));
         Assert.That(nodes[0].Nearest, Contains.Item(randomNodes[1]));
@@ -77,7 +77,7 @@ public class Tests
             Console.WriteLine(node);
         }
         
-        Preprocessing.Preprocess(nodes, randomNodes, 2, 1);
+        Preprocessing.Preprocess(nodes.ToArray(), randomNodes.ToArray(), 2, 1);
         
         Assert.That(nodes[0].Furthest, Contains.Item(randomNodes[4]));
         Assert.That(nodes[0].Furthest, Contains.Item(randomNodes[5]));
@@ -128,7 +128,7 @@ public class Tests
             node.Normalise();
         }
         
-        Preprocessing.Preprocess(nodes.Cast<Node>().ToList(), randomNodes, 2, 3);
+        Preprocessing.Preprocess(nodes.ToArray(), randomNodes.ToArray(), 2, 3);
 
         var neighborhoods = FindCorePoints.FindCorePointsAndNeighbors(nodes, 0.5, 2);
         
