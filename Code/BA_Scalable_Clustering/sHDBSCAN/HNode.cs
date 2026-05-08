@@ -86,6 +86,11 @@ public class HNode : Node
                 farFarNode._visibleNodes.Add(Id);
             }
         }
+
+        if (_visibleNodes.Contains(Id))
+        {
+            _visibleNodes.Remove(Id);
+        }
     }
     /// <summary>
     /// Set mutual reachability to all visible nodes
