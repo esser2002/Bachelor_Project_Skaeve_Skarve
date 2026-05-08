@@ -46,7 +46,7 @@ public class Program
 
 // --- Preprocessing --- // 
         Console.WriteLine("Preprocessing");
-        Preprocessing.Preprocess(Util.dataPoints.Cast<Node>().ToList(), randomVectors, l, m);
+        Preprocessing.Preprocess(Util.dataPoints, randomVectors.ToArray(), l, m);
         PrintLap("Preprocessing");
 
 // --- Set visible nodes --- // 

@@ -44,7 +44,7 @@ PrintLap("Random vectors");
 
 // --- Preprocessing --- //
 Console.WriteLine("Preprocessing");
-Preprocessing.Preprocess(dataPoints.Select(Core.Node (x) => x).ToList(), randomVectors, k, m);
+Preprocessing.Preprocess(dataPoints.ToArray(), randomVectors.ToArray(), k, m);
 PrintLap("Preprocessing");
 
 // --- Find core points --- //
