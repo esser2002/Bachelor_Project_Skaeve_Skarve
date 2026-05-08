@@ -82,10 +82,22 @@ public class Program
 
 // --- Set mutual reachability --- //
         Console.WriteLine("Set mutual reachability");
-        foreach (HNode n in Util.dataPoints)
+        threads = new ();
+
+        for (int i = 0; i < numberOfThreads; i++)
         {
-            n.SetMutualReachability();
+            var from = Util.dataPoints.Length * i / numberOfThreads ;
+            var to = Util.dataPoints.Length * (i + 1) / numberOfThreads ;
+            Task t = Task.Run(() =>
+            {
+                for (int j = from; j < to; j++)
+                {
+                    Util.dataPoints[j].SetMutualReachability();
+                }
+            }); 
+            threads.Add(t);
         }
+        Task.WaitAll(threads);
         PrintLap("Set Mutual reachability");
 
 // --- Create MST --- //
