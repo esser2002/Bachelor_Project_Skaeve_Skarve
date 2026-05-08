@@ -1,3 +1,5 @@
+import sys
+
 from scipy.cluster.hierarchy import cophenet
 from scipy.stats import gmean 
 from scipy.stats import pearsonr
@@ -5,6 +7,11 @@ import numpy
 import hdbscan
 import time
 import os
+
+if sys.argv[1:] == ["nopcc"]:
+    runPcc = False
+else:
+    runPcc = True
 
 # Before you do anything, make sure you have run the NormaliseData project, and run the sHDBSCAN project.
 
@@ -63,8 +70,11 @@ def euclidean_to_cosine(d):
     return (d ** 2) / 2
 
 cos_cd_true = euclidean_to_cosine(cd_true)
-pcc = pearsonr(cos_cd_true, cd_approx)[0]
-
+if(runPcc):
+    pcc = pearsonr(cos_cd_true, cd_approx)[0]
+else:
+    pcc = "N/A"
+    
 # MR
 mr = gmean(cos_cd_true / cd_approx)
 print("MR: ", mr )
@@ -77,9 +87,9 @@ sHDBSCANStats = numpy.genfromtxt(pathToOut+r"\sHDBSCANStats.csv", delimiter=",",
 
 print(f"sHDBSCAN time: {sHDBSCANStats[5]}")
 
-output = (','.join(map(str, numpy.append(sHDBSCANStats, [seconds, pcc]))))
+output = (','.join(map(str, numpy.append(sHDBSCANStats, [seconds, pcc, mr]))))
 print(output)
 
 #write output in format D,l,m,k,datasize,sHDBSCANtime,HDBSCANtime,ccc
-with open(pathToOut+r"\runtime_night1.csv", "a") as f:
+with open(pathToOut+r"\test_runtime_opt.csv", "a") as f:
     f.write(output+'\n')
