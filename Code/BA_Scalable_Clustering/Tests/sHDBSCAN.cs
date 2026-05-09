@@ -259,9 +259,9 @@ public class sHDBSCAN
             node.SetMutualReachability();
         }
 
-        var mst = MST.CreateSpanningTree(nodes[3]);
+        var mst = MST.Kruskals(nodes.ToArray(), new UnionFind(nodes.Count()));
 
-        var mstIEnumerable = mst.UnorderedItems.Select(x => x.Element);
+        var mstIEnumerable = mst.Select(x => x.Item1);
         Assert.That(mstIEnumerable.Count, Is.EqualTo(3));
 
         Assert.That(hasEdge(mstIEnumerable, 0, 1));
@@ -272,7 +272,7 @@ public class sHDBSCAN
 
     private bool hasEdge(IEnumerable<Edge> graph, int from, int to)
     {
-        return (graph.Select(x => x.From.Label == from && x.To.Label == to) != null
-                || graph.Select(x => x.To.Label == from && x.From.Label == to) != null);
+        return (graph.Select(x => x.From == from && x.To == to) != null
+                || graph.Select(x => x.To == from && x.From == to) != null);
     }
 }

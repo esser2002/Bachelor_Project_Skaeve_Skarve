@@ -29,12 +29,10 @@ public static class MST
             {
                 continue;
             }
-            else
-            {
-                uf.Union(nextEdge.From, nextEdge.To);
-                mst[i] = (nextEdge, weight);
-                i++;
-            }
+
+            uf.Union(nextEdge.From, nextEdge.To);
+            mst[i] = (nextEdge, weight);
+            i++;
         }
 
         return mst;
