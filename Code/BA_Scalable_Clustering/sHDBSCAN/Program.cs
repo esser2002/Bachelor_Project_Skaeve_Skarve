@@ -102,9 +102,10 @@ public class Program
 
 // --- Create MST --- //
         Console.WriteLine("CreateMST");
-        var mst = MST.CreateSpanningTree(Util.dataPoints[0]);
+        UnionFind uf = new UnionFind(Util.dataPoints.Length);
+        var mst = MST.Kruskals(Util.dataPoints, uf);
 
-        Console.WriteLine("MST size: " + mst.Count);
+        Console.WriteLine("MST size: " + mst.Length);
         PrintLap("MST");
 
 // --- Cluster tree --- //

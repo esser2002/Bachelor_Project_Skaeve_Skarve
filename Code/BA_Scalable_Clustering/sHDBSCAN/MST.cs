@@ -3,39 +3,40 @@
 public static class MST
 {
     /// <summary>
-    /// Create a minimum spanning tree from the initial node.
+    /// Create a minimum spanning tree.
     /// </summary>
-    public static PriorityQueue<Edge, double> CreateSpanningTree(HNode initialNode)
-    {
-        HashSet<HNode> visited = new HashSet<HNode>();
-        PriorityQueue<Edge, double> edges = new ();
-        PriorityQueue<Edge, double> graph = new ();
-        
-        visited.Add(initialNode);
 
-        foreach (var item in initialNode.MutualReachability)
+    public static (Edge, double)[] Kruskals(HNode[] nodes, UnionFind uf)
+    {
+        PriorityQueue<Edge, double> allEdges = new PriorityQueue<Edge, double>();
+        foreach (HNode node in nodes)
         {
-            edges.Enqueue(new Edge(initialNode, Util.dataPoints[item.Key]), item.Value);
+            foreach (KeyValuePair<int,double> keyValuePair in node.MutualReachability)
+            {
+                int otherId = keyValuePair.Key;
+                double weight = keyValuePair.Value;
+                allEdges.Enqueue(new Edge(node.Id, otherId), weight);
+            }
+
+            node.MutualReachability = null;
         }
 
-        while (edges.Count > 0)
+        (Edge, double)[] mst = new (Edge, double)[nodes.Length - 1];
+        for (int i = 0; i < mst.Length;)
         {
-            edges.TryDequeue(out Edge? edge, out double weight);
-            
-            HNode toNode = edge!.To; 
-            
-            if (visited.Contains(toNode))
+            allEdges.TryDequeue(out Edge nextEdge, out double weight);
+            if (uf.Connected(nextEdge.From, nextEdge.To))
             {
                 continue;
             }
-            graph.Enqueue(edge, weight);
-            visited.Add(toNode);
-
-            foreach (var item in toNode.MutualReachability)
+            else
             {
-                edges.Enqueue(new Edge(toNode, Util.dataPoints[item.Key]), item.Value);
+                uf.Union(nextEdge.From, nextEdge.To);
+                mst[i] = (nextEdge, weight);
+                i++;
             }
         }
-        return graph;
+
+        return mst;
     }
 }

@@ -2,10 +2,10 @@
 
 public class Edge
 {
-    public HNode From;
-    public HNode To;
+    public int From;
+    public int To;
 
-    public Edge(HNode from, HNode to)
+    public Edge(int from, int to)
     {
         From = from;
         To = to;
