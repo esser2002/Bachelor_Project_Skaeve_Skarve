@@ -28,7 +28,7 @@ public class sHDBSCAN
     [Test]
     public void CoreDistance()
     {
-        int k = 3;
+        int k = 2;
         int l = 1; 
         int m = 2;
         
@@ -61,7 +61,7 @@ public class sHDBSCAN
     [Test]
     public void CoreDistance_MultipleRandomNodes()
     {
-        int k = 3;
+        int k = 2;
         int l = 1;
         int m = 4;
         
@@ -101,13 +101,13 @@ public class sHDBSCAN
     {
         int k = 2;
         int l = 1;
-        int m = 3;
+        int m = 2;
         
         List<HNode> nodes = 
         [
             new HNode(2){Label = 0,Vector = [1,1]},
-            new HNode(2){Label = 1,Vector = [0,1]},
-            new HNode(2){Label = 2,Vector = [-1,-1]},
+            new HNode(2){Label = 1,Vector = [1,0]},
+            new HNode(2){Label = 2,Vector = [1,0.5]},
         ];
         Util.dataPoints = nodes.ToArray();
 
@@ -122,13 +122,20 @@ public class sHDBSCAN
         {
             node.SetCoreDist(k);
         }
-
         foreach (HNode node in nodes)
         {
-            Console.WriteLine($"Mutual reach node 0 to {node.Label} is {nodes[0].GetReachability(node)}");
+            node.SetMutualReachability();
+        }
+        foreach (HNode node in nodes)
+        {
+            if (node == nodes[0])
+            {
+                break;
+            }
+            Console.WriteLine($"Mutual reach node 0 to {node.Label} is {node.GetReachability(nodes[0])}");
         }
         
-        Assert.That(nodes[0].GetReachability(nodes[2]), Is.EqualTo(nodes[0].Dist(nodes[2])));
+        Assert.That(nodes[0].GetReachability(nodes[2]), Is.EqualTo(nodes[1].CoreDist));
     }
     
     /// <summary>
@@ -137,7 +144,7 @@ public class sHDBSCAN
     [Test]
     public void MutualReachabilityCoreA()
     {
-        int k = 3;
+        int k = 2;
         int l = 1;
         int m = 3;
         
@@ -160,9 +167,16 @@ public class sHDBSCAN
         {
             node.SetCoreDist(k);
         }
-
         foreach (HNode node in nodes)
         {
+            node.SetMutualReachability();
+        }
+        foreach (HNode node in nodes)
+        {
+            if (node == nodes[0])
+            {
+                break;
+            }
             Console.WriteLine($"Mutual reach node 0 to {node.Label} is {nodes[0].GetReachability(node)}");
         }
         
@@ -198,9 +212,15 @@ public class sHDBSCAN
         {
             node.SetCoreDist(k);
         }
-
         foreach (HNode node in nodes)
         {
+            node.SetMutualReachability();
+        }
+        foreach (HNode node in nodes)
+        {if (node == nodes[0])
+            {
+                break;
+            }
             Console.WriteLine($"Mutual reach node 0 to {node.Label} is {nodes[0].GetReachability(node)}");
         }
         
@@ -210,7 +230,7 @@ public class sHDBSCAN
     [Test]
     public void CreateMST()
     {
-        int k = 2;
+        int k = 1;
         int l = 1;
         int m = 4;
         
@@ -233,6 +253,10 @@ public class sHDBSCAN
         foreach (HNode node in nodes)
         {
             node.SetCoreDist(k);
+        }
+        foreach (HNode node in nodes)
+        {
+            node.SetMutualReachability();
         }
 
         var mst = MST.CreateSpanningTree(nodes[3]);
