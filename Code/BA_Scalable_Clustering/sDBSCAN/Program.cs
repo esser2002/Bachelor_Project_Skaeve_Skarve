@@ -70,7 +70,7 @@ string elapsedTime = String.Format("{0:00}:{1:00}:{2:00}.{3:00}", ts.Hours, ts.M
 
 Console.WriteLine("Exporting clusters");
 Exporter.ExportClusters(args[1], dataPoints);
-Exporter.ExportsDBSCANStats(args[2], D, k, m, epsilon, minPts, dataPoints.Count, elapsedTime);
+Exporter.ExportsDBSCANStats(args[2], D, k, m, epsilon, minPts, dataPoints.Count, ts.TotalSeconds);
 
 // Prints the time since last lap and the name input
 void PrintLap(string lapName)

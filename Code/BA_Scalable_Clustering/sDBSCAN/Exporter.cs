@@ -1,4 +1,6 @@
-﻿namespace sDBSCAN;
+﻿using System.Globalization;
+
+namespace sDBSCAN;
 
 public static class Exporter
 {
@@ -17,8 +19,9 @@ public static class Exporter
                               ((FileStream)outputFile.BaseStream).Name);
         }
     }
-    public static void ExportsDBSCANStats(string path, int D, int k, int m, double epsilon, int minPts, int datasize, string elapsedTime )
+    public static void ExportsDBSCANStats(string path, int D, int k, int m, double epsilon, int minPts, int datasize, double elapsedTime )
     {
+        Thread.CurrentThread.CurrentCulture = CultureInfo.GetCultureInfo("en-US");//double uses . instead of ,
         Directory.CreateDirectory(Path.GetDirectoryName(path) ?? throw new InvalidOperationException("No path was provided."));
       
         using (StreamWriter outputFile = new StreamWriter(path))
