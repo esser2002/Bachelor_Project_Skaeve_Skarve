@@ -30,6 +30,10 @@ constant = start_value / (start_datasize**2)
 quadratic = n_smooth**2 * constant
 plt.plot(n_smooth, quadratic, label="$n^2$", linestyle='--')
 
+constant = start_value / (start_datasize**1.38)
+quadratic = n_smooth**1.38 * constant
+plt.plot(n_smooth, quadratic, label="$n^{1.38}$", linestyle='--')
+
 constant = start_value / (start_datasize * np.sqrt(start_datasize))
 linearroot = n_smooth * np.sqrt(n_smooth) * constant
 plt.plot(n_smooth, linearroot, label="$n\cdot \sqrt{n}$", linestyle='--')

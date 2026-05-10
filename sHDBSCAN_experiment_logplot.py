@@ -14,25 +14,31 @@ n = averageddata.index
 sHDBSCANtimes = averageddata['sHDBSCANtime']
 HDBSCANtimes = averageddata['HDBSCANtime']
 
-log_n = np.log(n)
-log_tsHDBSCAN = np.log(sHDBSCANtimes)
-log_tHDBSCAN = np.log(HDBSCANtimes)
+def linearreg(data):
+    log_n = np.log2(n)
+    log_t = np.log2(data)
+    coeffs = np.polyfit(log_n, log_t, deg=1)
+    slope=coeffs[0]
+    print(f"Estimated exponent: k ≈ {slope:.3f}")
+    print(f"Suggests O(n^{slope:.2f}) complexity")
+    intercept = coeffs[1]
 
-coeffssHDBSCAN = np.polyfit(log_n, log_tsHDBSCAN, deg=1)
-slope = coeffssHDBSCAN[0]        
-sHDBSCANintercept = coeffssHDBSCAN[1]
+    residuals = log_t - np.polyval(coeffs, log_n)
+    ss_res = np.sum(residuals**2)
+    ss_tot = np.sum((log_t - np.mean(log_t))**2)
+    r_squared = 1 - ss_res / ss_tot
+    print(f"R² = {r_squared:.4f}")
+    return intercept
 
 print(f"sHDBSCAN")
-print(f"Estimated exponent: k ≈ {slope:.3f}")
-print(f"Suggests O(n^{slope:.2f}) complexity")
-
-coeffsHDBSCAN = np.polyfit(log_n, log_tHDBSCAN, deg=1)
-slope = coeffsHDBSCAN[0]        
-HDBSCANintercept = coeffsHDBSCAN[1] 
+sHDBSCANintercept = linearreg(sHDBSCANtimes) 
 
 print(f"HDBSCAN")
-print(f"Estimated exponent: k ≈ {slope:.3f}")
-print(f"Suggests O(n^{slope:.2f}) complexity")
+sHDBSCANintercept = linearreg(HDBSCANtimes) 
+
+print(f"n log n")
+sHDBSCANintercept = linearreg(np.multiply(n, np.log2(n)))
+
 
 # Plot data
 fig, ax = plt.subplots()
