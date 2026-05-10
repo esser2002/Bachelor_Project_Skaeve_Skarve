@@ -3,14 +3,15 @@ set k=10
 set m=10
 set epsilon=0.11
 set minPts=50
-set inputdata=C:\Users\frede\Documents\GitHub\Bachelor_Project_Skaeve_Skarve\Code\BA_Scalable_Clustering\data\mnist_full.csv
-set clusteroutput=C:\Users\frede\Documents\GitHub\Bachelor_Project_Skaeve_Skarve\Code\BA_Scalable_Clustering\data\out\mnist_full_sDBSCAN_Clusters.csv
-set statsoutput=C:\Users\frede\Documents\GitHub\Bachelor_Project_Skaeve_Skarve\Code\BA_Scalable_Clustering\data\out\mnist_full_statsoutput.csv
-set normalisedDataRaw=C:\Users\frede\Documents\GitHub\Bachelor_Project_Skaeve_Skarve\Code\BA_Scalable_Clustering\data\out\normalised_mnist_full.csv
+set pathtoout=C:\Users\kassa\Desktop\bachelor\Bachelor_Project_Skaeve_Skarve\Code\BA_Scalable_Clustering\data\out
+set inputdata=C:\Users\kassa\Desktop\bachelor\Bachelor_Project_Skaeve_Skarve\Code\BA_Scalable_Clustering\data\mnist_test.csv
+set clusteroutput=C:\Users\kassa\Desktop\bachelor\Bachelor_Project_Skaeve_Skarve\Code\BA_Scalable_Clustering\data\out\mnist_test_sDBSCAN_Clusters.csv
+set statsoutput=C:\Users\kassa\Desktop\bachelor\Bachelor_Project_Skaeve_Skarve\Code\BA_Scalable_Clustering\data\out\mnist_test_statsoutput.csv
+set normalisedDataRaw=\normalisedDataMnistTest.csv
 
 
 cd ..\sDBSCAN\
 dotnet run "%inputdata%" "%clusteroutput%" "%statsoutput%" "%D%" "%k%" "%m%" "%epsilon%" "%minPts%"
 cd .\python\
-echo %normalisedDataRaw% %clusteroutput% %epsilon% %minPts% | uv run nmi.py
+echo %pathtoout% %statsoutput% %normalisedDataRaw% %clusteroutput% %epsilon% %minPts% | uv run nmi.py
 cd ..
