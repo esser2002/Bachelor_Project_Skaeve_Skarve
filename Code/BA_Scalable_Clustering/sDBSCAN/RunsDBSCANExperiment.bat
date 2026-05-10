@@ -1,6 +1,6 @@
 set D=10
-set k=10
-set m=10
+set k=%1
+set m=%2
 set epsilon=0.11
 set minPts=50
 set pathtoout=C:\Users\kassa\Desktop\bachelor\Bachelor_Project_Skaeve_Skarve\Code\BA_Scalable_Clustering\data\out

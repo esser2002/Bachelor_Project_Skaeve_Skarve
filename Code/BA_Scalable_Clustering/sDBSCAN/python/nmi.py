@@ -77,5 +77,5 @@ output = (','.join(map(str, np.append(sDBSCANStats, [seconds, nmi]))))
 print(output)
 
 #write output in format D,l,m,epsilon,minPts,datasize,sDBSCANtime,DBSCANtime,nmi
-with open(pathToOut+r"\dbscan_test_runtime_opt.csv", "a") as f:
+with open(pathToOut+r"\dbscan_test_nmi_comparison.csv", "a") as f:
     f.write(output+'\n')
