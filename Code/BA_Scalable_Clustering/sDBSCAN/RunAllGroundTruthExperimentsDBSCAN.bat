@@ -1,0 +1,12 @@
+call .\RunAllGroundTruthExperimentsDBSCAN.bat 0.08
+call .\RunAllGroundTruthExperimentsDBSCAN.bat 0.10
+call .\RunAllGroundTruthExperimentsDBSCAN.bat 0.12
+call .\RunAllGroundTruthExperimentsDBSCAN.bat 0.14
+call .\RunAllGroundTruthExperimentsDBSCAN.bat 0.16
+call .\RunAllGroundTruthExperimentsDBSCAN.bat 0.18
+call .\RunAllGroundTruthExperimentsDBSCAN.bat 0.20
+call .\RunAllGroundTruthExperimentsDBSCAN.bat 0.22
+call .\RunAllGroundTruthExperimentsDBSCAN.bat 0.24
+call .\RunAllGroundTruthExperimentsDBSCAN.bat 0.26
+call .\RunAllGroundTruthExperimentsDBSCAN.bat 0.28
+call .\RunAllGroundTruthExperimentsDBSCAN.bat 0.30
