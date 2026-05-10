@@ -58,8 +58,13 @@ for elem in clustering_labels:
         cl[int(elem)] = 1
     else:
         cl[int(elem)] = cl[int(elem)] + 1
+
+if -1 in cl.keys(): DBSCAN_clusters = len(cl) - 1
+else: DBSCAN_clusters = len(cl)
 print(cl)
 cl = {}
+
+print(DBSCAN_clusters)
 print("sDBSCAN clusters")
 for elem in sDBSCAN:
     if elem not in cl:
@@ -67,15 +72,19 @@ for elem in sDBSCAN:
     else:
         cl[int(elem)] = cl[int(elem)] + 1
 
+if -1 in cl.keys(): sDBSCAN_clusters = len(cl) - 1
+else: sDBSCAN_clusters = len(cl)
+
+
 print(cl)
 print(f"sDBSCAN nmi : {(100 * sDBSCAN_nmi):.2f}%")
 print(f"DBSCAN nmi : {(100 * DBSCAN_nmi):.2f}%")
 
 sDBSCANStats = np.genfromtxt(sDBSCAN_stats_path, delimiter=",",dtype=str)
 
-output = (','.join(map(str, np.append(sDBSCANStats, [seconds, sDBSCAN_nmi, DBSCAN_nmi]))))
+output = (','.join(map(str, np.append(sDBSCANStats, [seconds, sDBSCAN_nmi, DBSCAN_nmi, sDBSCAN_clusters,DBSCAN_clusters]))))
 print(output)
 
-#write output in format D,l,m,epsilon,minPts,datasize,sDBSCANtime,DBSCANtime,sDBSCAN_nmi, DSBCAN_nmi
+#write output in format D,l,m,epsilon,minPts,datasize,sDBSCANtime,DBSCANtime,sDBSCAN_nmi, DSBCAN_nmi, sDBSCAN_clusters, DBSCAN_clusters
 with open(pathToOut+r"\dbscan_groundtruth_train_results.csv", "a") as f:
     f.write(output+'\n')
