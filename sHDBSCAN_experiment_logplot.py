@@ -2,7 +2,7 @@ import matplotlib.pyplot as plt
 import pandas as pd
 import numpy as np
 
-rawdata = pd.read_csv(r"C:\Users\jonas\OneDrive\Dokumenter\ITU\Bachelor_Project_Skaeve_Skarve\Code\BA_Scalable_Clustering\data\out\sHDBSCAN_runtime.csv")
+rawdata = pd.read_csv(r"C:\Users\jonas\OneDrive\Dokumenter\ITU\Bachelor_Project_Skaeve_Skarve\Code\BA_Scalable_Clustering\data\results\sHDBSCAN_runtime.csv")
 print(rawdata)
 
 # Take averages of data
