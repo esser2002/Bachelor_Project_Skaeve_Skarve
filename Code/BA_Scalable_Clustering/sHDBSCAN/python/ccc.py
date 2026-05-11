@@ -7,6 +7,7 @@ import numpy
 import hdbscan
 import time
 import os
+import dask.array as da
 
 if sys.argv[1:] == ["nopcc"]:
     runPcc = False
@@ -70,10 +71,12 @@ def euclidean_to_cosine(d):
     return (d ** 2) / 2
 
 cos_cd_true = euclidean_to_cosine(cd_true)
-if(runPcc):
-    pcc = pearsonr(cos_cd_true, cd_approx)[0]
-else:
-    pcc = "N/A"
+
+x = da.from_array(cd_approx, chunks=10_000)
+y = da.from_array(cos_cd_true, chunks=10_000)
+
+# dask.array.corrcoef is the chunked equivalent of np.corrcoef
+pcc = da.corrcoef(x, y)[0, 1].compute()
     
 # MR
 mr = gmean(cos_cd_true / cd_approx)
