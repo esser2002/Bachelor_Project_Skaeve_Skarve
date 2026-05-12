@@ -2,12 +2,10 @@ import sys
 
 from scipy.cluster.hierarchy import cophenet
 from scipy.stats import gmean 
-from scipy.stats import pearsonr
 import numpy
 import hdbscan
 import time
 import os
-import dask.array as da
 
 if sys.argv[1:] == ["nopcc"]:
     runPcc = False
@@ -72,12 +70,54 @@ def euclidean_to_cosine(d):
 
 cos_cd_true = euclidean_to_cosine(cd_true)
 
-x = da.from_array(cd_approx, chunks=10_000)
-y = da.from_array(cos_cd_true, chunks=10_000)
-
-# dask.array.corrcoef is the chunked equivalent of np.corrcoef
-pcc = da.corrcoef(x, y)[0, 1].compute()
+# FIXED: Correct streaming Pearson correlation computation
+def chunked_pearsonr(x_full, y_full, chunk_size=50_000):
+    """
+    Compute Pearson correlation coefficient in chunks to avoid memory overflow.
+    Uses Welford-style online algorithm for numerical stability.
+    """
+    n = len(x_full)
     
+    # First pass: compute means
+    sum_x = 0.0
+    sum_y = 0.0
+    n_chunks = (n + chunk_size - 1) // chunk_size
+    
+    for i in range(n_chunks):
+        start = i * chunk_size
+        end = min(start + chunk_size, n)
+        x = x_full[start:end]
+        y = y_full[start:end]
+        sum_x += x.sum()
+        sum_y += y.sum()
+    
+    mean_x = sum_x / n
+    mean_y = sum_y / n
+    
+    # Second pass: compute covariance and variances using centered deviations
+    cov_xy = 0.0
+    var_x = 0.0
+    var_y = 0.0
+    
+    for i in range(n_chunks):
+        start = i * chunk_size
+        end = min(start + chunk_size, n)
+        x = x_full[start:end]
+        y = y_full[start:end]
+        
+        dx = x - mean_x
+        dy = y - mean_y
+        
+        cov_xy += (dx * dy).sum()
+        var_x += (dx ** 2).sum()
+        var_y += (dy ** 2).sum()
+    
+    # Compute Pearson correlation
+    pcc = cov_xy / (var_x**0.5 * var_y**0.5)
+    return pcc
+
+pcc = chunked_pearsonr(cd_approx, cos_cd_true, chunk_size=50_000)
+
 # MR
 mr = gmean(cos_cd_true / cd_approx)
 print("MR: ", mr )
@@ -94,5 +134,5 @@ output = (','.join(map(str, numpy.append(sHDBSCANStats, [seconds, pcc, mr]))))
 print(output)
 
 #write output in format D,l,m,k,datasize,sHDBSCANtime,HDBSCANtime,ccc
-with open(pathToOut+r"\test_runtime_opt.csv", "a") as f:
+with open(pathToOut+r"\test_newpcc.csv", "a") as f:
     f.write(output+'\n')
