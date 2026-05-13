@@ -13,7 +13,6 @@ public class Program
 // --- PARAMETERS --- //
         int D = 1024; //amount of random vectors 
         int l = 2; //amount of random vectors each datapoint knows
-        int m = 1000; //amount of datapoints each random vector knows
         int k = 5; //k is the amount of points for creating core distance
 
         if (args.Length != 3)
@@ -22,6 +21,8 @@ public class Program
         }
 
         Util.dataPoints = Importer.ImportNodes(args[0]);
+
+        int m = (int)(2*Math.Sqrt(Util.dataPoints.Length));
 
 // --- Normalise data --- //
         foreach (HNode node in Util.dataPoints)
