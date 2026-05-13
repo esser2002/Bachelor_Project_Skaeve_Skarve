@@ -5,6 +5,17 @@ namespace TestProject1;
 
 public class sHDBSCAN
 {
+    [SetUp]
+    public void Setup()
+    {
+        var field = typeof(HNode)
+            .GetField("_nextId", 
+                System.Reflection.BindingFlags.Static | 
+                System.Reflection.BindingFlags.NonPublic);
+    
+        field?.SetValue(null, 0);  // Reset to 0 (or whatever default you need)
+    }
+    
     private void prepareData(List<HNode> nodes, List<Node> randomNodes, int l, int m)
     {
         foreach (Node node in nodes)
