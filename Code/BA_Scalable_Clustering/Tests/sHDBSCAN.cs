@@ -280,6 +280,46 @@ public class sHDBSCAN
         Assert.That(hasEdge(mstIEnumerable, 2, 3));
 
     }
+    
+    /// <summary>
+    /// This test demonstrates that in specific cases sHDBSCAN cannot output an MST.
+    /// </summary>
+    [Test]
+    public void FailMST()
+    {
+        int k = 1;
+        int l = 1;
+        int m = 2;
+        
+        List<HNode> nodes = 
+        [
+            new HNode(2){Label = 0,Vector = [1,1]},
+            new HNode(2){Label = 1,Vector = [1,-1]},
+            new HNode(2){Label = 2,Vector = [-1,1]},
+            new HNode(2){Label = 3,Vector = [-1,-1]},
+        ];
+        Util.dataPoints = nodes.ToArray();
+
+        List<Node> randomNodes =
+        [
+            new Node(2){Vector = [1,0]},
+            new Node(2){Vector = [-1,0]},
+        ];
+        
+        prepareData(nodes, randomNodes, l, m);
+        
+        foreach (HNode node in nodes)
+        {
+            node.SetCoreDist(k);
+        }
+        foreach (HNode node in nodes)
+        {
+            node.SetMutualReachability();
+        }
+        
+        Exception ex = Assert.Throws<Exception>(() => MST.Kruskals(nodes.ToArray(), new UnionFind(nodes.Count())));
+        Assert.That(ex.Message, Is.EqualTo("Graph not connected"));
+    }
 
     private bool hasEdge(IEnumerable<Edge> graph, int from, int to)
     {

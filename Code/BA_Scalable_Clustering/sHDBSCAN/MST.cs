@@ -25,6 +25,10 @@ public static class MST
         for (int i = 0; i < mst.Length;)
         {
             allEdges.TryDequeue(out Edge nextEdge, out double weight);
+            if (nextEdge == null)
+            {
+                throw new Exception("Graph not connected");
+            }
             if (uf.Connected(nextEdge.From, nextEdge.To))
             {
                 continue;
